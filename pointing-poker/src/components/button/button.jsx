@@ -5,12 +5,13 @@ export const ButtonComponent = ({
   textContent,
   height,
   onClick,
-  variant
+  variant,
+  colorScheme
 }) => {
   return (
     <Button
       width={width}
-      colorScheme="green"
+      colorScheme={colorScheme}
       height={height}
       onClick={onClick}
       variant={variant}
