@@ -8,8 +8,17 @@ import {
   Flex,
   Spacer,
   Select,
-} from "@chakra-ui/react";
+} from '@chakra-ui/react';
 import {NumberInputElem} from './NumberInput';
+import GameCard from '../cards/GameCard';
+import AddCard from '../cards/AddCard';
+import NewGameCard from '../cards/NewGameCard';
+import cup from '../../assets/icons/Cup.png';
+import addCardLogo from '../../assets/icons/addCardLogo.png';
+
+const fibonacciCards = [
+  0, 1, 2, 3, 5, 8, 13, cup, 
+]
 
 const SettingsForm = () => {
   const [settingsData, setSettingsData] = useState({
@@ -20,6 +29,8 @@ const SettingsForm = () => {
     minutes: 0,
     seconds: 0,
   });
+
+  const [isNewCard, setIsNewCard] = useState(false);
 
   const handleIsMasterSelect = () => {
     setSettingsData(settingsData => ({ ...settingsData, isMaster: !settingsData.isMaster }));
@@ -46,6 +57,15 @@ const SettingsForm = () => {
     setSettingsData(settingsData => ({ ...settingsData, seconds: e}));
   }
 
+  const handleAddClick = (e) => {
+    console.log(e.target.src === addCardLogo);
+    setIsNewCard((isNewCard) => !isNewCard);
+  }
+
+  const handleNewCardClick = (e) => {
+    console.log(e.target.src === addCardLogo);
+
+  }
   return (
     <Box maxW="550px" ml="36px">
       <Heading as="h4" size="sm" textAlign="right" mb="50px">
@@ -79,7 +99,7 @@ const SettingsForm = () => {
         <Flex mb="20px">
           <FormLabel mb="0" fontSize="lg">Score type (Short):</FormLabel>
           <Spacer />
-          <Box fontSize={30} fontWeight="bold">{settingsData.scoreType}</Box>
+          <Box fontSize={30} fontWeight="bold" h="30px">{settingsData.scoreType}</Box>
         </Flex>
         <Flex mb="20px">
           <FormLabel mb="0" fontSize="lg">Round time:</FormLabel>
@@ -97,7 +117,23 @@ const SettingsForm = () => {
           </Flex>
         </Flex>
       </FormControl>
+      {
+        settingsData.scoreType === ''
+          ? <Box h="180px"></Box> 
+          : <Flex wrap="wrap">
+            {
+              fibonacciCards.map((fiboCard) => 
+                <GameCard key={fiboCard} scoreType={settingsData.scoreType} image={fiboCard} />)
+            }
+            {
+              !isNewCard
+                ? <AddCard addClick={handleAddClick}/>
+                : <NewGameCard scoreType={settingsData.scoreType} addClick={handleNewCardClick}/>
+            }
+          </Flex>
+      }
     </Box >
+    
   );
 }
 
