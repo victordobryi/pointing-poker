@@ -1,11 +1,12 @@
-import { MainLayout } from '../mainLayout/mainLayout';
+import { MainLayout } from '../../components/mainLayout/mainLayout';
 import mainLogo from '../../assets/icons/mainLogo.png';
 import { Img } from '@chakra-ui/image';
 import styles from './main-page.module.scss';
-import { ButtonComponent } from '../button/button';
-import { InputComponent } from '../input/input';
-import { BasicUsage, Modal } from '../modal/modal';
+import { ButtonComponent } from '../../components/button/button';
+import { InputComponent } from '../../components/input/input';
+import { Modal } from '../../components/modal/modal';
 import { useState } from 'react';
+import { Form } from '../../components/form/form';
 
 export const MainPage = () => {
   const [modalActive, setModalActive] = useState(false);
@@ -31,6 +32,7 @@ export const MainPage = () => {
               height={47}
               variant={'solid'}
               colorScheme={'facebook'}
+              onClick={() => setModalActive(true)}
             />
           </div>
         </div>
@@ -50,7 +52,7 @@ export const MainPage = () => {
                 width={276}
                 height={47}
                 focusBorderColor="black"
-                BorderColor="black"
+                type="text"
               />
               <ButtonComponent
                 variant="solid"
@@ -58,17 +60,35 @@ export const MainPage = () => {
                 height={47}
                 textContent="Connect"
                 colorScheme="facebook"
-                onClick={() => setModalActive(true)}
               />
             </div>
           </div>
         </div>
       </div>
       <Modal active={modalActive} setActive={setModalActive}>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aliquid quas
-        laborum cum, sint numquam facilis. Nesciunt facilis necessitatibus nam
-        sint saepe natus cum, tenetur incidunt esse neque? Expedita, dolorem
-        quod!
+        <div className="registation">
+          <div className="registration__block">
+            <h2 className="modal__title">Connect to lobby</h2>
+          </div>
+
+          <Form />
+          <div className={styles.form__control}>
+            <ButtonComponent
+              width={189}
+              height={'60px'}
+              textContent={'Confirm'}
+              variant="solid"
+              colorScheme="facebook"
+            />
+            <ButtonComponent
+              width={189}
+              height={'60px'}
+              textContent={'Cancel'}
+              variant="outline"
+              colorScheme="facebook"
+            />
+          </div>
+        </div>
       </Modal>
     </MainLayout>
   );

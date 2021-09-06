@@ -6,9 +6,9 @@ export const InputComponent = ({
   height,
   onChange,
   variant,
-  colorScheme,
   placeholder,
-  focusBorderColor
+  focusBorderColor,
+  type
 }) => {
   return (
     <Input
@@ -18,6 +18,8 @@ export const InputComponent = ({
       onChange={onChange}
       variant={variant}
       placeholder={placeholder}
+      type={type}
+      style={{ border: '1px solid black' }}
     >
       {textContent}
     </Input>
