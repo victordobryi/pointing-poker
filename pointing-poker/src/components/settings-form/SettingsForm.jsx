@@ -4,16 +4,12 @@ import {
   Heading,
   FormControl,
   FormLabel,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
   Switch,
   Flex,
   Spacer,
   Select,
 } from "@chakra-ui/react";
+import {NumberInputElem} from './NumberInput';
 
 const SettingsForm = () => {
   const [settingsData, setSettingsData] = useState({
@@ -43,6 +39,7 @@ const SettingsForm = () => {
 
   const handleMinutesChange = (e) => {
     setSettingsData(settingsData => ({ ...settingsData, minutes: e}));
+    console.log(settingsData);
   }
 
   const handleSecondsChange = (e) => {
@@ -56,24 +53,24 @@ const SettingsForm = () => {
       </Heading>
       <FormControl id="settings">
         <Flex mb="20px">
-          <FormLabel htmlFor="masterIsPlayer" mb="0" fontSize="lg">Scram master as player:</FormLabel>
+          <FormLabel mb="0" fontSize="lg">Scram master as player:</FormLabel>
           <Spacer />
-          <Switch id="masterIsPlayers" colorScheme="teal" onChange={handleIsMasterSelect}/>
+          <Switch onChange={handleIsMasterSelect}/>
         </Flex>
         <Flex mb="20px">
-          <FormLabel htmlFor="cardChanging" mb="0" fontSize="lg">Changing card in round end:</FormLabel>
+          <FormLabel mb="0" fontSize="lg">Changing card in round end:</FormLabel>
           <Spacer />
-          <Switch id="cardChanging" colorScheme="teal" onChange={handleChangigngSelect}/>
+          <Switch onChange={handleChangigngSelect}/>
         </Flex>
         <Flex mb="20px">
-          <FormLabel htmlFor="isTimer" mb="0" fontSize="lg">Is timer needed:</FormLabel>
+          <FormLabel mb="0" fontSize="lg">Is timer needed:</FormLabel>
           <Spacer />
-          <Switch id="isTimer" colorScheme="teal" onChange={handleIsTimerSelect}/>
+          <Switch onChange={handleIsTimerSelect}/>
         </Flex>
         <Flex mb="20px">
-          <FormLabel htmlFor="scoreType" mb="0" fontSize="lg">Score type:</FormLabel>
+          <FormLabel mb="0" fontSize="lg">Score type:</FormLabel>
           <Spacer />
-          <Select id="scoreType" placeholder="Select score type" w="50%" onChange={handleTypesSelect}>
+          <Select placeholder="Select score type" w="50%" onChange={handleTypesSelect}>
             <option value="FN">Fibonacci Numbers</option>
             <option value="TS">T-shirts</option>
             <option value="PC">Playing Cards</option>
@@ -85,31 +82,19 @@ const SettingsForm = () => {
           <Box fontSize={30} fontWeight="bold">{settingsData.scoreType}</Box>
         </Flex>
         <Flex mb="20px">
-          <FormLabel htmlFor="timer" mb="0" fontSize="lg">Round time:</FormLabel>
+          <FormLabel mb="0" fontSize="lg">Round time:</FormLabel>
           <Spacer />
-            <Flex >
-              <Box>
-                <FormLabel mb="0" fontSize="sm">Minutes</FormLabel>
-                <NumberInput defaultValue={0} min={0} max={5} size="lg" maxW={24} boxShadow="lg" rounded="md" onChange={handleMinutesChange}>
-                  <NumberInputField fontSize={30} fontWeight="bold" />
-                  <NumberInputStepper>
-                    <NumberIncrementStepper />
-                    <NumberDecrementStepper />
-                  </NumberInputStepper>
-                </NumberInput>
-              </Box>
-              <Box fontSize={28} fontWeight="bold" lineHeight="80px">:</Box>
-              <Box>
-                <FormLabel mb="0" fontSize="sm">Seconds</FormLabel>
-                  <NumberInput defaultValue={0} min={0} max={60} size="lg" maxW={24} boxShadow="lg" rounded="md" onChange={handleSecondsChange}>
-                  <NumberInputField fontSize={30} fontWeight="bold" />
-                  <NumberInputStepper>
-                    <NumberIncrementStepper />
-                    <NumberDecrementStepper />
-                  </NumberInputStepper>
-                </NumberInput>
-              </Box>
-            </Flex>
+          <Flex >
+            <Box>
+              <FormLabel mb="0" fontSize="sm">Minutes</FormLabel>
+              <NumberInputElem minVal={0} maxVal={5} onChangeFn={handleMinutesChange}/>
+            </Box>
+            <Box fontSize={28} fontWeight="bold" lineHeight="80px">:</Box>
+            <Box>
+              <FormLabel mb="0" fontSize="sm">Seconds</FormLabel>
+              <NumberInputElem min={0} max={60} onChange={handleSecondsChange}/>
+            </Box>
+          </Flex>
         </Flex>
       </FormControl>
     </Box >
