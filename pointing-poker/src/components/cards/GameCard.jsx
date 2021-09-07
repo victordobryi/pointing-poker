@@ -7,7 +7,7 @@ const GameCard = ({scoreType, image, addClick}) => {
       <Box fontSize={20} fontWeight="bold"  h="20px">{scoreType}</Box>
       <Flex align="center" justify="center" h="100px">
         {
-          typeof image === 'number'
+          image.length < 10
             ? <Box fontSize={40} fontWeight="bold">{image}</Box>
             : <Image 
                 src={image} 
