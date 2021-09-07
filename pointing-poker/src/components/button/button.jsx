@@ -6,7 +6,8 @@ export const ButtonComponent = ({
   height,
   onClick,
   variant,
-  colorScheme
+  colorScheme,
+  className
 }) => {
   return (
     <Button
@@ -15,6 +16,7 @@ export const ButtonComponent = ({
       height={height}
       onClick={onClick}
       variant={variant}
+      className={className}
     >
       {textContent}
     </Button>

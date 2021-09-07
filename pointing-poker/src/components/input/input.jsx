@@ -8,7 +8,8 @@ export const InputComponent = ({
   variant,
   placeholder,
   focusBorderColor,
-  type
+  type,
+  className
 }) => {
   return (
     <Input
@@ -19,6 +20,7 @@ export const InputComponent = ({
       variant={variant}
       placeholder={placeholder}
       type={type}
+      className={className}
       style={{ border: '1px solid black' }}
     >
       {textContent}
