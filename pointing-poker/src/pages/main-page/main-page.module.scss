@@ -54,3 +54,10 @@ $paddingRight: calc((100% - 80%) / 2);
     padding-top: 100px;
   }
 }
+
+.modal {
+  &__title {
+    font-size: 64px;
+    font-weight: bold;
+  }
+}

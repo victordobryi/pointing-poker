@@ -18,3 +18,12 @@
   justify-content: center;
   align-items: center;
 }
+
+.form {
+  &__input {
+    width: 70% !important;
+  }
+  &__section {
+    display: flex;
+  }
+}

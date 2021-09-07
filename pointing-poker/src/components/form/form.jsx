@@ -2,14 +2,16 @@ import {
   FormControl,
   FormLabel,
   FormErrorMessage,
-  FormHelperText,
   Input
 } from '@chakra-ui/react';
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { ButtonComponent } from '../button/button';
 import { InputComponent } from '../input/input';
 import './form.scss';
-export const Form = () => {
+import { useFormik } from 'formik';
+import { validate } from '../form/form-validate';
+
+export const FormComponent = ({ children }) => {
   const [image, setImage] = useState(null);
   const [ava, setAva] = useState(null);
   const [imageName, setImageName] = useState(null);
@@ -24,19 +26,81 @@ export const Form = () => {
     setAva(image);
   };
 
+  const formik = useFormik({
+    initialValues: {
+      firstName: '',
+      lastName: '',
+      jobPosition: ''
+    },
+    validate,
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 2));
+    }
+  });
   return (
-    <Fragment>
-      <FormControl isRequired>
+    <form onSubmit={formik.handleSubmit}>
+      <FormControl
+        isRequired
+        isInvalid={formik.touched.firstName && formik.errors.firstName}
+      >
         <FormLabel>Your first name:</FormLabel>
-        <Input placeholder="First name" />
+        <div className="form__section">
+          <Input
+            placeholder="First name"
+            className={'form__input'}
+            id="firstName"
+            name="firstName"
+            type="text"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.firstName}
+          />
+          <FormErrorMessage style={{ paddingLeft: '10px' }}>
+            {formik.errors.firstName}
+          </FormErrorMessage>
+        </div>
       </FormControl>
-      <FormControl>
+
+      <FormControl
+        isInvalid={formik.touched.lastName && formik.errors.lastName}
+      >
         <FormLabel>Your last name:</FormLabel>
-        <Input placeholder="Last name" />
+        <div className="form__section">
+          <Input
+            placeholder="Last name"
+            className={'form__input'}
+            id="lastName"
+            name="lastName"
+            type="text"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.lastName}
+          />
+          <FormErrorMessage style={{ paddingLeft: '10px' }}>
+            {formik.errors.lastName}
+          </FormErrorMessage>
+        </div>
       </FormControl>
-      <FormControl>
+
+      <FormControl
+        isInvalid={formik.touched.jobPosition && formik.errors.jobPosition}
+      >
         <FormLabel>Your job position:</FormLabel>
-        <Input placeholder="Job position" />
+        <div className="form__section">
+          <Input
+            placeholder="job position"
+            className={'form__input'}
+            id="jobPosition"
+            name="jobPosition"
+            type="text"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.jobPosition}
+          />
+          <FormErrorMessage style={{ paddingLeft: '10px' }}>
+            {formik.errors.jobPosition}
+          </FormErrorMessage>
+        </div>
       </FormControl>
       <FormControl>
         <FormLabel>Image:</FormLabel>
@@ -65,6 +129,7 @@ export const Form = () => {
           }}
         ></div>
       </FormControl>
-    </Fragment>
+      {children}
+    </form>
   );
 };

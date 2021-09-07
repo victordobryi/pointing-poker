@@ -6,7 +6,7 @@ import { ButtonComponent } from '../../components/button/button';
 import { InputComponent } from '../../components/input/input';
 import { Modal } from '../../components/modal/modal';
 import { useState } from 'react';
-import { Form } from '../../components/form/form';
+import { FormComponent } from '../../components/form/form';
 
 export const MainPage = () => {
   const [modalActive, setModalActive] = useState(false);
@@ -68,26 +68,28 @@ export const MainPage = () => {
       <Modal active={modalActive} setActive={setModalActive}>
         <div className="registation">
           <div className="registration__block">
-            <h2 className="modal__title">Connect to lobby</h2>
+            <h2 className={styles.modal__title}>Connect to lobby</h2>
           </div>
-
-          <Form />
-          <div className={styles.form__control}>
-            <ButtonComponent
-              width={189}
-              height={'60px'}
-              textContent={'Confirm'}
-              variant="solid"
-              colorScheme="facebook"
-            />
-            <ButtonComponent
-              width={189}
-              height={'60px'}
-              textContent={'Cancel'}
-              variant="outline"
-              colorScheme="facebook"
-            />
-          </div>
+          <FormComponent>
+            <div className={styles.form__control}>
+              <ButtonComponent
+                width={189}
+                height={'60px'}
+                textContent={'Confirm'}
+                variant="solid"
+                colorScheme="facebook"
+                type={'submit'}
+              />
+              <ButtonComponent
+                width={189}
+                height={'60px'}
+                textContent={'Cancel'}
+                variant="outline"
+                colorScheme="facebook"
+                onClick={() => setModalActive(false)}
+              />
+            </div>
+          </FormComponent>
         </div>
       </Modal>
     </MainLayout>
