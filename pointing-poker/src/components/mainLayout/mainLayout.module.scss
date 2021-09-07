@@ -26,3 +26,9 @@ $maxWidth: 1440px;
   position: absolute;
   top: 25px;
 }
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
