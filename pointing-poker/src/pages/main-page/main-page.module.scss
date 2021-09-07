@@ -61,3 +61,11 @@ $paddingRight: calc((100% - 80%) / 2);
     font-weight: bold;
   }
 }
+
+.registration {
+  &__block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

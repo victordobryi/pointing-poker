@@ -7,6 +7,7 @@ import { InputComponent } from '../../components/input/input';
 import { Modal } from '../../components/modal/modal';
 import { useState } from 'react';
 import { FormComponent } from '../../components/form/form';
+import { Switch } from '@chakra-ui/switch';
 
 export const MainPage = () => {
   const [modalActive, setModalActive] = useState(false);
@@ -46,7 +47,7 @@ export const MainPage = () => {
               Connect to lobby by{' '}
               <span style={{ fontWeight: 'bold', color: '#66999b' }}>URL</span>:
             </h3>
-            <div style={{ display: 'flex' }}>
+            <div style={{ display: 'flex', paddingBottom: '100px' }}>
               <InputComponent
                 variant="outline"
                 width={276}
@@ -66,9 +67,13 @@ export const MainPage = () => {
         </div>
       </div>
       <Modal active={modalActive} setActive={setModalActive}>
-        <div className="registation">
-          <div className="registration__block">
+        <div className={styles.registration}>
+          <div className={styles.registration__block}>
             <h2 className={styles.modal__title}>Connect to lobby</h2>
+            <div>
+              <h3>Connect as Observer</h3>
+              <Switch size="md" onChange={() => console.log('test')} />
+            </div>
           </div>
           <FormComponent>
             <div className={styles.form__control}>
