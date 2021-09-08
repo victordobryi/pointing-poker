@@ -8,6 +8,7 @@ import {
   Flex,
   Spacer,
   Select,
+  Button,
 } from '@chakra-ui/react';
 import {NumberInputElem} from './NumberInput';
 import GameCard from '../cards/GameCard';
@@ -18,18 +19,28 @@ import J from '../../assets/icons/J.png';
 import Q from '../../assets/icons/Q.png';
 import K from '../../assets/icons/K.png';
 import A from '../../assets/icons/A.png';
+import {KickPlayerModal} from '../modals/KickPlayerModal';
+import { Modal } from '../modal/modal';
 
 const fibonacciCards = [
   '0', '1', '2', '3', '5', '8', cup, 
-]
+];
 
 const TshirtsCards = [
   'XS', 'S', 'M', 'L', 'XL', cup, 
-]
+];
 
 const PlayingCards = [
   '6', '7', J, Q, K, A, cup, 
-]
+];
+
+const arrayMembers = [
+  {
+    name: "David Blane",
+    position: "senior software engineer",
+    image: "",
+  },
+];
 
 const SettingsForm = () => {
   const [settingsData, setSettingsData] = useState({
@@ -48,6 +59,7 @@ const SettingsForm = () => {
       : PlayingCards;
 
   const [isNewCard, setIsNewCard] = useState(false);
+  const [modalActive, setModalActive] = useState(false);
 
   const handleIsMasterSelect = () => {
     setSettingsData(settingsData => ({ ...settingsData, isMaster: !settingsData.isMaster }));
@@ -160,6 +172,16 @@ const SettingsForm = () => {
               </Flex>
             </>
       }
+
+      <Modal active={modalActive} setActive={setModalActive}>
+        <KickPlayerModal 
+          memberId={1}
+          memberName={'Mike'} 
+          onClose={setModalActive}
+        />
+      </Modal>
+      <Button onClick={() => setModalActive(true)}>Open Modal</Button>
+    
     </Box >
   );
 }
