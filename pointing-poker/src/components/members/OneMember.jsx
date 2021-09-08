@@ -1,0 +1,35 @@
+import React from "react";
+import { Box, Flex, Spacer, Image } from "@chakra-ui/react";
+import { NotAllowedIcon } from '@chakra-ui/icons'
+
+const OneMember = ({ member, deleteClick }) => {
+  const {image, name, position, id} = member;
+  return(
+    <Box
+        w={300}
+        h={75}
+        boxShadow="dark-lg"
+        rounded="md"
+        p="6px"
+        m="5px"
+        _hover={{ cursor: "pointer" }}
+      >
+        <Flex align="center" justify="center">
+          <Image src={image} alt="Card-image" boxSize="60px" objectFit="cover" />
+          <Spacer />
+          <Box >
+            <Box fontSize={20} fontWeight="bold" h="20px" mb="20px" maxW="120px" lineHeight="20px">
+              {name}
+            </Box>
+            <Box fontSize={10} fontWeight="bold" h="20px">
+              {position}
+            </Box>
+          </Box>
+          <Spacer />
+          <NotAllowedIcon w="30px" h="30px" color="red" onClick={()=>deleteClick(id)} />
+        </Flex>
+      </Box>
+    );
+};
+
+export default OneMember;

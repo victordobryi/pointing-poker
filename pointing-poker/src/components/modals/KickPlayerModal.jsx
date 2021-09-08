@@ -10,7 +10,7 @@ import './KickPlayerModal.scss';
 export const KickPlayerModal = ({memberId, memberName, onClose, onDelete}) => {
 
   const handleDelelteClick = () => {
-    // onDelete();
+    onDelete(memberId);
     onClose(false);
   }
 
