@@ -1,13 +1,13 @@
-import React from "react";
-import { Box, Heading } from "@chakra-ui/react";
-import OneMember from "./OneMember";
+import React from 'react';
+import { Box, Heading } from '@chakra-ui/react';
+import OneMember from './OneMember';
 
 const arrayMembers = [
   {
-    name: "David Blane",
-    position: "senior software engineer",
-    image: "",
-  },
+    name: 'David Blane',
+    position: 'senior software engineer',
+    image: ''
+  }
 ];
 
 const Members = () => {
@@ -17,13 +17,14 @@ const Members = () => {
         Members:
       </Heading>
       <Box maxW="550px" ml="360px" mr="36px">
-        {arrayMembers.map((member) => {
+        {arrayMembers.map(({ name, position, image }, index) => (
           <OneMember
-            name={member.name}
-            position={member.position}
-            image={member.image}
-          />;
-        })}
+            key={index}
+            name={name}
+            position={position}
+            image={image}
+          />
+        ))}
       </Box>
     </Box>
   );
