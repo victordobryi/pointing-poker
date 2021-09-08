@@ -99,17 +99,17 @@ const SettingsForm = () => {
         <Flex mb="20px">
           <FormLabel mb="0" fontSize="lg">Scram master as player:</FormLabel>
           <Spacer />
-          <Switch onChange={handleIsMasterSelect}/>
+          <Switch colorScheme={'facebook'} onChange={handleIsMasterSelect}/>
         </Flex>
         <Flex mb="20px">
           <FormLabel mb="0" fontSize="lg">Changing card in round end:</FormLabel>
           <Spacer />
-          <Switch onChange={handleChangigngSelect}/>
+          <Switch colorScheme={'facebook'} onChange={handleChangigngSelect}/>
         </Flex>
         <Flex mb="20px">
           <FormLabel mb="0" fontSize="lg">Is timer needed:</FormLabel>
           <Spacer />
-          <Switch onChange={handleIsTimerSelect}/>
+          <Switch colorScheme={'facebook'} onChange={handleIsTimerSelect}/>
         </Flex>
         <Flex mb="20px">
           <FormLabel mb="0" fontSize="lg">Score type:</FormLabel>
