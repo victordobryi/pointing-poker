@@ -1,7 +1,7 @@
-import React from 'react';
-import { Box, Flex, Spacer, CloseIcon, Image } from '@chakra-ui/react';
-import deleteIcon from '../../assets/icons/delete.svg';
-const OneMember = ({ position, name, image, deleteClick }) => {
+import React from "react";
+import { Box, Flex, Spacer, Image } from "@chakra-ui/react";
+import deleteIcon from "../../assets/icons/delete.svg";
+const OneMember = ({ position, name, image, notDelete }) => {
   return (
     <div>
       <Box
@@ -11,7 +11,7 @@ const OneMember = ({ position, name, image, deleteClick }) => {
         rounded="md"
         p="10px"
         m="5px"
-        _hover={{ cursor: 'pointer' }}
+        _hover={{ cursor: "pointer" }}
       >
         <Flex align="center" justify="center">
           <Image
@@ -22,7 +22,7 @@ const OneMember = ({ position, name, image, deleteClick }) => {
           />
           <Spacer />
 
-          <Flex flexDirection={'column'} h={50} justifyContent="space-between">
+          <Flex flexDirection={"column"} h={50} justifyContent="space-between">
             <Box fontSize={20} fontWeight="bold" h="20px">
               {name}
             </Box>
@@ -32,8 +32,7 @@ const OneMember = ({ position, name, image, deleteClick }) => {
           </Flex>
 
           <Spacer />
-          <Image src={deleteIcon} w={30} />
-          {/* <CloseIcon w="20px" h="20px" color="red" onClick={deleteClick} /> */}
+          {notDelete ? <></> : <Image src={deleteIcon} w={7} mr={5} />}
         </Flex>
       </Box>
     </div>
