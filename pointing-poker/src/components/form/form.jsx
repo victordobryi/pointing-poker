@@ -2,7 +2,8 @@ import {
   FormControl,
   FormLabel,
   FormErrorMessage,
-  Input
+  Input,
+  Flex
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { ButtonComponent } from '../button/button';
@@ -48,6 +49,7 @@ export const FormComponent = ({ children }) => {
       formik.values.fullName =
         formik.values.firstName + ' ' + formik.values.lastName;
       dispatch({ type: 'SET_USER', payload: values });
+      console.log(user);
     }
   });
   return (
@@ -117,7 +119,7 @@ export const FormComponent = ({ children }) => {
       </FormControl>
       <FormControl>
         <FormLabel>Image:</FormLabel>
-        <div style={{ display: 'flex' }}>
+        <Flex>
           <Input
             type={'file'}
             onChange={onImageChange}
@@ -133,7 +135,7 @@ export const FormComponent = ({ children }) => {
             width={189}
             onClick={addAvatarOnBlock}
           />
-        </div>
+        </Flex>
         <div
           className="user__avatar"
           style={{
