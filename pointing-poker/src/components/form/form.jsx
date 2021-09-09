@@ -6,20 +6,25 @@ import {
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { ButtonComponent } from '../button/button';
-import { InputComponent } from '../input/input';
 import './form.scss';
 import { useFormik } from 'formik';
 import { validate } from '../form/form-validate';
+import { useSelector, useDispatch } from 'react-redux';
 
 export const FormComponent = ({ children }) => {
   const [image, setImage] = useState(null);
   const [ava, setAva] = useState(null);
   const [imageName, setImageName] = useState(null);
+
+  const user = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       setImage(URL.createObjectURL(event.target.files[0]));
       setImageName(event.target.files[0].name);
     }
+    formik.values.imageSrc = URL.createObjectURL(event.target.files[0]);
   };
 
   const addAvatarOnBlock = () => {
@@ -30,11 +35,19 @@ export const FormComponent = ({ children }) => {
     initialValues: {
       firstName: '',
       lastName: '',
-      jobPosition: ''
+      jobPosition: '',
+      fullName: '',
+      imageSrc: '',
+      id: '',
+      isObserver: false
     },
     validate,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      formik.values.id = new Date().valueOf();
+      formik.values.isObserver = user.isObserver;
+      formik.values.fullName =
+        formik.values.firstName + ' ' + formik.values.lastName;
+      dispatch({ type: 'SET_USER', payload: values });
     }
   });
   return (
@@ -105,7 +118,7 @@ export const FormComponent = ({ children }) => {
       <FormControl>
         <FormLabel>Image:</FormLabel>
         <div style={{ display: 'flex' }}>
-          <InputComponent
+          <Input
             type={'file'}
             onChange={onImageChange}
             className={'filetype'}

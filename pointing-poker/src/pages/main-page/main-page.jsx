@@ -8,9 +8,23 @@ import { Modal } from '../../components/modal/modal';
 import { useState } from 'react';
 import { FormComponent } from '../../components/form/form';
 import { Switch } from '@chakra-ui/switch';
+import { useDispatch, useSelector } from 'react-redux';
 
 export const MainPage = () => {
   const [modalActive, setModalActive] = useState(false);
+  const [isObserver, setIsObserver] = useState(false);
+
+  const user = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
+
+  const handleIsMasterSwitch = () => {
+    isObserver ? setIsObserver(false) : setIsObserver(true);
+    isObserver
+      ? dispatch({ type: 'SET_MASTER', payload: false })
+      : dispatch({ type: 'SET_MASTER', payload: true });
+  };
+
   return (
     <MainLayout>
       <div className={styles.wrapperInner}>
@@ -72,7 +86,7 @@ export const MainPage = () => {
             <h2 className={styles.modal__title}>Connect to lobby</h2>
             <div>
               <h3>Connect as Observer</h3>
-              <Switch size="md" onChange={() => console.log('test')} />
+              <Switch size="md" onChange={handleIsMasterSwitch} />
             </div>
           </div>
           <FormComponent>
