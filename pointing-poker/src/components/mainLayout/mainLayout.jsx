@@ -14,16 +14,20 @@ export const MainLayout = ({ children }) => {
           <Img src={logo} alt="logo" width={70} height={70} />
         </div>
         <main>{children}</main>
-        <footer className={styles.footer}>
-          <Link href="https://github.com/alexej1900">Alexej Bodnarchuk</Link>
-          <Link href="https://github.com/victordobryi">Victar Kasilkin</Link>
-          <Link href="https://github.com/barmenski">Alexandr Bondar</Link>
-          <span>2021</span>
-          <Link href="https://rs.school/react/">
-            <Img src={logoRss} alt="logoRss" width={70} height={70} />
-          </Link>
-        </footer>
       </div>
+      <footer className={styles.footer}>
+        <div className={styles.wrapper}>
+          <div className={styles.footer__block}>
+            <Link href="https://github.com/alexej1900">Alexej Bodnarchuk</Link>
+            <Link href="https://github.com/victordobryi">Victar Kasilkin</Link>
+            <Link href="https://github.com/barmenski">Alexandr Bondar</Link>
+            <span>2021</span>
+            <Link href="https://rs.school/react/">
+              <Img src={logoRss} alt="logoRss" width={70} height={70} />
+            </Link>
+          </div>
+        </div>
+      </footer>
     </Fragment>
   );
 };

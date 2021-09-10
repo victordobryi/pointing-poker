@@ -28,16 +28,19 @@ $maxWidth: 1440px;
   top: 25px;
 }
 
+main {
+  flex: 1 0 auto;
+}
+
 .footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
   background-color: $darkBlue;
   color: #fff;
   padding-right: $padding;
   padding-left: $padding;
+  &__block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
 }
