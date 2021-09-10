@@ -1,0 +1,43 @@
+@import '../../styles.scss';
+
+$padding: 45px;
+$maxWidth: 1440px;
+
+.wrapper {
+  margin-right: auto;
+  margin-left: auto;
+  max-width: $maxWidth;
+  padding-right: $padding;
+  padding-left: $padding;
+  min-height: 100%;
+}
+
+.header {
+  &__firstRow {
+    background-color: $darkBlue;
+    height: 50px;
+  }
+  &__secondRow {
+    background-color: $cadetBlue;
+    height: 20px;
+  }
+}
+
+.logo {
+  position: absolute;
+  top: 25px;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: $darkBlue;
+  color: #fff;
+  padding-right: $padding;
+  padding-left: $padding;
+}
