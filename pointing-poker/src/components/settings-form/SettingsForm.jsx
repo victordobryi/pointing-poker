@@ -18,7 +18,6 @@ import J from '../../assets/icons/J.png';
 import Q from '../../assets/icons/Q.png';
 import K from '../../assets/icons/K.png';
 import A from '../../assets/icons/A.png';
-import Members from '../members/Members';
 
 const fibonacciCards = [
   '0', '1', '2', '3', '5', '8', cup, 
@@ -90,11 +89,11 @@ const SettingsForm = () => {
   
   return (
     <>
-    <Members />
-    <Box maxW="550px" ml="36px" mr="36px">
-      <Heading as="h5" size="lg" textAlign="right" mb="50px">
+    <Heading as="h5" size="lg" textAlign="center" mb="30px" mt="20px">
         Game settings:
       </Heading>
+    <Box maxW="550px" ml="36px" mr="36px">
+      
       <FormControl id="settings">
         <Flex mb="20px">
           <FormLabel mb="0" fontSize="lg">Scram master as player:</FormLabel>

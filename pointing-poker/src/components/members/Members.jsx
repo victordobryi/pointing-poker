@@ -3,21 +3,23 @@ import { Box, Heading, Flex } from "@chakra-ui/react";
 import OneMember from "./OneMember";
 import { Modal } from '../modal/modal';
 import { KickPlayerModal } from "../modals/KickPlayerModal";
+import Avatar1 from '../../assets/icons/Avatar1.png';
+import Avatar2 from '../../assets/icons/Avatar2.png';
 
 let arrayMembers = [
-    {
-      id: '1',
-      name: "David Blane",
-      position: "senior software engineer",
-      image: "",
-    },
-    {
-      id: '2',
-      name: "Mick Blane",
-      position: "middle software engineer",
-      image: "",
-    },
-  ];
+  {
+    id: '1',
+    name: "David Blane",
+    position: "senior software engineer",
+    image: Avatar1,
+  },
+  {
+    id: '2',
+    name: "Mick Blane",
+    position: "middle software engineer",
+    image: Avatar2,
+  },
+];
 
 const Members = () => {
   const [modalActive, setModalActive] = useState(false);
@@ -44,11 +46,11 @@ const Members = () => {
 
   return (
     <>
-      <Box maxW="550px" ml="36px" mr="36px">
-        <Heading as="h5" size="lg" textAlign="right" mb="50px">
+      <Box maxW="1200px" mt="20px">
+        <Heading as="h5" size="lg" textAlign="center" mb="30px">
           Members:
         </Heading>
-        <Flex maxW="550px" ml="36px" mr="36px">
+        <Flex maxW="1200px" wrap="wrap">
           {
             arrayMembers.map((member) => 
               <OneMember key={member.id} member={member} deleteClick={handleDelClick}/>)

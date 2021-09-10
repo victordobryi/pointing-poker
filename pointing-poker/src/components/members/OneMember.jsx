@@ -3,7 +3,8 @@ import { Box, Flex, Spacer, Image } from "@chakra-ui/react";
 import { NotAllowedIcon } from '@chakra-ui/icons'
 
 const OneMember = ({ member, deleteClick }) => {
-  const {image, name, position, id} = member;
+  const {name, position, id} = member;
+  const image = member.image ? member.image : '';
   return(
     <Box
         w={300}
@@ -12,7 +13,6 @@ const OneMember = ({ member, deleteClick }) => {
         rounded="md"
         p="6px"
         m="5px"
-        _hover={{ cursor: "pointer" }}
       >
         <Flex align="center" justify="center">
           <Image src={image} alt="Card-image" boxSize="60px" objectFit="cover" />
@@ -26,7 +26,18 @@ const OneMember = ({ member, deleteClick }) => {
             </Box>
           </Box>
           <Spacer />
-          <NotAllowedIcon w="30px" h="30px" color="red" onClick={()=>deleteClick(id)} />
+          {
+            member.id === 'admin' 
+              ? null 
+              : <NotAllowedIcon 
+                  w="30px" 
+                  h="30px" 
+                  color="red" 
+                  onClick={()=>deleteClick(id)} 
+                  _hover={{ cursor: "pointer" }}
+                />
+          }
+          
         </Flex>
       </Box>
     );
