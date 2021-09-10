@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { Box, Heading, Flex } from "@chakra-ui/react";
 import IssueItem from "./IssueItem";
 import AddIssue from "./AddIssues";
+import NoIssuesCard from "./NoIssuesCard";
 import {ReviseIssueModal} from '../modals/ReviseIssueModal';
 import {Modal} from '../modal/modal';
 
@@ -72,14 +73,15 @@ const Issues = () => {
         Issues:
       </Heading>
       <Flex maxW="1200px" wrap="wrap">
-        {
-          issues.map((item) => 
-            <IssueItem 
-              key={item.id} 
-              issue={item} 
-              deleteClick={handleDelClick}
-              revise={handleReviseClick}
-            />)
+        { issues.length
+          ? issues.map((item) => 
+              <IssueItem 
+                key={item.id} 
+                issue={item} 
+                deleteClick={handleDelClick}
+                revise={handleReviseClick}
+              />)
+          : <NoIssuesCard/>
         }
         <AddIssue addClick={handleAddIssueClick}/>
       </Flex>

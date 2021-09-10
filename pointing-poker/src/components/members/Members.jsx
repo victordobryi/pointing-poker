@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { Box, Heading, Flex } from "@chakra-ui/react";
 import OneMember from "./OneMember";
+import NoMembersCard from "./NoMembersCard";
 import { Modal } from '../modal/modal';
 import { KickPlayerModal } from "../modals/KickPlayerModal";
 import Avatar1 from '../../assets/icons/Avatar1.png';
@@ -51,9 +52,10 @@ const Members = () => {
           Members:
         </Heading>
         <Flex maxW="1200px" wrap="wrap">
-          {
-            arrayMembers.map((member) => 
-              <OneMember key={member.id} member={member} deleteClick={handleDelClick}/>)
+          { arrayMembers.length
+            ? arrayMembers.map((member) => 
+                <OneMember key={member.id} member={member} deleteClick={handleDelClick}/>)
+            : <NoMembersCard/>
           }
         </Flex>
       </Box>
