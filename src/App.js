@@ -1,16 +1,30 @@
-import { VStack } from "@chakra-ui/react";
+import { VStack, HStack, StackDivider } from "@chakra-ui/react";
 import Issues from "./components/issues/Issues";
 import "./App.css";
 import { MasterPanel } from "./components/userNavigation/MasterPanel";
 import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
 
 function App() {
   return (
-    <VStack w="100%">
+    <>
       <Header />
-      <MasterPanel />
-      <Issues />
-    </VStack>
+      <HStack>
+        <VStack
+          w="70%"
+          borderColor="grey.100"
+          borderWidth={2}
+          borderBottom="none"
+          borderTop="none"
+          borderLeft="none"
+        >
+          <MasterPanel />
+          <Issues />
+        </VStack>
+        <VStack></VStack>
+      </HStack>
+      <Footer />
+    </>
   );
 }
 
