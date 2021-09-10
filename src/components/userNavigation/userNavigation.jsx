@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import {
   Img,
   Flex,
@@ -13,6 +13,7 @@ import OneMember from '../members/OneMember';
 const issuesNumbers = [13, 19, 322, 533, 666, 245, 900, 400, 3232, 455656];
 
 export const UserNav = () => {
+  const [inputText, setInputText] = useState('');
   return (
     <Fragment>
       <Flex justifyContent={'center'}>
@@ -34,8 +35,17 @@ export const UserNav = () => {
         <FormControl>
           <FormLabel>Link to lobby:</FormLabel>
           <Flex>
-            <Input w={276} h={47}></Input>
-            <Button w={189} h={47} colorScheme={'facebook'}>
+            <Input
+              onChange={(e) => setInputText(e.target.value)}
+              w={276}
+              h={47}
+            ></Input>
+            <Button
+              onClick={() => navigator.clipboard.writeText(inputText)}
+              w={189}
+              h={47}
+              colorScheme={'facebook'}
+            >
               Copy
             </Button>
           </Flex>
