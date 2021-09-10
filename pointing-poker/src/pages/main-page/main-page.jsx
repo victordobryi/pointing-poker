@@ -48,7 +48,10 @@ export const MainPage = () => {
               height={47}
               variant={'solid'}
               colorScheme={'facebook'}
-              onClick={() => setModalActive(true)}
+              onClick={() => {
+                setModalActive(true);
+                document.body.style.overflowY = 'hidden';
+              }}
             />
           </div>
         </div>
@@ -106,7 +109,10 @@ export const MainPage = () => {
                 textContent={'Cancel'}
                 variant="outline"
                 colorScheme="facebook"
-                onClick={() => setModalActive(false)}
+                onClick={() => {
+                  setModalActive(false);
+                  document.body.style.overflowY = 'visible';
+                }}
               />
             </div>
           </FormComponent>
