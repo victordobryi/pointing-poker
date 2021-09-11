@@ -1,15 +1,17 @@
-import { VStack, HStack, StackDivider } from "@chakra-ui/react";
+import { VStack, HStack, Flex, Box } from "@chakra-ui/react";
 import Issues from "./components/issues/Issues";
 import "./App.css";
 import { MasterPanel } from "./components/userNavigation/MasterPanel";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
+import { RoundControl } from "./components/roundControl/RoundControl";
+import { ScoreTable } from "./components/score/ScoreTable";
 
 function App() {
   return (
-    <>
+    <Box h="100vh">
       <Header />
-      <HStack>
+      <Flex h="86%" direction="row" justify="center" align="flex-start">
         <VStack
           w="70%"
           borderColor="grey.100"
@@ -19,12 +21,17 @@ function App() {
           borderLeft="none"
         >
           <MasterPanel />
-          <Issues />
+          <Flex w="90%" justify="space-between" align="flex-start">
+            <Issues />
+            <RoundControl />
+          </Flex>
         </VStack>
-        <VStack></VStack>
-      </HStack>
+        <Flex w="40%" direction="column" justify="flex-start" align="center">
+          <ScoreTable />
+        </Flex>
+      </Flex>
       <Footer />
-    </>
+    </Box>
   );
 }
 
