@@ -1,0 +1,65 @@
+@import '../../styles.scss';
+
+$width: calc(100% - 20%);
+$paddingLeft: calc((100% - 80%) / 2);
+$paddingRight: calc((100% - 80%) / 2);
+.wrapperInner {
+  max-width: $width;
+  padding-left: $paddingLeft;
+  padding-right: $paddingRight;
+  margin-right: auto;
+  margin-left: auto;
+  border: 1px solid gray;
+  border-top: none;
+}
+
+.mainLogo {
+  margin: 0 auto;
+  &_block {
+    padding-top: 120px;
+  }
+}
+
+.connect {
+  &_block {
+    padding-top: 35px;
+    width: 515px;
+  }
+  &_title {
+    font-size: 48px;
+    color: $cadetBlue;
+    font-weight: bold;
+    text-align: center;
+  }
+  &_subtitle {
+    font-size: 24px;
+  }
+  &_flex {
+    display: flex;
+    padding-top: 50px;
+    justify-content: space-between;
+  }
+}
+
+.form {
+  &__control {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 100px;
+  }
+}
+
+.modal {
+  &__title {
+    font-size: 64px;
+    font-weight: bold;
+  }
+}
+
+.registration {
+  &__block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}

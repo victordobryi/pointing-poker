@@ -1,13 +1,14 @@
-import './App.css';
-// import SettingsForm from './components/settings-form/SettingsForm';
-import LobbyMasterPage from './pages/Lobby-master';
-import LobbyMembersPage from './pages/Lobby-members';
+import { Provider } from 'react-redux';
+import { store } from './store';
+import { ChakraProvider } from '@chakra-ui/react';
+import { MainPage } from './pages/main-page/main-page';
 
-function App() {
+export const App = () => {
   return (
-    <LobbyMasterPage/>
-    // <LobbyMembersPage/>
+    <Provider store={store}>
+      <ChakraProvider>
+        <MainPage />
+      </ChakraProvider>
+    </Provider>
   );
-}
-
-export default App;
+};
