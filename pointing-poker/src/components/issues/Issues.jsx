@@ -7,8 +7,14 @@ import {ReviseIssueModal} from '../modals/ReviseIssueModal';
 import {Modal} from '../modal/modal';
 
 const Issues = () => {
+  const EMPTYISSUE = {
+        id: '',
+        name: '',
+        link: '',
+        priority: ''
+      }
   const [modalActive, setModalActive] = useState(false);
-  const [currentIssue, setCurrentIssue] = useState('');
+  const [currentIssue, setCurrentIssue] = useState(EMPTYISSUE);
   const [isNewIssue, setIsNewIssue] = useState(false);
   const [issues, setIssues] = useState(
     [
@@ -43,13 +49,13 @@ const Issues = () => {
   }
 
   const handleAddIssueClick = () => {
-    setCurrentIssue('');
+    setCurrentIssue(EMPTYISSUE);
     setIsNewIssue(true);
     setModalActive(true);
   }
 
   const handleCloseClick = () => {
-    setCurrentIssue('');
+    setCurrentIssue(EMPTYISSUE);
     setModalActive(false);
   }
 

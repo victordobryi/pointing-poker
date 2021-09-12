@@ -5,8 +5,8 @@ import LobbyMembersPage from './pages/Lobby-members';
 
 function App() {
   return (
-    // <LobbyMasterPage/>
-    <LobbyMembersPage/>
+    <LobbyMasterPage/>
+    // <LobbyMembersPage/>
   );
 }
 
