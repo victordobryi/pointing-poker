@@ -1,49 +1,52 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Box, Heading, Flex } from "@chakra-ui/react";
 import OneMember from "./OneMember";
 import NoMembersCard from "./NoMembersCard";
-import { Modal } from '../modal/modal';
+import { Modal } from "../modal/modal";
 import { KickPlayerModal } from "../modals/KickPlayerModal";
-import Avatar1 from '../../assets/icons/Avatar1.png';
-import Avatar2 from '../../assets/icons/Avatar2.png';
+import Avatar1 from "../../assets/icons/Avatar1.png";
 
-let arrayMembers = [
+export let arrayMembers = [
   {
-    id: '1',
-    name: "David Blane",
+    id: "1",
+    firstName: "David",
+    lastName: "Blane",
     position: "senior software engineer",
     image: Avatar1,
+    score: "",
   },
   {
-    id: '2',
-    name: "Mick Blane",
+    id: "2",
+    firstName: "Mick",
+    lastName: "Blane",
     position: "middle software engineer",
-    image: Avatar2,
+    image: "",
+    score: "",
   },
 ];
 
-const Members = () => {
+export const Members = () => {
   const [modalActive, setModalActive] = useState(false);
-  const [deletedMember, setDeletedMember] = useState('');
-  
+  const [deletedMember, setDeletedMember] = useState("");
+
   const handleDelClick = (id) => {
     setDeletedMember(id);
     setModalActive(true);
-  } 
+  };
 
   const handleDeleteMember = (id) => {
     arrayMembers = arrayMembers.filter((member) => member.id !== id);
-  }
+  };
 
   const getMemberName = () => {
-    let memberName = '';
+    let memberName = "";
     arrayMembers.forEach((member) => {
       if (member.id === deletedMember) {
         memberName = member.name;
       }
-    })
+    });
     return memberName;
-  }
+  };
 
   return (
     <>
@@ -52,23 +55,27 @@ const Members = () => {
           Members:
         </Heading>
         <Flex maxW="1200px" wrap="wrap">
-          { arrayMembers.length
-            ? arrayMembers.map((member) => 
-                <OneMember key={member.id} member={member} deleteClick={handleDelClick}/>)
-            : <NoMembersCard/>
-          }
+          {arrayMembers.length ? (
+            arrayMembers.map((member) => (
+              <OneMember
+                key={member.id}
+                member={member}
+                deleteClick={handleDelClick}
+              />
+            ))
+          ) : (
+            <NoMembersCard />
+          )}
         </Flex>
       </Box>
       <Modal active={modalActive} setActive={setModalActive}>
-        <KickPlayerModal 
+        <KickPlayerModal
           memberId={deletedMember}
-          memberName={getMemberName()} 
+          memberName={getMemberName()}
           onDelete={handleDeleteMember}
           onClose={setModalActive}
         />
       </Modal>
     </>
-  )
-}
-
-export default Members;
+  );
+};

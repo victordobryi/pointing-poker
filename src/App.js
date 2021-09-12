@@ -1,4 +1,4 @@
-import { VStack, HStack, Flex, Box } from "@chakra-ui/react";
+import { VStack, Flex, Box } from "@chakra-ui/react";
 import Issues from "./components/issues/Issues";
 import "./App.css";
 import { MasterPanel } from "./components/userNavigation/MasterPanel";
@@ -11,7 +11,7 @@ function App() {
   return (
     <Box h="100vh">
       <Header />
-      <Flex h="86%" direction="row" justify="center" align="flex-start">
+      <Flex h="85%" direction="row" justify="center" align="flex-start">
         <VStack
           w="70%"
           borderColor="grey.100"
@@ -21,9 +21,14 @@ function App() {
           borderLeft="none"
         >
           <MasterPanel />
-          <Flex w="90%" justify="space-between" align="flex-start">
+          <Flex
+            w="90%"
+            direction="row"
+            justify="space-between"
+            align="flex-start"
+          >
             <Issues />
-            <RoundControl />
+            <RoundControl mt={85} />
           </Flex>
         </VStack>
         <Flex w="40%" direction="column" justify="flex-start" align="center">

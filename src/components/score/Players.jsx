@@ -1,28 +1,10 @@
 import React, { useState } from "react";
-import { Box, Heading, Flex } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import OneMember from "../members/OneMember";
 import OneScore from "./OneScore";
 import { Modal } from "../modal/modal";
 import { KickPlayerModal } from "../modals/KickPlayerModal";
-import Avatar1 from "../../assets/icons/Avatar1.png";
-import Avatar2 from "../../assets/icons/Avatar2.png";
-
-let arrayMembers = [
-  {
-    id: "1",
-    name: "David Blane",
-    position: "senior software engineer",
-    image: Avatar1,
-    score: "",
-  },
-  {
-    id: "2",
-    name: "Mick Blane",
-    position: "middle software engineer",
-    image: Avatar2,
-    score: "",
-  },
-];
+import { arrayMembers } from "../members/Members";
 
 const Players = () => {
   const [modalActive, setModalActive] = useState(false);
@@ -37,14 +19,14 @@ const Players = () => {
     arrayMembers = arrayMembers.filter((member) => member.id !== id);
   };
 
-  const getMemberName = () => {
-    let memberName = "";
+  const getMemberFirstName = () => {
+    let memberFirstName = "";
     arrayMembers.forEach((member) => {
       if (member.id === deletedMember) {
-        memberName = member.name;
+        memberFirstName = member.firstName;
       }
     });
-    return memberName;
+    return memberFirstName;
   };
 
   return (
@@ -66,7 +48,7 @@ const Players = () => {
       <Modal active={modalActive} setActive={setModalActive}>
         <KickPlayerModal
           memberId={deletedMember}
-          memberName={getMemberName()}
+          memberFirstName={getMemberFirstName()}
           onDelete={handleDeleteMember}
           onClose={setModalActive}
         />

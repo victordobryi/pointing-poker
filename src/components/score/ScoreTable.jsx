@@ -1,14 +1,5 @@
 import React from "react";
-import {
-  HStack,
-  VStack,
-  Flex,
-  Box,
-  Button,
-  Spacer,
-  Heading,
-  Text,
-} from "@chakra-ui/react";
+import { VStack, Flex, Heading } from "@chakra-ui/react";
 import Players from "../score/Players";
 
 export const ScoreTable = () => {

@@ -10,6 +10,7 @@ const Issues = () => {
   const [modalActive, setModalActive] = useState(false);
   const [currentIssue, setCurrentIssue] = useState("");
   const [isNewIssue, setIsNewIssue] = useState(false);
+  const [activeIssue, setActiveIssue] = useState("");
   const [issues, setIssues] = useState([
     {
       id: 1,
@@ -30,6 +31,10 @@ const Issues = () => {
       priority: "height",
     },
   ]);
+
+  const handleOnClick = (issue) => {
+    setActiveIssue(issue);
+  };
 
   const handleDelClick = (id) => {
     setIssues(issues.filter((issue) => issue.id !== id));
@@ -78,6 +83,8 @@ const Issues = () => {
               issue={item}
               deleteClick={handleDelClick}
               revise={handleReviseClick}
+              setActiveIssue={handleOnClick}
+              activeIssue={activeIssue}
             />
           ))
         ) : (

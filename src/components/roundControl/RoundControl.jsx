@@ -1,46 +1,51 @@
 import React, { useState } from "react";
-import { Box, FormLabel, Flex, Spacer, Button } from "@chakra-ui/react";
-import { NumberInputElem } from "./NumberInput";
+import { Flex, Button } from "@chakra-ui/react";
+import Timer from "../timer/Timer";
+
+const STATUS = {
+  STARTED: "Started",
+  STOPPED: "Stopped",
+};
+
+const initCount = 130;
 
 export const RoundControl = () => {
-  const [settingsData, setSettingsData] = useState({
-    minutes: 0,
-    seconds: 0,
-  });
+  const [status, setStatus] = useState(STATUS.STOPPED);
+  const [secondsRemaining, setSecondsRemaining] = useState(initCount);
 
-  const handleMinutesChange = (e) => {
-    setSettingsData((settingsData) => ({ ...settingsData, minutes: e }));
+  const handleOnclickRun = () => {
+    setStatus(STATUS.STARTED);
   };
 
-  const handleSecondsChange = (e) => {
-    setSettingsData((settingsData) => ({ ...settingsData, seconds: e }));
+  const handleOnclickRestart = () => {
+    setStatus(STATUS.STOPPED);
+    setSecondsRemaining(initCount);
+    setStatus(STATUS.STARTED);
   };
-
   return (
     <Flex mb="20px" direction="column" justify="center" align="center">
-      <Flex>
-        <Box>
-          <FormLabel mb="0" fontSize="sm">
-            Minutes
-          </FormLabel>
-          <NumberInputElem
-            minVal={0}
-            maxVal={5}
-            onChangeFn={handleMinutesChange}
-          />
-        </Box>
-        <Box fontSize={28} fontWeight="bold" lineHeight="80px">
-          :
-        </Box>
-        <Box>
-          <FormLabel mb="0" fontSize="sm">
-            Seconds
-          </FormLabel>
-          <NumberInputElem min={0} max={60} onChange={handleSecondsChange} />
-        </Box>
-      </Flex>
-      <Button colorScheme={"facebook"} w="160px">
+      <Timer
+        setStatus={setStatus}
+        status={status}
+        setSecondsRemaining={setSecondsRemaining}
+        secondsRemaining={secondsRemaining}
+        initCount={initCount}
+      />
+      <Button
+        colorScheme={"facebook"}
+        w="160px"
+        m={5}
+        onClick={handleOnclickRun}
+      >
         Run Round
+      </Button>
+      <Button
+        colorScheme={"facebook"}
+        w="160px"
+        m={5}
+        onClick={handleOnclickRestart}
+      >
+        Restart Round
       </Button>
     </Flex>
   );
