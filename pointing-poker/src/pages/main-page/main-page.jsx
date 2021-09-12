@@ -14,16 +14,25 @@ import { Flex } from '@chakra-ui/layout';
 export const MainPage = () => {
   const [modalActive, setModalActive] = useState(false);
   const [isObserver, setIsObserver] = useState(false);
-
   const user = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
 
-  const handleIsMasterSwitch = () => {
+  const handleIsObserverSwitch = () => {
     isObserver ? setIsObserver(false) : setIsObserver(true);
     isObserver
-      ? dispatch({ type: 'SET_MASTER', payload: false })
-      : dispatch({ type: 'SET_MASTER', payload: true });
+      ? dispatch({ type: 'SET_IS_OBSERVER', payload: false })
+      : dispatch({ type: 'SET_IS_OBSERVER', payload: true });
+  };
+
+  const handleIsMasterClick = (param) => {
+    dispatch({ type: 'SET_IS_MASTER', payload: param });
+  };
+
+  const handleOpenModalClick = (param) => {
+    setModalActive(true);
+    document.body.style.overflowY = 'hidden';
+    handleIsMasterClick(param);
   };
 
   return (
@@ -48,10 +57,7 @@ export const MainPage = () => {
               height={47}
               variant={'solid'}
               colorScheme={'facebook'}
-              onClick={() => {
-                setModalActive(true);
-                document.body.style.overflowY = 'hidden';
-              }}
+              onClick={() => handleOpenModalClick(true)}
             />
           </div>
         </div>
@@ -79,6 +85,7 @@ export const MainPage = () => {
                 height={47}
                 textContent="Connect"
                 colorScheme="facebook"
+                onClick={() => handleOpenModalClick(false)}
               />
             </Flex>
           </div>
@@ -90,7 +97,7 @@ export const MainPage = () => {
             <h2 className={styles.modal__title}>Connect to lobby</h2>
             <div>
               <h3>Connect as Observer</h3>
-              <Switch size="md" onChange={handleIsMasterSwitch} />
+              <Switch size="md" onChange={handleIsObserverSwitch} />
             </div>
           </div>
           <FormComponent>

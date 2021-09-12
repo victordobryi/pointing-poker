@@ -3,7 +3,8 @@ import {
   FormLabel,
   FormErrorMessage,
   Input,
-  Flex
+  Flex,
+  Avatar
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { ButtonComponent } from '../button/button';
@@ -40,16 +41,17 @@ export const FormComponent = ({ children }) => {
       fullName: '',
       imageSrc: '',
       id: '',
-      isObserver: false
+      isObserver: false,
+      isMaster: true
     },
     validate,
     onSubmit: (values) => {
       formik.values.id = new Date().valueOf();
       formik.values.isObserver = user.isObserver;
+      formik.values.isMaster = user.isMaster;
       formik.values.fullName =
         formik.values.firstName + ' ' + formik.values.lastName;
       dispatch({ type: 'SET_USER', payload: values });
-      console.log(user);
     }
   });
   return (
@@ -136,13 +138,15 @@ export const FormComponent = ({ children }) => {
             onClick={addAvatarOnBlock}
           />
         </Flex>
-        <div
-          className="user__avatar"
-          style={{
-            backgroundImage: `url('${ava}')`,
-            backgroundSize: 'cover'
-          }}
-        ></div>
+        <Avatar
+          name={
+            formik.values.firstName
+              ? formik.values.firstName + ' ' + formik.values.lastName
+              : null
+          }
+          src={ava}
+          size={'lg'}
+        />
       </FormControl>
       {children}
     </form>
