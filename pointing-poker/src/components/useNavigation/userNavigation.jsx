@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import {
   Image,
   Flex,
@@ -12,43 +12,63 @@ import {
 } from '@chakra-ui/react';
 import draw from '../../assets/icons/draw.png';
 import OneMember from '../members/OneMember';
-import Avatar3 from '../../assets/icons/Avatar3.jpg';
+// import Avatar3 from '../../assets/icons/Avatar3.jpg';
+import { useSelector } from 'react-redux';
 
 const issuesNumbers = [13, 19, 322, 533, 666, 245, 900, 400, 3232, 455656];
 
-const master = {
-  id: 'admin',
-  name: 'Rick Giligan',
-  position: 'lead softwear engeneer',
-  image: Avatar3,
-}
+// const master = {
+//   id: 'admin',
+//   name: 'Rick Giligan',
+//   position: 'lead softwear engeneer',
+//   image: Avatar3
+// };
 
 export const UserNav = () => {
+  const user = useSelector((state) => state.user);
+  const [inputText, setInputText] = useState('');
+  const master = user.users.filter((member) => member.isMaster);
   return (
     <Fragment>
-      <Flex maxW="1200px" justifyContent={'center'} fontSize="24px" fontWeight="bold" mt="20px">
-        <Heading as="h5" size="md" textAlign="right" mb="50px" >
+      <Flex
+        maxW="1200px"
+        justifyContent={'center'}
+        fontSize="24px"
+        fontWeight="bold"
+        mt="20px"
+      >
+        <Heading as="h5" size="md" textAlign="right" mb="50px">
           Spring 23 planning (issues {''}
-            {issuesNumbers.map((issue, index) =>
-              issuesNumbers.length > index + 1 ? (
-                <span key={index}>{issue}, </span>
-              ) : (
-                <span key={index}>{issue} </span>
-              )
-            )})
-          <Image src={draw} alt="draw" boxSize="22px" display="inline-block"/>
+          {issuesNumbers.map((issue, index) =>
+            issuesNumbers.length > index + 1 ? (
+              <span key={index}>{issue}, </span>
+            ) : (
+              <span key={index}>{issue} </span>
+            )
+          )}
+          )
+          <Image src={draw} alt="draw" boxSize="22px" display="inline-block" />
         </Heading>
       </Flex>
-      <Box >
+      <Box>
         <Text fontSize="16px">Scram master:</Text>
-        <OneMember member={master} />
+        <OneMember member={master[0]} />
       </Box>
       <Box mt="10px" mb="20px">
         <FormControl>
           <FormLabel>Link to lobby:</FormLabel>
           <Flex>
-            <Input w={276} h={47}></Input>
-            <Button w={189} h={47} colorScheme={'facebook'}>
+            <Input
+              onChange={(e) => setInputText(e.target.value)}
+              w={276}
+              h={47}
+            ></Input>
+            <Button
+              onClick={() => navigator.clipboard.writeText(inputText)}
+              w={189}
+              h={47}
+              colorScheme={'facebook'}
+            >
               Copy
             </Button>
           </Flex>

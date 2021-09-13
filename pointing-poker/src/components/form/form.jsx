@@ -12,11 +12,13 @@ import './form.scss';
 import { useFormik } from 'formik';
 import { validate } from '../form/form-validate';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
 
 export const FormComponent = ({ children }) => {
   const [image, setImage] = useState(null);
   const [ava, setAva] = useState(null);
   const [imageName, setImageName] = useState(null);
+  const history = useHistory();
 
   const user = useSelector((state) => state.user);
 
@@ -52,6 +54,7 @@ export const FormComponent = ({ children }) => {
       formik.values.fullName =
         formik.values.firstName + ' ' + formik.values.lastName;
       dispatch({ type: 'SET_USER', payload: values });
+      user.isMaster ? history.push('/master') : history.push('/member');
     }
   });
   return (
