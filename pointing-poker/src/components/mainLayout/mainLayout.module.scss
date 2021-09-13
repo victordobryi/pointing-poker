@@ -17,6 +17,7 @@ $maxWidth: 1440px;
     background-color: $darkBlue;
     height: 50px;
   }
+
   &__secondRow {
     background-color: $cadetBlue;
     height: 20px;
@@ -37,6 +38,7 @@ main {
   color: #fff;
   padding-right: $padding;
   padding-left: $padding;
+
   &__block {
     display: flex;
     justify-content: space-between;
