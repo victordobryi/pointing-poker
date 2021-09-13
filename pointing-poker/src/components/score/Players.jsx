@@ -4,7 +4,26 @@ import OneMember from "../members/OneMember";
 import OneScore from "./OneScore";
 import { Modal } from "../modal/modal";
 import { KickPlayerModal } from "../modals/KickPlayerModal";
-import { arrayMembers } from "../members/Members";
+import Avatar1 from "../../assets/icons/Avatar1.png";
+
+export let arrayMembers = [
+  {
+    id: "1",
+    firstName: "David",
+    lastName: "Blane",
+    position: "senior software engineer",
+    image: Avatar1,
+    score: "",
+  },
+  {
+    id: "2",
+    firstName: "Mick",
+    lastName: "Blane",
+    position: "middle software engineer",
+    image: "",
+    score: "",
+  },
+];
 
 const Players = () => {
   const [modalActive, setModalActive] = useState(false);

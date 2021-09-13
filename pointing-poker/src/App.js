@@ -11,7 +11,7 @@ function App() {
   return (
     <Box h="100vh">
       <Header />
-      <Flex h="85%" direction="row" justify="center" align="flex-start">
+      <Flex h="86%" direction="row" justify="center" align="flex-start">
         <VStack
           w="70%"
           borderColor="grey.100"
