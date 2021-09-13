@@ -7,7 +7,8 @@ import {
 const initialState = {
   users: [],
   isObserver: false,
-  isMaster: false
+  isMaster: false,
+  isChatOn: false
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -15,7 +16,8 @@ export const userReducer = (state = initialState, action) => {
     case SET_USER:
       return {
         ...state,
-        users: [...state.users, action.payload]
+        users: [...state.users, action.payload],
+        isChatOn: true
       };
 
     case SET_IS_OBSERVER:

@@ -3,16 +3,31 @@ import logo from '../../assets/icons/logo.png';
 import logoRss from '../../assets/icons/logo-rs.svg';
 import styles from './mainLayout.module.scss';
 import { Img } from '@chakra-ui/image';
-import { Link } from '@chakra-ui/layout';
+import { Box, Flex, Link } from '@chakra-ui/layout';
+import { EmailIcon } from '@chakra-ui/icons';
+import { useSelector } from 'react-redux';
 export const MainLayout = ({ children }) => {
+  const user = useSelector((state) => state.user);
+
   return (
     <Fragment>
       <div className={styles.header__firstRow}></div>
       <div className={styles.header__secondRow}></div>
       <div className={styles.wrapper}>
-        <div className={styles.logo}>
-          <Img src={logo} alt="logo" width={70} height={70} />
-        </div>
+        <Flex justify="space-between">
+          <Box>
+            <div className={styles.logo}>
+              <Img src={logo} alt="logo" width={70} height={70} />
+            </div>
+          </Box>
+          {user.isChatOn ? (
+            <Box>
+              <div className={styles.logo_mail}>
+                <EmailIcon color="#fff" />
+              </div>
+            </Box>
+          ) : null}
+        </Flex>
         <main>{children}</main>
       </div>
       <footer className={styles.footer}>
