@@ -1,12 +1,17 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Provider } from 'react-redux';
+import { store } from './store';
+import { ChakraProvider } from '@chakra-ui/react';
+import { MainPage } from './pages/main-page/main-page';
 
-import { MainPage } from "./pages/main-page/main-page";
 import GameMasterPage from "./pages/Game-master";
 import LobbyMasterPage from "./pages/Lobby-master";
 import LobbyMembersPage from "./pages/Lobby-members";
 
 export const App = () => {
   return (
+    <Provider store={store}>
+    <ChakraProvider>
     <Router>
       <Route
         render={({ location }) => (
@@ -32,6 +37,8 @@ export const App = () => {
         )}
       />
     </Router>
+    </ChakraProvider>
+    </Provider>
   );
 };
 

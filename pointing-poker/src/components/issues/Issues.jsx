@@ -1,8 +1,13 @@
+<<<<<<< HEAD
 import React, { useState } from "react";
+=======
+import React, {useState} from "react";
+>>>>>>> develop
 import { Box, Heading, Flex } from "@chakra-ui/react";
 import IssueItem from "./IssueItem";
 import AddIssue from "./AddIssues";
 import NoIssuesCard from "./NoIssuesCard";
+<<<<<<< HEAD
 import { ReviseIssueModal } from "../modals/ReviseIssueModal";
 import { Modal } from "../modal/modal";
 
@@ -39,10 +44,52 @@ const Issues = () => {
   const handleDelClick = (id) => {
     setIssues(issues.filter((issue) => issue.id !== id));
   };
+=======
+import {ReviseIssueModal} from '../modals/ReviseIssueModal';
+import {Modal} from '../modal/modal';
+
+const Issues = () => {
+  const EMPTYISSUE = {
+        id: '',
+        name: '',
+        link: '',
+        priority: ''
+      }
+  const [modalActive, setModalActive] = useState(false);
+  const [currentIssue, setCurrentIssue] = useState(EMPTYISSUE);
+  const [isNewIssue, setIsNewIssue] = useState(false);
+  const [issues, setIssues] = useState(
+    [
+      {
+        id: 1,
+        name: 'issue 12',
+        link: ' http://jira.my-company.com/issue-12',
+        priority: 'middle',
+      },
+      {
+        id: 2,
+        name: 'issue 13',
+        link: ' http://jira.my-company.com/issue-13',
+        priority: 'low'
+      },
+      {
+        id: 3,
+        name: 'issue 14',
+        link: ' http://jira.my-company.com/issue-14',
+        priority: 'height'
+      },
+    ]
+  )
+
+  const handleDelClick = (id) => {
+    setIssues(issues.filter((issue) => issue.id !== id));
+  }
+>>>>>>> develop
 
   const handleReviseClick = (issue) => {
     setModalActive(true);
     setCurrentIssue(issue);
+<<<<<<< HEAD
   };
 
   const handleAddIssueClick = () => {
@@ -55,6 +102,20 @@ const Issues = () => {
     setCurrentIssue("");
     setModalActive(false);
   };
+=======
+  }
+
+  const handleAddIssueClick = () => {
+    setCurrentIssue(EMPTYISSUE);
+    setIsNewIssue(true);
+    setModalActive(true);
+  }
+
+  const handleCloseClick = () => {
+    setCurrentIssue(EMPTYISSUE);
+    setModalActive(false);
+  }
+>>>>>>> develop
 
   const handleRevise = () => {
     const currArr = [];
@@ -68,7 +129,11 @@ const Issues = () => {
       setIsNewIssue(false);
     }
     setIssues(currArr);
+<<<<<<< HEAD
   };
+=======
+  }
+>>>>>>> develop
 
   return (
     <Box maxW="1200px" mt="20px">
@@ -76,6 +141,7 @@ const Issues = () => {
         Issues:
       </Heading>
       <Flex maxW="1200px" wrap="wrap">
+<<<<<<< HEAD
         {issues.length ? (
           issues.map((item) => (
             <IssueItem
@@ -97,6 +163,25 @@ const Issues = () => {
           issue={currentIssue}
           setCurrentIssue={setCurrentIssue}
           onClose={handleCloseClick}
+=======
+        { issues.length
+          ? issues.map((item) => 
+              <IssueItem 
+                key={item.id} 
+                issue={item} 
+                deleteClick={handleDelClick}
+                revise={handleReviseClick}
+              />)
+          : <NoIssuesCard/>
+        }
+        <AddIssue addClick={handleAddIssueClick}/>
+      </Flex>
+      <Modal active={modalActive} setActive={setModalActive}>
+        <ReviseIssueModal 
+          issue={currentIssue} 
+          setCurrentIssue={setCurrentIssue} 
+          onClose={handleCloseClick} 
+>>>>>>> develop
           onRevise={handleRevise}
         />
       </Modal>
@@ -104,4 +189,8 @@ const Issues = () => {
   );
 };
 
+<<<<<<< HEAD
 export default Issues;
+=======
+export default Issues;
+>>>>>>> develop

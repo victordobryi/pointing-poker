@@ -10,7 +10,8 @@ const issuesNumbers = [13, 19, 322, 533, 666, 245, 900, 400, 3232, 455656];
 
 const master = {
   id: "admin",
-  name: "Rick Giligan",
+  firstName: "Rick", 
+  lastName: "Giligan",
   position: "lead softwear engeneer",
   image: Avatar3,
 };
