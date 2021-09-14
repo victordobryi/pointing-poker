@@ -1,21 +1,28 @@
+import React, { useContext, useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Switch, Input, Flex, Img } from '@chakra-ui/react';
+
 import { MainLayout } from '../../components/mainLayout/mainLayout';
-import mainLogo from '../../assets/icons/mainLogo.png';
-import { Img } from '@chakra-ui/image';
-import styles from './main-page.module.scss';
 import { ButtonComponent } from '../../components/button/button';
 import { Modal } from '../../components/modal/modal';
-import { useState } from 'react';
 import { FormComponent } from '../../components/form/form';
-import { Switch } from '@chakra-ui/switch';
-import { useDispatch, useSelector } from 'react-redux';
-import { Input } from '@chakra-ui/input';
-import { Flex } from '@chakra-ui/layout';
+import { SocketContext } from '../../contexts/socketContext';
+import { UsersContext } from '../../contexts/usersContext';
+import { MainContext } from '../../contexts/mainContext';
+
+import mainLogo from '../../assets/icons/mainLogo.png';
+import styles from './main-page.module.scss';
 
 export const MainPage = () => {
   const [modalActive, setModalActive] = useState(false);
+  const [urlInputVal, setUrlInputVal] = useState('');
   const [isObserver, setIsObserver] = useState(false);
   const user = useSelector((state) => state.user);
+  const socket = useContext(SocketContext);
 
+  const { setUsers } = useContext(UsersContext);
+  const { name, setName, rooms, setRooms, room, setRoom } = useContext(MainContext);
+  const USER_ID = new Date().valueOf();
   const dispatch = useDispatch();
 
   const handleIsObserverSwitch = () => {
@@ -29,11 +36,31 @@ export const MainPage = () => {
     dispatch({ type: 'SET_IS_MASTER', payload: param });
   };
 
-  const handleOpenModalClick = (param) => {
+  const handleOpenMasterModalClick = () => {
+    handleIsMasterClick(true);
+    const currentRoomId = new Date().valueOf();
+    setRooms((rooms) => [...rooms, currentRoomId]);
+    setRoom(currentRoomId)
+    setName(`${new Date().valueOf()}`);
     setModalActive(true);
-    document.body.style.overflowY = 'hidden';
-    handleIsMasterClick(param);
   };
+
+  const handleOpenMemberModalClick = () => {
+    handleIsMasterClick(false);
+    if (urlInputVal === '') {
+      setUrlInputVal('Input rooms ID');
+      return;
+    } else {
+
+      if (!rooms.includes(+urlInputVal)) {
+        setUrlInputVal('Input CORRECT rooms ID');
+        return;
+      };
+      setModalActive(true);
+      setName(`${new Date().valueOf()}`);
+      setUrlInputVal('');
+    }
+  }
 
   return (
     <MainLayout>
@@ -57,7 +84,7 @@ export const MainPage = () => {
               height={47}
               variant={'solid'}
               colorScheme={'facebook'}
-              onClick={() => handleOpenModalClick(true)}
+              onClick={handleOpenMasterModalClick}
             />
           </div>
         </div>
@@ -73,11 +100,14 @@ export const MainPage = () => {
             </h3>
             <Flex paddingBottom={'100px'}>
               <Input
+                value={urlInputVal}
                 variant="outline"
                 width={276}
                 height={47}
                 focusBorderColor="black"
                 type="text"
+                id="urlInput"
+                onChange={(e) => setUrlInputVal(e.target.value)}
               />
               <ButtonComponent
                 variant="solid"
@@ -85,7 +115,7 @@ export const MainPage = () => {
                 height={47}
                 textContent="Connect"
                 colorScheme="facebook"
-                onClick={() => handleOpenModalClick(false)}
+                onClick={handleOpenMemberModalClick}
               />
             </Flex>
           </div>
@@ -109,6 +139,10 @@ export const MainPage = () => {
                 variant="solid"
                 colorScheme="facebook"
                 type={'submit'}
+                onClick={() => {
+                  setModalActive(false);
+                  document.body.style.overflowY = 'visible';
+                }}
               />
               <ButtonComponent
                 width={189}
