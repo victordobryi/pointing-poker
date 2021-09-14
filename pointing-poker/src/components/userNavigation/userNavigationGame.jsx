@@ -13,6 +13,9 @@ const master = {
 };
 
 export const UserNavGame = () => {
+  const handleStopClick = () => {
+    window.location.assign("/game-result");
+  };
   return (
     <>
       <Flex justifyContent={"center"} w="80%">
@@ -34,7 +37,11 @@ export const UserNavGame = () => {
           <OneMember member={master} />
         </Box>
         <Spacer />
-        <Button variant={"outline"} colorScheme={"facebook"}>
+        <Button
+          variant={"outline"}
+          colorScheme={"facebook"}
+          onClick={() => handleStopClick()}
+        >
           Stop game
         </Button>
       </Flex>
