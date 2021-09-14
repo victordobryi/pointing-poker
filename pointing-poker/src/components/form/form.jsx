@@ -65,10 +65,10 @@ export const FormComponent = ({ children }) => {
         if (error) {
           console.log(error)
         } else console.log(`${values.fullName} Welcome to ${room} room`);
-      })
+      });
       socket.on("users", users => {
         setUsers(users);
-      })
+      });
 
       setTimeout(() => {
         history.push('/lobby');

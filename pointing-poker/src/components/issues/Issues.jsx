@@ -1,46 +1,41 @@
-import React, {useState} from "react";
-import { Box, Heading, Flex } from "@chakra-ui/react";
-import IssueItem from "./IssueItem";
-import AddIssue from "./AddIssues";
-import NoIssuesCard from "./NoIssuesCard";
-import {ReviseIssueModal} from '../modals/ReviseIssueModal';
-import {Modal} from '../modal/modal';
+import React, { useState, useContext, useEffect } from 'react';
+import { Box, Heading, Flex } from '@chakra-ui/react';
+import IssueItem from './IssueItem';
+import AddIssue from './AddIssues';
+import NoIssuesCard from './NoIssuesCard';
+import { ReviseIssueModal } from '../modals/ReviseIssueModal';
+import { Modal } from '../modal/modal';
+import { MainContext } from '../../contexts/mainContext';
+import { IssuesContext } from '../../contexts/issuesContext';
+import { SocketContext } from '../../contexts/socketContext';
+
+const EMPTYISSUE = {
+  id: '',
+  name: '',
+  link: '',
+  priority: ''
+}
 
 const Issues = () => {
-  const EMPTYISSUE = {
-        id: '',
-        name: '',
-        link: '',
-        priority: ''
-      }
   const [modalActive, setModalActive] = useState(false);
   const [currentIssue, setCurrentIssue] = useState(EMPTYISSUE);
   const [isNewIssue, setIsNewIssue] = useState(false);
-  const [issues, setIssues] = useState(
-    [
-      {
-        id: 1,
-        name: 'issue 12',
-        link: ' http://jira.my-company.com/issue-12',
-        priority: 'middle',
-      },
-      {
-        id: 2,
-        name: 'issue 13',
-        link: ' http://jira.my-company.com/issue-13',
-        priority: 'low'
-      },
-      {
-        id: 3,
-        name: 'issue 14',
-        link: ' http://jira.my-company.com/issue-14',
-        priority: 'height'
-      },
-    ]
-  )
+  const { room } = useContext(MainContext);
+  const { issues, setIssues } = useContext(IssuesContext);
+  const socket = useContext(SocketContext);
+
+  useEffect(() => {
+    socket.on("issues", issues => {
+      setIssues(issues);
+      console.log(issues);
+    });
+  })
 
   const handleDelClick = (id) => {
-    setIssues(issues.filter((issue) => issue.id !== id));
+    const deletedId = id;
+    socket.emit('deleteIssue', deletedId, (deletedId) => {
+      console.log(`Issue with id ${deletedId} deleted`);
+    });
   }
 
   const handleReviseClick = (issue) => {
@@ -60,17 +55,22 @@ const Issues = () => {
   }
 
   const handleRevise = () => {
-    const currArr = [];
-    issues.forEach((issue) => {
-      if (issue.id !== currentIssue.id) {
-        currArr.push(issue);
-      } else currArr.push(currentIssue);
-    });
     if (isNewIssue) {
-      currArr.push(currentIssue);
+      socket.emit('addIssue', { currentIssue, room }, error => {
+        if (error) {
+          console.log(error);
+        } else console.log(`${currentIssue.name} is added to ${room} room`);
+      });
+
       setIsNewIssue(false);
+
+    } else {
+      socket.emit('updateIssues', { currentIssue, room }, error => {
+        if (error) {
+          console.log(error);
+        } else console.log(`Issues succesfully update`);
+      });
     }
-    setIssues(currArr);
   }
 
   return (
@@ -79,23 +79,23 @@ const Issues = () => {
         Issues:
       </Heading>
       <Flex maxW="1200px" wrap="wrap">
-        { issues.length
-          ? issues.map((item) => 
-              <IssueItem 
-                key={item.id} 
-                issue={item} 
-                deleteClick={handleDelClick}
-                revise={handleReviseClick}
-              />)
-          : <NoIssuesCard/>
+        {issues.length
+          ? issues.map((item) =>
+            <IssueItem
+              key={item.id}
+              issue={item}
+              deleteClick={handleDelClick}
+              revise={handleReviseClick}
+            />)
+          : <NoIssuesCard />
         }
-        <AddIssue addClick={handleAddIssueClick}/>
+        <AddIssue addClick={handleAddIssueClick} />
       </Flex>
       <Modal active={modalActive} setActive={setModalActive}>
-        <ReviseIssueModal 
-          issue={currentIssue} 
-          setCurrentIssue={setCurrentIssue} 
-          onClose={handleCloseClick} 
+        <ReviseIssueModal
+          issue={currentIssue}
+          setCurrentIssue={setCurrentIssue}
+          onClose={handleCloseClick}
           onRevise={handleRevise}
         />
       </Modal>

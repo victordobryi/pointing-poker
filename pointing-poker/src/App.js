@@ -7,6 +7,7 @@ import LobbyMasterPage from './pages/Lobby-master';
 import { MainProvider } from './contexts/mainContext';
 import { UsersProvider } from './contexts/usersContext';
 import { SocketProvider } from './contexts/socketContext';
+import { IssuesProvider } from './contexts/issuesContext';
 
 export const App = () => {
   return (
@@ -14,15 +15,17 @@ export const App = () => {
       <ChakraProvider>
         <MainProvider>
           <UsersProvider>
-            <SocketProvider>
-              <Router>
-                <Switch>
-                  <Route exact path='/' component={MainPage} />
-                  <Route path='/lobby' component={LobbyMasterPage} />
-                  {/* <Route component={DefaultPage} /> */}
-                </Switch>
-              </Router>
-            </SocketProvider>
+            <IssuesProvider>
+              <SocketProvider>
+                <Router>
+                  <Switch>
+                    <Route exact path='/' component={MainPage} />
+                    <Route path='/lobby' component={LobbyMasterPage} />
+                    {/* <Route component={DefaultPage} /> */}
+                  </Switch>
+                </Router>
+              </SocketProvider>
+            </IssuesProvider>
           </UsersProvider>
         </MainProvider>
       </ChakraProvider>

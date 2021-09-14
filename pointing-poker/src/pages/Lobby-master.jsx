@@ -3,17 +3,17 @@ import { UserNav } from '../components/useNavigation/userNavigation';
 import Members from '../components/members/Members';
 import Issues from '../components/issues/Issues';
 import SettingsForm from '../components/settings-form/SettingsForm';
-import {MainLayout} from '../components/mainLayout/mainLayout';
+import { MainLayout } from '../components/mainLayout/mainLayout';
 
 const LobbyMasterPage = () => {
-  return(
+  return (
     <MainLayout>
-      <UserNav/>
-      <Members/>
-      <Issues/>
-      <SettingsForm/>
+      <UserNav />
+      <Members />
+      <Issues />
+      <SettingsForm />
     </MainLayout>
-  )
-}
+  );
+};
 
 export default LobbyMasterPage;

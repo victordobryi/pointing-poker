@@ -42,8 +42,8 @@ export const MainPage = () => {
 
   const handleOpenMasterModalClick = () => {
     handleIsMasterClick(true);
-    const currentRoomId = new Date().valueOf();
-    // const currentRoomId = 10;
+    // const currentRoomId = new Date().valueOf();
+    const currentRoomId = 10;
     setRooms((rooms) => [...rooms, currentRoomId]);
     setRoom(currentRoomId)
     setName(`${new Date().valueOf()}`);
