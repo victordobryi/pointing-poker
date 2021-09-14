@@ -12,7 +12,7 @@ const master = {
   image: Avatar3,
 };
 
-export const MasterPanel = () => {
+export const UserNavGame = () => {
   return (
     <>
       <Flex justifyContent={"center"} w="80%">

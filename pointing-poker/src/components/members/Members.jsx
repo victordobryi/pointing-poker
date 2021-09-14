@@ -25,7 +25,7 @@ export let arrayMembers = [
   },
 ];
 
-export const Members = () => {
+const Members = () => {
   const [modalActive, setModalActive] = useState(false);
   const [deletedMember, setDeletedMember] = useState("");
 
@@ -79,3 +79,4 @@ export const Members = () => {
     </>
   );
 };
+export default Members;

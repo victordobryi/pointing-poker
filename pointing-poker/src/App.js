@@ -1,43 +1,38 @@
-import { VStack, Flex, Box } from "@chakra-ui/react";
-import Issues from "./components/issues/Issues";
-import "./App.css";
-import { MasterPanel } from "./components/userNavigation/MasterPanel";
-import { Header } from "./components/Header";
-import { Footer } from "./components/Footer";
-import { RoundControl } from "./components/roundControl/RoundControl";
-import { ScoreTable } from "./components/score/ScoreTable";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-function App() {
+import { MainPage } from "./pages/main-page/main-page";
+import GameMasterPage from "./pages/Game-master";
+import LobbyMasterPage from "./pages/Lobby-master";
+import LobbyMembersPage from "./pages/Lobby-members";
+
+export const App = () => {
   return (
-    <Box h="100vh">
-      <Header />
-      <Flex h="86%" direction="row" justify="center" align="flex-start">
-        <VStack
-          w="70%"
-          borderColor="grey.100"
-          borderWidth={2}
-          borderBottom="none"
-          borderTop="none"
-          borderLeft="none"
-        >
-          <MasterPanel />
-          <Flex
-            w="90%"
-            direction="row"
-            justify="space-between"
-            align="flex-start"
-          >
-            <Issues />
-            <RoundControl mt={85} />
-          </Flex>
-        </VStack>
-        <Flex w="40%" direction="column" justify="flex-start" align="center">
-          <ScoreTable />
-        </Flex>
-      </Flex>
-      <Footer />
-    </Box>
+    <Router>
+      <Route
+        render={({ location }) => (
+          <>
+            <Switch location={location}>
+              <Route exact path="/">
+                <MainPage />
+              </Route>
+              <Route path="/game-master">
+                <GameMasterPage />
+              </Route>
+              <Route path="/lobby-master">
+                <LobbyMasterPage />
+              </Route>
+              <Route path="/lobby-members">
+                <LobbyMembersPage />
+              </Route>
+              <Route path="/*">
+                <div>Page not found</div>
+              </Route>
+            </Switch>
+          </>
+        )}
+      />
+    </Router>
   );
-}
+};
 
 export default App;
