@@ -32,6 +32,10 @@ export const MainPage = () => {
       : dispatch({ type: 'SET_IS_OBSERVER', payload: true });
   };
 
+  socket.on("users", users => {
+    setUsers(users);
+  });
+
   const handleIsMasterClick = (param) => {
     dispatch({ type: 'SET_IS_MASTER', payload: param });
   };
@@ -39,6 +43,7 @@ export const MainPage = () => {
   const handleOpenMasterModalClick = () => {
     handleIsMasterClick(true);
     const currentRoomId = new Date().valueOf();
+    // const currentRoomId = 10;
     setRooms((rooms) => [...rooms, currentRoomId]);
     setRoom(currentRoomId)
     setName(`${new Date().valueOf()}`);
@@ -51,7 +56,6 @@ export const MainPage = () => {
       setUrlInputVal('Input rooms ID');
       return;
     } else {
-
       if (!rooms.includes(+urlInputVal)) {
         setUrlInputVal('Input CORRECT rooms ID');
         return;

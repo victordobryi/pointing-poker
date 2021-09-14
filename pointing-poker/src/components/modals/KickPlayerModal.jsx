@@ -1,22 +1,26 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Text,
   Button,
   Flex,
   Box,
 } from "@chakra-ui/react";
+import { SocketContext } from '../../contexts/socketContext';
 import './KickPlayerModal.scss';
 
-export const KickPlayerModal = ({memberId, memberName, onClose, onDelete}) => {
+export const KickPlayerModal = ({ memberId, memberName, onClose }) => {
+  const socket = useContext(SocketContext);
 
   const handleDelelteClick = () => {
-    onDelete(memberId);
+    socket.emit('deleteUser', memberId => {
+      console.log(`${memberId} deleted from room`);
+    });
     onClose(false);
   }
 
   return (
     <>
-      <Text 
+      <Text
         fontSize="30px"
         fontWeight="800"
         align="center"
@@ -29,22 +33,22 @@ export const KickPlayerModal = ({memberId, memberName, onClose, onDelete}) => {
         </Text>
       </Box>
       <Flex justify="space-around">
-        <Button 
+        <Button
           colorScheme={'facebook'}
           height={47}
           width={189}
-          variant="solid" 
+          variant="solid"
           mr={3}
           onClick={handleDelelteClick}
         >
           Yes
         </Button>
-        <Button 
+        <Button
           colorScheme={'facebook'}
           height={47}
           width={189}
-          variant="outline" 
-          onClick={()=>onClose(false)}>
+          variant="outline"
+          onClick={() => onClose(false)}>
           No
         </Button>
       </Flex>

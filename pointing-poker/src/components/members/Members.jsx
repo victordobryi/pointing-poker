@@ -6,41 +6,22 @@ import { Modal } from '../modal/modal';
 import { KickPlayerModal } from '../modals/KickPlayerModal';
 import { UsersContext } from '../../contexts/usersContext';
 
-// let arrayMembers = [
-//   {
-//     id: '1',
-//     name: "David Blane",
-//     position: "senior software engineer",
-//     image: Avatar1,
-//   },
-//   {
-//     id: '2',
-//     name: "Mick Blane",
-//     position: "middle software engineer",
-//     image: Avatar2,
-//   },
-// ];
-
 const Members = () => {
   const [modalActive, setModalActive] = useState(false);
   const [deletedMember, setDeletedMember] = useState('');
-
   const { users } = useContext(UsersContext);
-  let arrayMembers = users.filter((user) => user.isMaster === false)
+
+  let arrayMembers = users.filter((user) => user.isMaster === false);
 
   const handleDelClick = (id) => {
     setDeletedMember(id);
     setModalActive(true);
   }
 
-  const handleDeleteMember = (id) => {
-    arrayMembers = arrayMembers.filter((member) => member.id !== id);
-  }
-
   const getMemberName = () => {
     let memberName = '';
     arrayMembers.forEach((member) => {
-      if (member.id === deletedMember) {
+      if (member.idd === deletedMember) {
         memberName = member.fullName;
       }
     })
@@ -56,7 +37,7 @@ const Members = () => {
         <Flex maxW="1200px" wrap="wrap">
           {arrayMembers.length
             ? arrayMembers.map((member) =>
-              <OneMember key={member.id} member={member} deleteClick={handleDelClick} />)
+              <OneMember key={member.idd} member={member} deleteClick={handleDelClick} />)
             : <NoMembersCard />
           }
         </Flex>
@@ -65,7 +46,6 @@ const Members = () => {
         <KickPlayerModal
           memberId={deletedMember}
           memberName={getMemberName()}
-          onDelete={handleDeleteMember}
           onClose={setModalActive}
         />
       </Modal>

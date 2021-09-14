@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
-const MainContext = React.createContext()
+const MainContext = React.createContext();
 
 const MainProvider = ({ children }) => {
     const [name, setName] = useState('');
@@ -11,7 +11,7 @@ const MainProvider = ({ children }) => {
         <MainContext.Provider value={{ name, rooms, room, setName, setRooms, setRoom }}>
             {children}
         </MainContext.Provider>
-    )
-}
+    );
+};
 
-export { MainContext, MainProvider } 
+export { MainContext, MainProvider };

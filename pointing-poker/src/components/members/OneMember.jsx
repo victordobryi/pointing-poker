@@ -3,8 +3,8 @@ import { Box, Flex, Spacer, Image, Avatar } from "@chakra-ui/react";
 import { NotAllowedIcon } from '@chakra-ui/icons'
 
 const OneMember = ({ member, deleteClick }) => {
-  const { fullName, position, id, firstName, lastName, imageSrc } = member;
-  // const image = member.image ? member.image : '';
+  const { fullName, jobPosition, idd, firstName, lastName, imageSrc } = member;
+  console.log(jobPosition)
   return (
     <Box
       w={300}
@@ -30,7 +30,7 @@ const OneMember = ({ member, deleteClick }) => {
             {fullName}
           </Box>
           <Box fontSize={10} fontWeight="bold" h="20px">
-            {position}
+            {jobPosition}
           </Box>
         </Box>
         <Spacer />
@@ -41,11 +41,10 @@ const OneMember = ({ member, deleteClick }) => {
               w="30px"
               h="30px"
               color="red"
-              onClick={() => deleteClick(id)}
+              onClick={() => deleteClick(idd)}
               _hover={{ cursor: "pointer" }}
             />
         }
-
       </Flex>
     </Box>
   );
