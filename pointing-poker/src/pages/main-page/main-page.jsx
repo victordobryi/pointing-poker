@@ -1,15 +1,15 @@
-import { MainLayout } from '../../components/mainLayout/mainLayout';
-import mainLogo from '../../assets/icons/mainLogo.png';
-import { Img } from '@chakra-ui/image';
-import styles from './main-page.module.scss';
-import { ButtonComponent } from '../../components/button/button';
-import { Modal } from '../../components/modal/modal';
-import { useState } from 'react';
-import { FormComponent } from '../../components/form/form';
-import { Switch } from '@chakra-ui/switch';
-import { useDispatch, useSelector } from 'react-redux';
-import { Input } from '@chakra-ui/input';
-import { Flex } from '@chakra-ui/layout';
+import { MainLayout } from "../../components/mainLayout/mainLayout";
+import mainLogo from "../../assets/icons/mainLogo.png";
+import { Img } from "@chakra-ui/image";
+import styles from "./main-page.module.scss";
+import { ButtonComponent } from "../../components/button/button";
+import { Modal } from "../../components/modal/modal";
+import { useState } from "react";
+import { FormComponent } from "../../components/form/form";
+import { Switch } from "@chakra-ui/switch";
+import { useDispatch, useSelector } from "react-redux";
+import { Input } from "@chakra-ui/input";
+import { Flex } from "@chakra-ui/layout";
 
 export const MainPage = () => {
   const [modalActive, setModalActive] = useState(false);
@@ -21,18 +21,22 @@ export const MainPage = () => {
   const handleIsObserverSwitch = () => {
     isObserver ? setIsObserver(false) : setIsObserver(true);
     isObserver
-      ? dispatch({ type: 'SET_IS_OBSERVER', payload: false })
-      : dispatch({ type: 'SET_IS_OBSERVER', payload: true });
+      ? dispatch({ type: "SET_IS_OBSERVER", payload: false })
+      : dispatch({ type: "SET_IS_OBSERVER", payload: true });
   };
 
   const handleIsMasterClick = (param) => {
-    dispatch({ type: 'SET_IS_MASTER', payload: param });
+    dispatch({ type: "SET_IS_MASTER", payload: param });
   };
 
   const handleOpenModalClick = (param) => {
     setModalActive(true);
-    document.body.style.overflowY = 'hidden';
+    document.body.style.overflowY = "hidden";
     handleIsMasterClick(param);
+  };
+
+  const handleConfirmClick = () => {
+    window.location.assign("/lobby-master");
   };
 
   return (
@@ -53,10 +57,10 @@ export const MainPage = () => {
             <h3 className={styles.connect_subtitle}>Create session:</h3>
             <ButtonComponent
               width={241}
-              textContent={'Start new game'}
+              textContent={"Start new game"}
               height={47}
-              variant={'solid'}
-              colorScheme={'facebook'}
+              variant={"solid"}
+              colorScheme={"facebook"}
               onClick={() => handleOpenModalClick(true)}
             />
           </div>
@@ -65,13 +69,13 @@ export const MainPage = () => {
           <h2 className={styles.connect_title}>OR:</h2>
           <div
             className={styles.connect_flex}
-            style={{ flexDirection: 'column' }}
+            style={{ flexDirection: "column" }}
           >
             <h3 className={styles.connect_subtitle}>
-              Connect to lobby by{' '}
-              <span style={{ fontWeight: 'bold', color: '#66999b' }}>URL</span>:
+              Connect to lobby by{" "}
+              <span style={{ fontWeight: "bold", color: "#66999b" }}>URL</span>:
             </h3>
-            <Flex paddingBottom={'100px'}>
+            <Flex paddingBottom={"100px"}>
               <Input
                 variant="outline"
                 width={276}
@@ -104,21 +108,22 @@ export const MainPage = () => {
             <div className={styles.form__control}>
               <ButtonComponent
                 width={189}
-                height={'60px'}
-                textContent={'Confirm'}
+                height={"60px"}
+                textContent={"Confirm"}
                 variant="solid"
                 colorScheme="facebook"
-                type={'submit'}
+                type={"submit"}
+                onClick={() => handleConfirmClick()}
               />
               <ButtonComponent
                 width={189}
-                height={'60px'}
-                textContent={'Cancel'}
+                height={"60px"}
+                textContent={"Cancel"}
                 variant="outline"
                 colorScheme="facebook"
                 onClick={() => {
                   setModalActive(false);
-                  document.body.style.overflowY = 'visible';
+                  document.body.style.overflowY = "visible";
                 }}
               />
             </div>
