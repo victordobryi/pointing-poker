@@ -19,6 +19,7 @@ const issuesNumbers = [13, 19, 322, 533, 666, 245, 900, 400, 3232, 455656];
 export const UserNav = () => {
   const { users } = useContext(UsersContext);
   const master = users.filter((user) => user.isMaster === true)[0];
+  console.log('master', master)
 
   const handleCopy = () => {
     const copyText = document.getElementById("URL-Input");
@@ -50,7 +51,7 @@ export const UserNav = () => {
         <FormControl>
           <FormLabel>Link to lobby:</FormLabel>
           <Flex>
-            <Input w={276} h={47} value={master.room} id="URL-Input"></Input>
+            <Input w={276} h={47} value={master ? master.room : ''} id="URL-Input"></Input>
             <Button w={189} h={47} colorScheme={'facebook'} onClick={handleCopy}>
               Copy
             </Button>

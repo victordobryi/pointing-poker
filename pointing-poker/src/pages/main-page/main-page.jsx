@@ -9,7 +9,6 @@ import { FormComponent } from '../../components/form/form';
 import { SocketContext } from '../../contexts/socketContext';
 import { UsersContext } from '../../contexts/usersContext';
 import { MainContext } from '../../contexts/mainContext';
-
 import mainLogo from '../../assets/icons/mainLogo.png';
 import styles from './main-page.module.scss';
 
@@ -17,11 +16,9 @@ export const MainPage = () => {
   const [modalActive, setModalActive] = useState(false);
   const [urlInputVal, setUrlInputVal] = useState('');
   const [isObserver, setIsObserver] = useState(false);
-  const user = useSelector((state) => state.user);
   const socket = useContext(SocketContext);
-
   const { setUsers } = useContext(UsersContext);
-  const { name, setName, rooms, setRooms, room, setRoom } = useContext(MainContext);
+  const { setName, rooms, setRooms, setRoom } = useContext(MainContext);
   const USER_ID = new Date().valueOf();
   const dispatch = useDispatch();
 
@@ -36,17 +33,31 @@ export const MainPage = () => {
     setUsers(users);
   });
 
+  socket.on("rooms", rooms => {
+    setRooms(rooms);
+  });
+
   const handleIsMasterClick = (param) => {
     dispatch({ type: 'SET_IS_MASTER', payload: param });
   };
 
+  const handleInputChange = (e) => {
+    socket.emit('getRooms');
+    setUrlInputVal(e.target.value);
+  }
+
   const handleOpenMasterModalClick = () => {
     handleIsMasterClick(true);
-    // const currentRoomId = new Date().valueOf();
-    const currentRoomId = 10;
-    setRooms((rooms) => [...rooms, currentRoomId]);
-    setRoom(currentRoomId)
-    setName(`${new Date().valueOf()}`);
+    const currentRoom = new Date().valueOf();
+
+    socket.emit('addRoom', { currentRoom }, error => {
+      if (error) {
+        console.log(error);
+      } else console.log(`${currentRoom} room`);
+    });
+
+    setRoom(currentRoom);
+    setName(`${USER_ID}`);
     setModalActive(true);
   };
 
@@ -60,11 +71,13 @@ export const MainPage = () => {
         setUrlInputVal('Input CORRECT rooms ID');
         return;
       };
+
+      setRoom(+urlInputVal);
       setModalActive(true);
-      setName(`${new Date().valueOf()}`);
+      setName(`${USER_ID}`);
       setUrlInputVal('');
-    }
-  }
+    };
+  };
 
   return (
     <MainLayout>
@@ -111,7 +124,7 @@ export const MainPage = () => {
                 focusBorderColor="black"
                 type="text"
                 id="urlInput"
-                onChange={(e) => setUrlInputVal(e.target.value)}
+                onChange={handleInputChange}
               />
               <ButtonComponent
                 variant="solid"

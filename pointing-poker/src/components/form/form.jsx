@@ -68,10 +68,13 @@ export const FormComponent = ({ children }) => {
       });
       socket.on("users", users => {
         setUsers(users);
+        console.log(users);
       });
 
       setTimeout(() => {
-        history.push('/lobby');
+        user.isMaster
+          ? history.push('/lobby-master')
+          : history.push('/lobby-members');
       }, 0)
     }
   });

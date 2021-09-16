@@ -44,7 +44,7 @@ const Members = () => {
       </Box>
       <Modal active={modalActive} setActive={setModalActive}>
         <KickPlayerModal
-          memberId={deletedMember}
+          id={deletedMember}
           memberName={getMemberName()}
           onClose={setModalActive}
         />

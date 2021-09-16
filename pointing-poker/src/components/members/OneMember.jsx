@@ -4,7 +4,7 @@ import { NotAllowedIcon } from '@chakra-ui/icons'
 
 const OneMember = ({ member, deleteClick }) => {
   const { fullName, jobPosition, idd, firstName, lastName, imageSrc } = member;
-  console.log(jobPosition)
+
   return (
     <Box
       w={300}

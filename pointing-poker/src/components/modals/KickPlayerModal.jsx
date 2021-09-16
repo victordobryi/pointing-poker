@@ -8,15 +8,15 @@ import {
 import { SocketContext } from '../../contexts/socketContext';
 import './KickPlayerModal.scss';
 
-export const KickPlayerModal = ({ memberId, memberName, onClose }) => {
+export const KickPlayerModal = ({ id, memberName, onClose }) => {
   const socket = useContext(SocketContext);
 
-  const handleDelelteClick = () => {
-    socket.emit('deleteUser', memberId => {
-      console.log(`${memberId} deleted from room`);
+  const handleDelelteClick = (id) => {
+    socket.emit('deleteUser', id, () => {
+      console.log(`${id} deleted from room`);
     });
     onClose(false);
-  }
+  };
 
   return (
     <>
@@ -39,7 +39,7 @@ export const KickPlayerModal = ({ memberId, memberName, onClose }) => {
           width={189}
           variant="solid"
           mr={3}
-          onClick={handleDelelteClick}
+          onClick={() => handleDelelteClick(id)}
         >
           Yes
         </Button>
@@ -54,4 +54,4 @@ export const KickPlayerModal = ({ memberId, memberName, onClose }) => {
       </Flex>
     </>
   );
-}
+};
