@@ -1,5 +1,5 @@
 import React from 'react';
-import { UserNav } from '../components/useNavigation/userNavigation';
+import { UserNav } from '../components/userNavigation/userNavigation';
 import Members from '../components/members/Members';
 import Issues from '../components/issues/Issues';
 import SettingsForm from '../components/settings-form/SettingsForm';

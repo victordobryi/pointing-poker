@@ -21,6 +21,7 @@ const OneMember = ({ member, deleteClick }) => {
               ? firstName + ' ' + lastName
               : null
           }
+          bg="#60DABF"
           src={imageSrc}
           size={'lg'}
         />

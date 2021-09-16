@@ -12,16 +12,8 @@ import {
 } from '@chakra-ui/react';
 import draw from '../assets/icons/draw.png';
 import OneMember from '../components/members/OneMember';
-import Avatar3 from '../assets/icons/Avatar1.png';
 
 const issuesNumbers = [13, 19, 322, 533, 666, 245, 900, 400, 3232, 455656];
-
-// const master = {
-//   id: 'admin',
-//   name: 'Rick Giligan',
-//   position: 'lead softwear engeneer',
-//   image: Avatar3,
-// }
 
 const LobbyMembersPage = () => {
   const { users } = useContext(UsersContext);
@@ -39,16 +31,22 @@ const LobbyMembersPage = () => {
               ) : (
                 <span key={index}>{issue} </span>
               )
-            )})
-            <Image src={draw} alt="draw" boxSize="22px" display="inline-block" />
+            )}
+            )
+            <Image
+              src={draw}
+              alt="draw"
+              boxSize="22px"
+              display="inline-block"
+            />
           </Heading>
         </Flex>
-        <Box >
+        <Box>
           <Text fontSize="16px">Scram master:</Text>
           <OneMember member={master} />
         </Box>
-        <Flex justifyContent={'end'} maxW="1000px">
-          <Button variant={'outline'} colorScheme={'facebook'} w="160px">
+        <Flex justifyContent={"end"} maxW="1000px">
+          <Button variant={"outline"} colorScheme={"facebook"} w="160px">
             Exit
           </Button>
         </Flex>
@@ -57,7 +55,7 @@ const LobbyMembersPage = () => {
         <Members />
       </Box>
     </MainLayout>
-  )
-}
+  );
+};
 
 export default LobbyMembersPage;

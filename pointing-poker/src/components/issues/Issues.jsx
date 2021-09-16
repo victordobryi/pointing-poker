@@ -18,7 +18,7 @@ const EMPTYISSUE = {
 
 const Issues = () => {
   const [modalActive, setModalActive] = useState(false);
-  const [currentIssue, setCurrentIssue] = useState(EMPTYISSUE);
+  const [currentIssue, setCurrentIssue] = useState("");
   const [isNewIssue, setIsNewIssue] = useState(false);
   const { room } = useContext(MainContext);
   const { issues, setIssues } = useContext(IssuesContext);
@@ -41,18 +41,18 @@ const Issues = () => {
   const handleReviseClick = (issue) => {
     setModalActive(true);
     setCurrentIssue(issue);
-  }
+  };
 
   const handleAddIssueClick = () => {
-    setCurrentIssue(EMPTYISSUE);
+    setCurrentIssue("");
     setIsNewIssue(true);
     setModalActive(true);
-  }
+  };
 
   const handleCloseClick = () => {
-    setCurrentIssue(EMPTYISSUE);
+    setCurrentIssue("");
     setModalActive(false);
-  }
+  };
 
   const handleRevise = () => {
     if (isNewIssue) {
@@ -70,8 +70,8 @@ const Issues = () => {
           console.log(error);
         } else console.log(`Issues succesfully update`);
       });
-    }
-  }
+    };
+  };
 
   return (
     <Box maxW="1200px" mt="20px">
@@ -79,18 +79,20 @@ const Issues = () => {
         Issues:
       </Heading>
       <Flex maxW="1200px" wrap="wrap">
-        {issues.length
-          ? issues.map((item) =>
+        {issues.length ? (
+          issues.map((item) => (
             <IssueItem
               key={item.id}
               issue={item}
               deleteClick={handleDelClick}
               revise={handleReviseClick}
-            />)
-          : <NoIssuesCard />
-        }
+            />
+          ))
+        ) : (
+          <NoIssuesCard />
+        )}
         <AddIssue addClick={handleAddIssueClick} />
-      </Flex>
+      </Flex >
       <Modal active={modalActive} setActive={setModalActive}>
         <ReviseIssueModal
           issue={currentIssue}
@@ -99,7 +101,7 @@ const Issues = () => {
           onRevise={handleRevise}
         />
       </Modal>
-    </Box>
+    </Box >
   );
 };
 

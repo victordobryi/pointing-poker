@@ -9,6 +9,8 @@ import { MainProvider } from './contexts/mainContext';
 import { UsersProvider } from './contexts/usersContext';
 import { SocketProvider } from './contexts/socketContext';
 import { IssuesProvider } from './contexts/issuesContext';
+import GameMasterPage from "./pages/Game-master";
+import { ResultPage } from "./pages/result-page/result-page";
 
 export const App = () => {
   return (
@@ -18,13 +20,33 @@ export const App = () => {
           <UsersProvider>
             <IssuesProvider>
               <SocketProvider>
-                <Router>
-                  <Switch>
-                    <Route exact path='/' component={MainPage} />
-                    <Route path='/lobby-master' component={LobbyMasterPage} />
-                    <Route path='/lobby-members' component={LobbyMembersPage} />
-                    {/* <Route component={DefaultPage} /> */}
-                  </Switch>
+               <Router>
+                  <Route
+                    render={({ location }) => (
+                      <>
+                        <Switch location={location}>
+                          <Route exact path="/">
+                            <MainPage />
+                          </Route>
+                          <Route path="/game-master">
+                            <GameMasterPage />
+                          </Route>
+                          <Route path="/game-result">
+                            <ResultPage />
+                          </Route>
+                          <Route path="/lobby-master">
+                            <LobbyMasterPage />
+                          </Route>
+                          <Route path="/lobby-members">
+                            <LobbyMembersPage />
+                          </Route>
+                          <Route path="/*">
+                            <div>Page not found</div>
+                          </Route>
+                        </Switch>
+                      </>
+                    )}
+                  />
                 </Router>
               </SocketProvider>
             </IssuesProvider>
@@ -34,3 +56,5 @@ export const App = () => {
     </Provider>
   );
 };
+
+export default App;

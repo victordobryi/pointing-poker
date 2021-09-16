@@ -19,14 +19,14 @@ const Members = () => {
   }
 
   const getMemberName = () => {
-    let memberName = '';
+    let memberName = "";
     arrayMembers.forEach((member) => {
       if (member.idd === deletedMember) {
         memberName = member.fullName;
       }
-    })
+    });
     return memberName;
-  }
+  };
 
   return (
     <>
@@ -35,11 +35,17 @@ const Members = () => {
           Members:
         </Heading>
         <Flex maxW="1200px" wrap="wrap">
-          {arrayMembers.length
-            ? arrayMembers.map((member) =>
-              <OneMember key={member.idd} member={member} deleteClick={handleDelClick} />)
-            : <NoMembersCard />
-          }
+          {arrayMembers.length ? (
+            arrayMembers.map((member) => (
+              <OneMember
+                key={member.idd}
+                member={member}
+                deleteClick={handleDelClick}
+              />
+            ))
+          ) : (
+            <NoMembersCard />
+          )}
         </Flex>
       </Box>
       <Modal active={modalActive} setActive={setModalActive}>
@@ -50,7 +56,6 @@ const Members = () => {
         />
       </Modal>
     </>
-  )
-}
-
+  );
+};
 export default Members;
