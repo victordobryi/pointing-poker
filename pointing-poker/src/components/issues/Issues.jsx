@@ -27,7 +27,6 @@ const Issues = () => {
   useEffect(() => {
     socket.on("issues", issues => {
       setIssues(issues);
-      console.log(issues);
     });
   })
 
@@ -44,13 +43,13 @@ const Issues = () => {
   };
 
   const handleAddIssueClick = () => {
-    setCurrentIssue("");
+    setCurrentIssue(EMPTYISSUE);
     setIsNewIssue(true);
     setModalActive(true);
   };
 
   const handleCloseClick = () => {
-    setCurrentIssue("");
+    setCurrentIssue(EMPTYISSUE);
     setModalActive(false);
   };
 

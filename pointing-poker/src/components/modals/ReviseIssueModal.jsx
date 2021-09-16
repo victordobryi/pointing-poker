@@ -20,7 +20,7 @@ export const ReviseIssueModal = ({ issue, onClose, setCurrentIssue, onRevise }) 
 
   if (issue.id === '') {
     setCurrentIssue(issue => ({ ...issue, id: `${new Date().valueOf()}` }));
-    console.log('IDDD', `${new Date().valueOf()}`)
+    console.log(issue)
   }
 
   const handleTypesSelect = (e) => {

@@ -73,8 +73,8 @@ export const FormComponent = ({ children }) => {
 
       setTimeout(() => {
         user.isMaster
-          ? window.location.assign('/lobby-master')
-          : window.location.assign('/lobby-members');
+          ? history.push('/lobby-master')
+          : history.push('/lobby-members');
       }, 0)
     }
   });
