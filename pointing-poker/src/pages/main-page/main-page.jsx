@@ -1,21 +1,25 @@
-import { MainLayout } from "../../components/mainLayout/mainLayout";
-import mainLogo from "../../assets/icons/mainLogo.png";
-import { Img } from "@chakra-ui/image";
-import styles from "./main-page.module.scss";
-import { ButtonComponent } from "../../components/button/button";
-import { Modal } from "../../components/modal/modal";
-import { useState } from "react";
-import { FormComponent } from "../../components/form/form";
-import { Switch } from "@chakra-ui/switch";
-import { useDispatch, useSelector } from "react-redux";
-import { Input } from "@chakra-ui/input";
-import { Flex } from "@chakra-ui/layout";
+import React, { useContext, useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Switch, Input, Flex, Img } from '@chakra-ui/react';
+
+import { MainLayout } from '../../components/mainLayout/mainLayout';
+import { ButtonComponent } from '../../components/button/button';
+import { Modal } from '../../components/modal/modal';
+import { FormComponent } from '../../components/form/form';
+import { SocketContext } from '../../contexts/socketContext';
+import { UsersContext } from '../../contexts/usersContext';
+import { MainContext } from '../../contexts/mainContext';
+import mainLogo from '../../assets/icons/mainLogo.png';
+import styles from './main-page.module.scss';
 
 export const MainPage = () => {
   const [modalActive, setModalActive] = useState(false);
+  const [urlInputVal, setUrlInputVal] = useState('');
   const [isObserver, setIsObserver] = useState(false);
-  const user = useSelector((state) => state.user);
-
+  const socket = useContext(SocketContext);
+  const { setUsers } = useContext(UsersContext);
+  const { setName, rooms, setRooms, setRoom } = useContext(MainContext);
+  const USER_ID = new Date().valueOf();
   const dispatch = useDispatch();
 
   const handleIsObserverSwitch = () => {
@@ -25,14 +29,54 @@ export const MainPage = () => {
       : dispatch({ type: "SET_IS_OBSERVER", payload: true });
   };
 
+  socket.on("users", users => {
+    setUsers(users);
+  });
+
+  socket.on("rooms", rooms => {
+    setRooms(rooms);
+  });
+
   const handleIsMasterClick = (param) => {
     dispatch({ type: "SET_IS_MASTER", payload: param });
   };
 
-  const handleOpenModalClick = (param) => {
+  const handleInputChange = (e) => {
+    socket.emit('getRooms');
+    setUrlInputVal(e.target.value);
+  }
+
+  const handleOpenMasterModalClick = () => {
+    handleIsMasterClick(true);
+    const currentRoom = new Date().valueOf();
+
+    socket.emit('addRoom', { currentRoom }, error => {
+      if (error) {
+        console.log(error);
+      } else console.log(`${currentRoom} room`);
+    });
+
+    setRoom(currentRoom);
+    setName(`${USER_ID}`);
     setModalActive(true);
-    document.body.style.overflowY = "hidden";
-    handleIsMasterClick(param);
+  };
+
+  const handleOpenMemberModalClick = () => {
+    handleIsMasterClick(false);
+    if (urlInputVal === '') {
+      setUrlInputVal('Input rooms ID');
+      return;
+    } else {
+      if (!rooms.includes(+urlInputVal)) {
+        setUrlInputVal('Input CORRECT rooms ID');
+        return;
+      };
+
+      setRoom(+urlInputVal);
+      setModalActive(true);
+      setName(`${USER_ID}`);
+      setUrlInputVal('');
+    };
   };
 
   const handleConfirmClick = () => {
@@ -59,9 +103,9 @@ export const MainPage = () => {
               width={241}
               textContent={"Start new game"}
               height={47}
-              variant={"solid"}
-              colorScheme={"facebook"}
-              onClick={() => handleOpenModalClick(true)}
+              variant={'solid'}
+              colorScheme={'facebook'}
+              onClick={handleOpenMasterModalClick}
             />
           </div>
         </div>
@@ -77,11 +121,14 @@ export const MainPage = () => {
             </h3>
             <Flex paddingBottom={"100px"}>
               <Input
+                value={urlInputVal}
                 variant="outline"
                 width={276}
                 height={47}
                 focusBorderColor="black"
                 type="text"
+                id="urlInput"
+                onChange={handleInputChange}
               />
               <ButtonComponent
                 variant="solid"
@@ -89,7 +136,7 @@ export const MainPage = () => {
                 height={47}
                 textContent="Connect"
                 colorScheme="facebook"
-                onClick={() => handleOpenModalClick(false)}
+                onClick={handleOpenMemberModalClick}
               />
             </Flex>
           </div>
@@ -112,8 +159,8 @@ export const MainPage = () => {
                 textContent={"Confirm"}
                 variant="solid"
                 colorScheme="facebook"
-                type={"submit"}
-                onClick={() => handleConfirmClick()}
+                type={'submit'}
+                onClick={() => setModalActive(false)}
               />
               <ButtonComponent
                 width={189}
