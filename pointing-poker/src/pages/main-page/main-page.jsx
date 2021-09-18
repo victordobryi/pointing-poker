@@ -25,32 +25,32 @@ export const MainPage = () => {
   const handleIsObserverSwitch = () => {
     isObserver ? setIsObserver(false) : setIsObserver(true);
     isObserver
-      ? dispatch({ type: "SET_IS_OBSERVER", payload: false })
-      : dispatch({ type: "SET_IS_OBSERVER", payload: true });
+      ? dispatch({ type: 'SET_IS_OBSERVER', payload: false })
+      : dispatch({ type: 'SET_IS_OBSERVER', payload: true });
   };
 
-  socket.on("users", users => {
+  socket.on('users', (users) => {
     setUsers(users);
   });
 
-  socket.on("rooms", rooms => {
+  socket.on('rooms', (rooms) => {
     setRooms(rooms);
   });
 
   const handleIsMasterClick = (param) => {
-    dispatch({ type: "SET_IS_MASTER", payload: param });
+    dispatch({ type: 'SET_IS_MASTER', payload: param });
   };
 
   const handleInputChange = (e) => {
     socket.emit('getRooms');
     setUrlInputVal(e.target.value);
-  }
+  };
 
   const handleOpenMasterModalClick = () => {
     handleIsMasterClick(true);
     const currentRoom = new Date().valueOf();
 
-    socket.emit('addRoom', { currentRoom }, error => {
+    socket.emit('addRoom', { currentRoom }, (error) => {
       if (error) {
         console.log(error);
       } else console.log(`${currentRoom} room`);
@@ -70,17 +70,17 @@ export const MainPage = () => {
       if (!rooms.includes(+urlInputVal)) {
         setUrlInputVal('Input CORRECT rooms ID');
         return;
-      };
+      }
 
       setRoom(+urlInputVal);
       setModalActive(true);
       setName(`${USER_ID}`);
       setUrlInputVal('');
-    };
+    }
   };
 
   const handleConfirmClick = () => {
-    window.location.assign("/lobby-master");
+    window.location.assign('/lobby-master');
   };
 
   return (
@@ -101,7 +101,7 @@ export const MainPage = () => {
             <h3 className={styles.connect_subtitle}>Create session:</h3>
             <ButtonComponent
               width={241}
-              textContent={"Start new game"}
+              textContent={'Start new game'}
               height={47}
               variant={'solid'}
               colorScheme={'facebook'}
@@ -113,13 +113,13 @@ export const MainPage = () => {
           <h2 className={styles.connect_title}>OR:</h2>
           <div
             className={styles.connect_flex}
-            style={{ flexDirection: "column" }}
+            style={{ flexDirection: 'column' }}
           >
             <h3 className={styles.connect_subtitle}>
-              Connect to lobby by{" "}
-              <span style={{ fontWeight: "bold", color: "#66999b" }}>URL</span>:
+              Connect to lobby by{' '}
+              <span style={{ fontWeight: 'bold', color: '#66999b' }}>URL</span>:
             </h3>
-            <Flex paddingBottom={"100px"}>
+            <Flex paddingBottom={'100px'}>
               <Input
                 value={urlInputVal}
                 variant="outline"
@@ -155,8 +155,8 @@ export const MainPage = () => {
             <div className={styles.form__control}>
               <ButtonComponent
                 width={189}
-                height={"60px"}
-                textContent={"Confirm"}
+                height={'60px'}
+                textContent={'Confirm'}
                 variant="solid"
                 colorScheme="facebook"
                 type={'submit'}
@@ -164,13 +164,13 @@ export const MainPage = () => {
               />
               <ButtonComponent
                 width={189}
-                height={"60px"}
-                textContent={"Cancel"}
+                height={'60px'}
+                textContent={'Cancel'}
                 variant="outline"
                 colorScheme="facebook"
                 onClick={() => {
                   setModalActive(false);
-                  document.body.style.overflowY = "visible";
+                  document.body.style.overflowY = 'visible';
                 }}
               />
             </div>

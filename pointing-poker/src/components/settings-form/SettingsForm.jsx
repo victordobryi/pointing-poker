@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from 'react';
 import {
   Box,
   Heading,
@@ -7,38 +7,45 @@ import {
   Switch,
   Flex,
   Spacer,
-  Select,
-} from "@chakra-ui/react";
-import { NumberInputElem } from "./NumberInput";
-import GameCard from "../cards/GameCard";
-import AddCard from "../cards/AddCard";
-import NewGameCard from "../cards/NewGameCard";
-import cup from "../../assets/icons/Cup.png";
-import J from "../../assets/icons/J.png";
-import Q from "../../assets/icons/Q.png";
-import K from "../../assets/icons/K.png";
-import A from "../../assets/icons/A.png";
+  Select
+} from '@chakra-ui/react';
+import { NumberInputElem } from './NumberInput';
+import GameCard from '../cards/GameCard';
+import AddCard from '../cards/AddCard';
+import NewGameCard from '../cards/NewGameCard';
+import cup from '../../assets/icons/Cup.png';
+import J from '../../assets/icons/J.png';
+import Q from '../../assets/icons/Q.png';
+import K from '../../assets/icons/K.png';
+import A from '../../assets/icons/A.png';
+import { Socket } from 'socket.io-client';
+import { SocketContext } from '../../contexts/socketContext';
+import { useDispatch, useSelector } from 'react-redux';
 
-const fibonacciCards = ["0", "1", "2", "3", "5", "8", cup];
+const fibonacciCards = ['0', '1', '2', '3', '5', '8', cup];
 
-const TshirtsCards = ["XS", "S", "M", "L", "XL", cup];
+const TshirtsCards = ['XS', 'S', 'M', 'L', 'XL', cup];
 
-const PlayingCards = ["6", "7", J, Q, K, A, cup];
+const PlayingCards = ['6', '7', J, Q, K, A, cup];
 
 const SettingsForm = () => {
   const [settingsData, setSettingsData] = useState({
     isMaster: false,
     isChanging: false,
     isTimer: false,
-    scoreType: "",
+    scoreType: '',
     minutes: 0,
-    seconds: 0,
+    seconds: 0
   });
+  const socket = useContext(SocketContext);
+
+  const timer = useSelector((state) => state.timer);
+  const dispatch = useDispatch();
 
   let cards =
-    settingsData.scoreType === "FN"
+    settingsData.scoreType === 'FN'
       ? fibonacciCards
-      : settingsData.scoreType === "TS"
+      : settingsData.scoreType === 'TS'
       ? TshirtsCards
       : PlayingCards;
 
@@ -47,37 +54,43 @@ const SettingsForm = () => {
   const handleIsMasterSelect = () => {
     setSettingsData((settingsData) => ({
       ...settingsData,
-      isMaster: !settingsData.isMaster,
+      isMaster: !settingsData.isMaster
     }));
   };
 
   const handleChangigngSelect = () => {
     setSettingsData((settingsData) => ({
       ...settingsData,
-      isChanging: !settingsData.isChanging,
+      isChanging: !settingsData.isChanging
     }));
   };
 
   const handleIsTimerSelect = () => {
     setSettingsData((settingsData) => ({
       ...settingsData,
-      isTimer: !settingsData.isTimer,
+      isTimer: !settingsData.isTimer
     }));
   };
 
   const handleTypesSelect = (e) => {
     setSettingsData((settingsData) => ({
       ...settingsData,
-      scoreType: e.target.value,
+      scoreType: e.target.value
     }));
   };
 
-  const handleMinutesChange = (e) => {
-    setSettingsData((settingsData) => ({ ...settingsData, minutes: e }));
+  const handleMinutesChange = (min) => {
+    setSettingsData((settingsData) => ({ ...settingsData, minutes: min }));
+    // console.log(min, 'handleFunc');
+    // socket.emit('changeMinutes', min);
+    dispatch({ type: 'SET_MINUTES', payload: min });
   };
 
-  const handleSecondsChange = (e) => {
-    setSettingsData((settingsData) => ({ ...settingsData, seconds: e }));
+  const handleSecondsChange = (sec) => {
+    setSettingsData((settingsData) => ({ ...settingsData, seconds: sec }));
+    // console.log(sec, 'handleFunc');
+    // socket.emit('changeSeconds', sec);
+    dispatch({ type: 'SET_SECONDS', payload: sec });
   };
 
   const handleAddClick = (e) => {
@@ -105,21 +118,21 @@ const SettingsForm = () => {
               Scram master as player:
             </FormLabel>
             <Spacer />
-            <Switch colorScheme={"facebook"} onChange={handleIsMasterSelect} />
+            <Switch colorScheme={'facebook'} onChange={handleIsMasterSelect} />
           </Flex>
           <Flex mb="20px">
             <FormLabel mb="0" fontSize="lg">
               Changing card in round end:
             </FormLabel>
             <Spacer />
-            <Switch colorScheme={"facebook"} onChange={handleChangigngSelect} />
+            <Switch colorScheme={'facebook'} onChange={handleChangigngSelect} />
           </Flex>
           <Flex mb="20px">
             <FormLabel mb="0" fontSize="lg">
               Is timer needed:
             </FormLabel>
             <Spacer />
-            <Switch colorScheme={"facebook"} onChange={handleIsTimerSelect} />
+            <Switch colorScheme={'facebook'} onChange={handleIsTimerSelect} />
           </Flex>
           <Flex mb="20px">
             <FormLabel mb="0" fontSize="lg">
@@ -172,14 +185,14 @@ const SettingsForm = () => {
                   <NumberInputElem
                     min={0}
                     max={60}
-                    onChange={handleSecondsChange}
+                    onChangeFn={handleSecondsChange}
                   />
                 </Box>
               </Flex>
             </Flex>
           ) : null}
         </FormControl>
-        {settingsData.scoreType === "" ? (
+        {settingsData.scoreType === '' ? (
           <Box h="180px"></Box>
         ) : (
           <>
