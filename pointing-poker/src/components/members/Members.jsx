@@ -1,48 +1,28 @@
-import React, { useState } from "react";
-import { Box, Heading, Flex } from "@chakra-ui/react";
-import OneMember from "./OneMember";
-import NoMembersCard from "./NoMembersCard";
-import { Modal } from "../modal/modal";
-import { KickPlayerModal } from "../modals/KickPlayerModal";
-import Avatar1 from "../../assets/icons/Avatar1.png";
-
-export let arrayMembers = [
-  {
-    id: "1",
-    firstName: "David",
-    lastName: "Blane",
-    position: "senior software engineer",
-    image: Avatar1,
-    score: "",
-  },
-  {
-    id: "2",
-    firstName: "Mick",
-    lastName: "Blane",
-    position: "middle software engineer",
-    image: "",
-    score: "",
-  },
-];
+import React, { useState, useContext } from 'react';
+import { Box, Heading, Flex } from '@chakra-ui/react';
+import OneMember from './OneMember';
+import NoMembersCard from './NoMembersCard';
+import { Modal } from '../modal/modal';
+import { KickPlayerModal } from '../modals/KickPlayerModal';
+import { UsersContext } from '../../contexts/usersContext';
 
 const Members = () => {
   const [modalActive, setModalActive] = useState(false);
-  const [deletedMember, setDeletedMember] = useState("");
+  const [deletedMember, setDeletedMember] = useState('');
+  const { users } = useContext(UsersContext);
+
+  let arrayMembers = users.filter((user) => user.isMaster === false);
 
   const handleDelClick = (id) => {
     setDeletedMember(id);
     setModalActive(true);
-  };
-
-  const handleDeleteMember = (id) => {
-    arrayMembers = arrayMembers.filter((member) => member.id !== id);
-  };
+  }
 
   const getMemberName = () => {
     let memberName = "";
     arrayMembers.forEach((member) => {
-      if (member.id === deletedMember) {
-        memberName = member.name;
+      if (member.idd === deletedMember) {
+        memberName = member.fullName;
       }
     });
     return memberName;
@@ -58,7 +38,7 @@ const Members = () => {
           {arrayMembers.length ? (
             arrayMembers.map((member) => (
               <OneMember
-                key={member.id}
+                key={member.idd}
                 member={member}
                 deleteClick={handleDelClick}
               />
@@ -70,9 +50,8 @@ const Members = () => {
       </Box>
       <Modal active={modalActive} setActive={setModalActive}>
         <KickPlayerModal
-          memberId={deletedMember}
+          id={deletedMember}
           memberName={getMemberName()}
-          onDelete={handleDeleteMember}
           onClose={setModalActive}
         />
       </Modal>

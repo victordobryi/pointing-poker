@@ -6,10 +6,7 @@ export const Modal = ({ active, setActive, children }) => {
     <Fragment>
       <div
         className={active ? 'modal active' : 'modal'}
-        onClick={() => {
-          setActive(false);
-          document.body.style.overflowY = 'visible';
-        }}
+        onClick={() => setActive(false)}
       >
         <div
           className={active ? 'modal__content active' : 'modal__content'}

@@ -1,3 +1,7 @@
+import React, { useState, useContext, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { useFormik } from 'formik';
 import {
   FormControl,
   FormLabel,
@@ -6,18 +10,21 @@ import {
   Flex,
   Avatar
 } from '@chakra-ui/react';
-import React, { useState } from 'react';
 import { ButtonComponent } from '../button/button';
-import './form.scss';
-import { useFormik } from 'formik';
 import { validate } from '../form/form-validate';
-import { useSelector, useDispatch } from 'react-redux';
+import { SocketContext } from '../../contexts/socketContext';
+import { UsersContext } from '../../contexts/usersContext';
+import { MainContext } from '../../contexts/mainContext';
+import './form.scss';
 
 export const FormComponent = ({ children }) => {
   const [image, setImage] = useState(null);
   const [ava, setAva] = useState(null);
   const [imageName, setImageName] = useState(null);
-
+  const socket = useContext(SocketContext);
+  const { setUsers } = useContext(UsersContext);
+  const { name, room } = useContext(MainContext);
+  const history = useHistory();
   const user = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
@@ -40,18 +47,35 @@ export const FormComponent = ({ children }) => {
       jobPosition: '',
       fullName: '',
       imageSrc: '',
-      id: '',
+      idd: '',
       isObserver: false,
       isMaster: true
     },
     validate,
-    onSubmit: (values) => {
-      formik.values.id = new Date().valueOf();
+    onSubmit: async (values) => {
+      formik.values.idd = name;
       formik.values.isObserver = user.isObserver;
       formik.values.isMaster = user.isMaster;
+      formik.values.imageSrc = ava;
       formik.values.fullName =
         formik.values.firstName + ' ' + formik.values.lastName;
       dispatch({ type: 'SET_USER', payload: values });
+
+      socket.emit('login', { values, room }, error => {
+        if (error) {
+          console.log(error)
+        } else console.log(`${values.fullName} Welcome to ${room} room`);
+      });
+      socket.on("users", users => {
+        setUsers(users);
+        console.log(users);
+      });
+
+      setTimeout(() => {
+        user.isMaster
+          ? history.push('/lobby-master')
+          : history.push('/lobby-members');
+      }, 0)
     }
   });
   return (
