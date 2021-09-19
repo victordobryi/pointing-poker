@@ -1,4 +1,6 @@
 import React, { useState, useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Socket } from 'socket.io-client';
 import { MainContext } from '../../contexts/mainContext';
 import { SocketContext } from '../../contexts/socketContext';
 import {
@@ -9,7 +11,7 @@ import {
   Switch,
   Flex,
   Spacer,
-  Select,
+  Select
 } from '@chakra-ui/react';
 import { NumberInputElem } from './NumberInput';
 import GameCard from '../cards/GameCard';
@@ -34,6 +36,10 @@ const SettingsForm = () => {
   socket.on('getSettings', settings => {
     setSettings(settings);
   });
+  const socket = useContext(SocketContext);
+
+  const timer = useSelector((state) => state.timer);
+  const dispatch = useDispatch();
 
   let cards =
     settings.scoreType === 'FN'
@@ -117,21 +123,21 @@ const SettingsForm = () => {
               Scram master as player:
             </FormLabel>
             <Spacer />
-            <Switch colorScheme={"facebook"} onChange={handleIsMasterSelect} />
+            <Switch colorScheme={'facebook'} onChange={handleIsMasterSelect} />
           </Flex>
           <Flex mb="20px">
             <FormLabel mb="0" fontSize="lg">
               Changing card in round end:
             </FormLabel>
             <Spacer />
-            <Switch colorScheme={"facebook"} onChange={handleChangigngSelect} />
+            <Switch colorScheme={'facebook'} onChange={handleChangigngSelect} />
           </Flex>
           <Flex mb="20px">
             <FormLabel mb="0" fontSize="lg">
               Is timer needed:
             </FormLabel>
             <Spacer />
-            <Switch colorScheme={"facebook"} onChange={handleIsTimerSelect} />
+            <Switch colorScheme={'facebook'} onChange={handleIsTimerSelect} />
           </Flex>
           <Flex mb="20px">
             <FormLabel mb="0" fontSize="lg">
@@ -184,7 +190,7 @@ const SettingsForm = () => {
                   <NumberInputElem
                     min={0}
                     max={60}
-                    onChange={handleSecondsChange}
+                    onChangeFn={handleSecondsChange}
                   />
                 </Box>
               </Flex>

@@ -1,9 +1,9 @@
-import React, { useEffect, useRef } from "react";
-import { Flex, Box, Spacer, Text } from "@chakra-ui/react";
+import React, { useEffect, useRef } from 'react';
+import { Flex, Box, Spacer, Text } from '@chakra-ui/react';
 
 const STATUS = {
-  STARTED: "Started",
-  STOPPED: "Stopped",
+  STARTED: 'Started',
+  STOPPED: 'Stopped'
 };
 
 export default function CountdownApp({
@@ -11,7 +11,7 @@ export default function CountdownApp({
   setStatus,
   status,
   setSecondsRemaining,
-  secondsRemaining,
+  secondsRemaining
 }) {
   const secondsToDisplay = secondsRemaining % 60;
   const minutesRemaining = (secondsRemaining - secondsToDisplay) / 60;
@@ -49,7 +49,7 @@ export default function CountdownApp({
     }, [delay]);
   }
 
-  const twoDigits = (num) => String(num).padStart(2, "0");
+  const twoDigits = (num) => String(num).padStart(2, '0');
 
   return (
     <div className="App">
