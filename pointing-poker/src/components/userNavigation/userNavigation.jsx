@@ -40,8 +40,7 @@ export const UserNav = () => {
   const handleStartGame = () => {
     const currentCount = Number(minutes * 60 + Number(seconds));
     socket.emit('addTimer', { currentCount, room });
-    // history.push('/game-master');
-    history.push('/game-member');
+    history.push('/game-master');
   };
 
   return (

@@ -11,7 +11,6 @@ import { SocketProvider } from './contexts/socketContext';
 import { IssuesProvider } from './contexts/issuesContext';
 import GameMasterPage from './pages/Game-master';
 import { ResultPage } from './pages/result-page/result-page';
-import GameMemberPage from './pages/Game-member';
 
 export const App = () => {
   return (
@@ -31,9 +30,6 @@ export const App = () => {
                           </Route>
                           <Route path="/game-master">
                             <GameMasterPage />
-                          </Route>
-                          <Route path="/game-member">
-                            <GameMemberPage />
                           </Route>
                           <Route path="/game-result">
                             <ResultPage />
