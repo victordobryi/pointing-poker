@@ -8,34 +8,37 @@ import { Modal } from '../modal/modal';
 import { MainContext } from '../../contexts/mainContext';
 import { IssuesContext } from '../../contexts/issuesContext';
 import { SocketContext } from '../../contexts/socketContext';
+import { useSelector } from 'react-redux';
 
 const EMPTYISSUE = {
   id: '',
   name: '',
   link: '',
   priority: ''
-}
+};
 
 const Issues = () => {
   const [modalActive, setModalActive] = useState(false);
-  const [currentIssue, setCurrentIssue] = useState("");
+  const [currentIssue, setCurrentIssue] = useState('');
   const [isNewIssue, setIsNewIssue] = useState(false);
   const { room } = useContext(MainContext);
   const { issues, setIssues } = useContext(IssuesContext);
   const socket = useContext(SocketContext);
 
+  const user = useSelector((state) => state.user);
+
   useEffect(() => {
-    socket.on("issues", issues => {
+    socket.on('issues', (issues) => {
       setIssues(issues);
     });
-  })
+  });
 
   const handleDelClick = (id) => {
     const deletedId = id;
     socket.emit('deleteIssue', deletedId, (deletedId) => {
       console.log(`Issue with id ${deletedId} deleted`);
     });
-  }
+  };
 
   const handleReviseClick = (issue) => {
     setModalActive(true);
@@ -55,28 +58,29 @@ const Issues = () => {
 
   const handleRevise = () => {
     if (isNewIssue) {
-      socket.emit('addIssue', { currentIssue, room }, error => {
+      socket.emit('addIssue', { currentIssue, room }, (error) => {
         if (error) {
           console.log(error);
         } else console.log(`${currentIssue.name} is added to ${room} room`);
       });
 
       setIsNewIssue(false);
-
     } else {
-      socket.emit('updateIssues', { currentIssue, room }, error => {
+      socket.emit('updateIssues', { currentIssue, room }, (error) => {
         if (error) {
           console.log(error);
         } else console.log(`Issues succesfully update`);
       });
-    };
+    }
   };
 
   return (
     <Box maxW="1200px" mt="20px">
-      <Heading as="h5" size="lg" textAlign="center" mb="30px">
-        Issues:
-      </Heading>
+      {user.isMaster ? (
+        <Heading as="h5" size="lg" textAlign="center" mb="30px">
+          Issues:
+        </Heading>
+      ) : null}
       <Flex maxW="1200px" wrap="wrap">
         {issues.length ? (
           issues.map((item) => (
@@ -90,8 +94,8 @@ const Issues = () => {
         ) : (
           <NoIssuesCard />
         )}
-        <AddIssue addClick={handleAddIssueClick} />
-      </Flex >
+        {user.isMaster ? <AddIssue addClick={handleAddIssueClick} /> : null}
+      </Flex>
       <Modal active={modalActive} setActive={setModalActive}>
         <ReviseIssueModal
           issue={currentIssue}
@@ -100,7 +104,7 @@ const Issues = () => {
           onRevise={handleRevise}
         />
       </Modal>
-    </Box >
+    </Box>
   );
 };
 

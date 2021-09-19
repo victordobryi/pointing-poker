@@ -1,8 +1,9 @@
 import React, { useState, useContext } from 'react';
-import { Flex, Button } from '@chakra-ui/react';
+import { Flex, Button, Spacer } from '@chakra-ui/react';
 import Timer from '../timer/Timer';
 import { SocketContext } from '../../contexts/socketContext';
 import { MainContext } from '../../contexts/mainContext';
+import { useSelector } from 'react-redux';
 
 const STATUS = {
   STARTED: 'Started',
@@ -15,6 +16,7 @@ export const RoundControl = () => {
   const [secondsRemaining, setSecondsRemaining] = useState(initCount);
   const socket = useContext(SocketContext);
   const { room } = useContext(MainContext);
+  const user = useSelector((state) => state.user);
 
   socket.on('timers', ({ currentCount }) => {
     setInitCount(currentCount);
@@ -39,22 +41,27 @@ export const RoundControl = () => {
         secondsRemaining={secondsRemaining}
         initCount={initCount}
       />
-      <Button
-        colorScheme={'facebook'}
-        w="160px"
-        m={5}
-        onClick={handleOnclickRun}
-      >
-        Run Round
-      </Button>
-      <Button
-        colorScheme={'facebook'}
-        w="160px"
-        m={5}
-        onClick={handleOnclickRestart}
-      >
-        Restart Round
-      </Button>
+      {user.isMaster ? (
+        <div>
+          <Button
+            colorScheme={'facebook'}
+            w="160px"
+            m={5}
+            onClick={handleOnclickRun}
+          >
+            Run Round
+          </Button>
+          <Spacer />
+          <Button
+            colorScheme={'facebook'}
+            w="160px"
+            m={5}
+            onClick={handleOnclickRestart}
+          >
+            Restart Round
+          </Button>
+        </div>
+      ) : null}
     </Flex>
   );
 };
