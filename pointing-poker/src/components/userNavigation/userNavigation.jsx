@@ -1,4 +1,5 @@
 import { Fragment, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
   Image,
   Flex,
@@ -25,6 +26,7 @@ export const UserNav = () => {
   const history = useHistory();
   const { users, setUsers } = useContext(UsersContext);
   const master = users.filter((user) => user.isMaster === true)[0];
+  const history = useHistory();
   const socket = useContext(SocketContext);
   const { room } = useContext(MainContext);
 

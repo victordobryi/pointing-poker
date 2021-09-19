@@ -6,13 +6,6 @@ import { UsersContext } from '../../contexts/usersContext';
 import { useHistory } from 'react-router';
 
 const issuesNumbers = [13, 19, 322, 533, 666, 245, 900, 400, 3232, 455656];
-// const master = {
-//   id: 'admin',
-//   firstName: 'Rick',
-//   lastName: 'Giligan',
-//   position: 'lead softwear engeneer',
-//   image: Avatar3
-// };
 
 export const UserNavGame = () => {
   const history = useHistory();

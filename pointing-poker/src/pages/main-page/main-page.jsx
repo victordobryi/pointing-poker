@@ -1,5 +1,6 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useContext, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { Switch, Input, Flex, Img } from '@chakra-ui/react';
 
 import { MainLayout } from '../../components/mainLayout/mainLayout';
@@ -21,6 +22,7 @@ export const MainPage = () => {
   const { setName, rooms, setRooms, setRoom } = useContext(MainContext);
   const USER_ID = new Date().valueOf();
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleIsObserverSwitch = () => {
     isObserver ? setIsObserver(false) : setIsObserver(true);
@@ -35,6 +37,10 @@ export const MainPage = () => {
 
   socket.on('rooms', (rooms) => {
     setRooms(rooms);
+  });
+
+  socket.on('userIsDeleted', () => {
+    history.push('/');
   });
 
   const handleIsMasterClick = (param) => {
@@ -53,7 +59,7 @@ export const MainPage = () => {
     socket.emit('addRoom', { currentRoom }, (error) => {
       if (error) {
         console.log(error);
-      } else console.log(`${currentRoom} room`);
+      } else console.log(`Add ${currentRoom} room`);
     });
 
     setRoom(currentRoom);

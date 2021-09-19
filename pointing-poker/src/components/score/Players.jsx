@@ -7,26 +7,8 @@ import { KickPlayerModal } from '../modals/KickPlayerModal';
 import Avatar1 from '../../assets/icons/Avatar1.png';
 import { UsersContext } from '../../contexts/usersContext';
 
-// export let arrayMembers = [
-//   {
-//     id: '1',
-//     firstName: 'David',
-//     lastName: 'Blane',
-//     position: 'senior software engineer',
-//     image: Avatar1,
-//     score: ''
-//   },
-//   {
-//     id: '2',
-//     firstName: 'Mick',
-//     lastName: 'Blane',
-//     position: 'middle software engineer',
-//     image: '',
-//     score: ''
-//   }
-// ];
-
 const Players = () => {
+  const { users } = useContext(UsersContext);
   const [modalActive, setModalActive] = useState(false);
   const [deletedMember, setDeletedMember] = useState('');
 
