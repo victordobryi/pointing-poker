@@ -1,18 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Flex, Box, Button, Spacer, Heading, Text } from "@chakra-ui/react";
 import OneMember from "../members/OneMember";
 import Avatar3 from "../../assets/icons/Avatar3.jpg";
+import { UsersContext } from '../../contexts/usersContext';
 
 const issuesNumbers = [13, 19, 322, 533, 666, 245, 900, 400, 3232, 455656];
-const master = {
-  id: "admin",
-  firstName: "Rick",
-  lastName: "Giligan",
-  position: "lead softwear engeneer",
-  image: Avatar3,
-};
+// const master = {
+//   id: "admin",
+//   firstName: "Rick",
+//   lastName: "Giligan",
+//   position: "lead softwear engeneer",
+//   image: Avatar3,
+// };
 
 export const UserNavGame = () => {
+  const { users } = useContext(UsersContext);
+  const master = users.filter((user) => user.isMaster === true)[0];
   const handleStopClick = () => {
     window.location.assign("/game-result");
   };

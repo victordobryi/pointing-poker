@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Box, Flex } from "@chakra-ui/react";
 import OneMember from "../members/OneMember";
 import OneScore from "./OneScore";
 import { Modal } from "../modal/modal";
 import { KickPlayerModal } from "../modals/KickPlayerModal";
 import Avatar1 from "../../assets/icons/Avatar1.png";
+import { UsersContext } from '../../contexts/usersContext';
 
 export let arrayMembers = [
   {
@@ -26,6 +27,7 @@ export let arrayMembers = [
 ];
 
 const Players = () => {
+  const { users } = useContext(UsersContext);
   const [modalActive, setModalActive] = useState(false);
   const [deletedMember, setDeletedMember] = useState("");
 
@@ -52,7 +54,7 @@ const Players = () => {
     <>
       <Box maxW="1200px" mt="20px">
         <Flex maxW="1200px" wrap="wrap">
-          {arrayMembers.map((member) => (
+          {users.map((member) => (
             <Flex>
               <OneScore key={member.id} member={member} />
               <OneMember

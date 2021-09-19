@@ -1,4 +1,5 @@
 import { Fragment, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import {
   Image,
   Flex,
@@ -19,8 +20,7 @@ const issuesNumbers = [13, 19, 322, 533, 666, 245, 900, 400, 3232, 455656];
 export const UserNav = () => {
   const { users } = useContext(UsersContext);
   const master = users.filter((user) => user.isMaster === true)[0];
-  console.log('master', master)
-
+  const history = useHistory();
   const handleCopy = () => {
     const copyText = document.getElementById("URL-Input");
     copyText.select();
@@ -59,7 +59,7 @@ export const UserNav = () => {
         </FormControl>
       </Box>
       <Flex justifyContent={'space-between'} maxW="464px">
-        <Button colorScheme={'facebook'}>Start Game</Button>
+        <Button colorScheme={'facebook'} onClick={() => history.push('/game-master')}>Start Game</Button>
         <Button variant={'outline'} colorScheme={'facebook'}>
           Cancel game
         </Button>
