@@ -21,7 +21,6 @@ export const MainPage = () => {
   const { setName, rooms, setRooms, setRoom } = useContext(MainContext);
   const USER_ID = new Date().valueOf();
   const dispatch = useDispatch();
-
   const handleIsObserverSwitch = () => {
     isObserver ? setIsObserver(false) : setIsObserver(true);
     isObserver
@@ -77,10 +76,6 @@ export const MainPage = () => {
       setName(`${USER_ID}`);
       setUrlInputVal('');
     }
-  };
-
-  const handleConfirmClick = () => {
-    window.location.assign('/lobby-master');
   };
 
   return (
@@ -160,7 +155,6 @@ export const MainPage = () => {
                 variant="solid"
                 colorScheme="facebook"
                 type={'submit'}
-                onClick={() => setModalActive(false)}
               />
               <ButtonComponent
                 width={189}

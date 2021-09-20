@@ -61,12 +61,12 @@ export const FormComponent = ({ children }) => {
         formik.values.firstName + ' ' + formik.values.lastName;
       dispatch({ type: 'SET_USER', payload: values });
 
-      socket.emit('login', { values, room }, error => {
+      socket.emit('login', { values, room }, (error) => {
         if (error) {
-          console.log(error)
+          console.log(error);
         } else console.log(`${values.fullName} Welcome to ${room} room`);
       });
-      socket.on("users", users => {
+      socket.on('users', (users) => {
         setUsers(users);
         console.log(users);
       });
@@ -75,7 +75,7 @@ export const FormComponent = ({ children }) => {
         user.isMaster
           ? history.push('/lobby-master')
           : history.push('/lobby-members');
-      }, 0)
+      }, 0);
     }
   });
   return (
