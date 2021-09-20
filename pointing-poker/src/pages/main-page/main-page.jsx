@@ -39,10 +39,6 @@ export const MainPage = () => {
     setRooms(rooms);
   });
 
-  socket.on('userIsDeleted', () => {
-    history.push('/');
-  });
-
   const handleIsMasterClick = (param) => {
     dispatch({ type: 'SET_IS_MASTER', payload: param });
   };

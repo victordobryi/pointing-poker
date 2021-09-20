@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Socket } from 'socket.io-client';
 import { MainContext } from '../../contexts/mainContext';
 import { SocketContext } from '../../contexts/socketContext';
 import {
@@ -36,7 +35,6 @@ const SettingsForm = () => {
   socket.on('getSettings', settings => {
     setSettings(settings);
   });
-  const socket = useContext(SocketContext);
 
   const timer = useSelector((state) => state.timer);
   const dispatch = useDispatch();

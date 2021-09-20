@@ -18,14 +18,14 @@ const EMPTYISSUE = {
 
 const Issues = () => {
   const [modalActive, setModalActive] = useState(false);
-  const [currentIssue, setCurrentIssue] = useState("");
+  const [currentIssue, setCurrentIssue] = useState('');
   const [isNewIssue, setIsNewIssue] = useState(false);
   const { room } = useContext(MainContext);
   const { issues, setIssues } = useContext(IssuesContext);
   const socket = useContext(SocketContext);
 
   useEffect(() => {
-    socket.on("issues", issues => {
+    socket.on('issues', issues => {
       setIssues(issues);
     });
   })
@@ -73,11 +73,11 @@ const Issues = () => {
   };
 
   return (
-    <Box maxW="1200px" mt="20px">
-      <Heading as="h5" size="lg" textAlign="center" mb="30px">
+    <Box maxW='1200px' mt='20px'>
+      <Heading as='h5' size='lg' textAlign='center' mb='30px'>
         Issues:
       </Heading>
-      <Flex maxW="1200px" wrap="wrap">
+      <Flex maxW='1200px' wrap='wrap'>
         {issues.length ? (
           issues.map((item) => (
             <IssueItem

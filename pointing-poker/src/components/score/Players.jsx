@@ -12,8 +12,6 @@ const Players = () => {
   const [modalActive, setModalActive] = useState(false);
   const [deletedMember, setDeletedMember] = useState('');
 
-  const { users } = useContext(UsersContext);
-
   const players = users.filter((player) => player.isMaster !== true);
 
   const handleDelClick = (id) => {
