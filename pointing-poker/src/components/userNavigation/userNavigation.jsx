@@ -13,7 +13,6 @@ import {
 import OneMember from '../members/OneMember';
 import { UsersContext } from '../../contexts/usersContext';
 import { SocketContext } from '../../contexts/socketContext';
-import { useSelector } from 'react-redux';
 import { MainContext } from '../../contexts/mainContext';
 import { IssuesListLine } from './IssuesListLine';
 

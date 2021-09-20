@@ -81,10 +81,6 @@ export const MainPage = () => {
     }
   };
 
-  const handleConfirmClick = () => {
-    window.location.assign('/lobby-master');
-  };
-
   return (
     <MainLayout>
       <div className={styles.wrapperInner}>

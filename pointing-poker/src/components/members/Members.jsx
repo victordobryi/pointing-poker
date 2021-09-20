@@ -19,7 +19,7 @@ const Members = () => {
   }
 
   const getMemberName = () => {
-    let memberName = "";
+    let memberName = '';
     arrayMembers.forEach((member) => {
       if (member.idd === deletedMember) {
         memberName = member.fullName;
@@ -30,11 +30,11 @@ const Members = () => {
 
   return (
     <>
-      <Box maxW="1200px" mt="20px">
-        <Heading as="h5" size="lg" textAlign="center" mb="30px">
+      <Box maxW='1200px' mt='20px' mb='20px'>
+        <Heading as='h5' size='lg' textAlign='center' mb='30px'>
           Members:
         </Heading>
-        <Flex maxW="1200px" wrap="wrap">
+        <Flex maxW='1200px' wrap='wrap'>
           {arrayMembers.length ? (
             arrayMembers.map((member) => (
               <OneMember
@@ -49,7 +49,6 @@ const Members = () => {
         </Flex>
       </Box>
       <Modal active={modalActive} setActive={setModalActive}>
-        
         <KickPlayerModal
           id={deletedMember}
           memberName={getMemberName()}
@@ -59,4 +58,5 @@ const Members = () => {
     </>
   );
 };
+
 export default Members;
