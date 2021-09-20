@@ -1,28 +1,41 @@
 import React, { Fragment, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import Members from '../components/members/Members';
 import { MainLayout } from '../components/mainLayout/mainLayout';
+import { IssuesContext } from '../contexts/issuesContext';
 import { UsersContext } from '../contexts/usersContext';
+import { SocketContext } from '../contexts/socketContext';
 import {
-  Image,
   Flex,
   Box,
   Button,
-  Heading,
   Text
 } from '@chakra-ui/react';
-import draw from '../assets/icons/draw.png';
 import OneMember from '../components/members/OneMember';
-
-const issuesNumbers = [13, 19, 322, 533, 666, 245, 900, 400, 3232, 455656];
+import { IssuesListLine } from '../components/userNavigation/IssuesListLine';
 
 const LobbyMembersPage = () => {
   const { users } = useContext(UsersContext);
   const master = users.filter((user) => user.isMaster === true)[0];
+  const socket = useContext(SocketContext);
+  const history = useHistory();
+  const { issues, setIssues } = useContext(IssuesContext);
+
+  socket.on('issues', issues => {
+    setIssues(issues);
+  });
+
+  socket.on('userIsDeleted', () => {
+    alert('You are removed from the session');
+    setTimeout(()=>{
+      history.push('/');
+    }, 3000);
+  });
 
   return (
     <MainLayout>
       <Fragment>
-        <Flex maxW="1200px" justifyContent={'center'} fontSize="24px" fontWeight="bold" mt="20px">
+        {/* <Flex maxW="1200px" justifyContent={'center'} fontSize="24px" fontWeight="bold" mt="20px">
           <Heading as="h5" size="md" textAlign="right" mb="50px" >
             Spring 23 planning (issues {''}
             {issuesNumbers.map((issue, index) =>
@@ -40,7 +53,8 @@ const LobbyMembersPage = () => {
               display="inline-block"
             />
           </Heading>
-        </Flex>
+        </Flex> */}
+        <IssuesListLine/>
         <Box>
           <Text fontSize="16px">Scram master:</Text>
           <OneMember member={master} />

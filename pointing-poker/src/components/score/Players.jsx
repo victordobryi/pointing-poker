@@ -10,8 +10,7 @@ import { UsersContext } from "../../contexts/usersContext";
 const Players = () => {
   const { users } = useContext(UsersContext);
   const [modalActive, setModalActive] = useState(false);
-  const [deletedMember, setDeletedMember] = useState("");
-
+  const [deletedMember, setDeletedMember] = useState('');
   const players = users.filter((player) => player.isMaster !== true);
 
   const handleDelClick = (id) => {

@@ -1,8 +1,7 @@
-import React, { useState, useContext } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Socket } from "socket.io-client";
-import { MainContext } from "../../contexts/mainContext";
-import { SocketContext } from "../../contexts/socketContext";
+import React, { useState, useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { MainContext } from '../../contexts/mainContext';
+import { SocketContext } from '../../contexts/socketContext';
 import {
   Box,
   Heading,

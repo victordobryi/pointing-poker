@@ -49,6 +49,7 @@ const Members = () => {
         </Flex>
       </Box>
       <Modal active={modalActive} setActive={setModalActive}>
+        
         <KickPlayerModal
           id={deletedMember}
           memberName={getMemberName()}
