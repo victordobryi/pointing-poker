@@ -13,6 +13,7 @@ import {
 import OneMember from '../members/OneMember';
 import { UsersContext } from '../../contexts/usersContext';
 import { SocketContext } from '../../contexts/socketContext';
+import { useSelector } from 'react-redux';
 import { MainContext } from '../../contexts/mainContext';
 import { IssuesListLine } from './IssuesListLine';
 
@@ -41,10 +42,10 @@ export const UserNav = () => {
     <Fragment>
       <IssuesListLine/>
       <Box>
-        <Text fontSize="16px">Scram master:</Text>
+        <Text fontSize='16px'>Scram master:</Text>
         <OneMember member={master} />
       </Box>
-      <Box mt="10px" mb="20px">
+      <Box mt='10px' mb='20px'>
         <FormControl>
           <FormLabel>Link to lobby:</FormLabel>
           <Flex>
@@ -52,7 +53,7 @@ export const UserNav = () => {
               w={276}
               h={47}
               value={master ? master.room : ''}
-              id="URL-Input"
+              id='URL-Input'
             ></Input>
             <Button
               w={189}
@@ -65,7 +66,7 @@ export const UserNav = () => {
           </Flex>
         </FormControl>
       </Box>
-      <Flex justifyContent={'space-between'} maxW="464px">
+      <Flex justifyContent={'space-between'} maxW='464px'>
         <Button onClick={handleStartGame} colorScheme={'facebook'}>
           Start Game
         </Button>

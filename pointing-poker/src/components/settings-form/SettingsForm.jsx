@@ -10,29 +10,29 @@ import {
   Switch,
   Flex,
   Spacer,
-  Select
-} from '@chakra-ui/react';
-import { NumberInputElem } from './NumberInput';
-import GameCard from '../cards/GameCard';
-import AddCard from '../cards/AddCard';
-import NewGameCard from '../cards/NewGameCard';
-import cup from '../../assets/icons/Cup.png';
-import J from '../../assets/icons/J.png';
-import Q from '../../assets/icons/Q.png';
-import K from '../../assets/icons/K.png';
-import A from '../../assets/icons/A.png';
+  Select,
+} from "@chakra-ui/react";
+import { NumberInputElem } from "./NumberInput";
+import GameCard from "../cards/GameCard";
+import AddCard from "../cards/AddCard";
+import NewGameCard from "../cards/NewGameCard";
+import cup from "../../assets/icons/Cup.png";
+import J from "../../assets/icons/J.png";
+import Q from "../../assets/icons/Q.png";
+import K from "../../assets/icons/K.png";
+import A from "../../assets/icons/A.png";
 
-const fibonacciCards = ['0', '1', '2', '3', '5', '8', cup];
+const fibonacciCards = ["0", "1", "2", "3", "5", "8", cup];
 
-const TshirtsCards = ['XS', 'S', 'M', 'L', 'XL', cup];
+const TshirtsCards = ["XS", "S", "M", "L", "XL", cup];
 
-const PlayingCards = ['6', '7', J, Q, K, A, cup];
+const PlayingCards = ["6", "7", J, Q, K, A, cup];
 
 const SettingsForm = () => {
   const socket = useContext(SocketContext);
 
   const { settings, setSettings } = useContext(MainContext);
-  socket.on('getSettings', settings => {
+  socket.on("getSettings", (settings) => {
     setSettings(settings);
   });
 
@@ -40,60 +40,60 @@ const SettingsForm = () => {
   const dispatch = useDispatch();
 
   let cards =
-    settings.scoreType === 'FN'
+    settings.scoreType === "FN"
       ? fibonacciCards
-      : settings.scoreType === 'TS'
-        ? TshirtsCards
-        : settings.scoreType === 'PC'
-          ? PlayingCards
-          : null;
+      : settings.scoreType === "TS"
+      ? TshirtsCards
+      : settings.scoreType === "PC"
+      ? PlayingCards
+      : null;
 
   const [isNewCard, setIsNewCard] = useState(false);
 
   const handleIsMasterSelect = () => {
-    const currentSettings = { ...settings, isMaster: !settings.isMaster }
-    console.log('currentSettings', currentSettings);
-    socket.emit('setSettings', { currentSettings });
+    const currentSettings = { ...settings, isMaster: !settings.isMaster };
+    console.log("currentSettings", currentSettings);
+    socket.emit("setSettings", { currentSettings });
   };
 
   const handleChangigngSelect = () => {
     const currentSettings = {
       ...settings,
       isChanging: !settings.isChanging,
-    }
-    socket.emit('setSettings', { currentSettings });
+    };
+    socket.emit("setSettings", { currentSettings });
   };
 
   const handleIsTimerSelect = () => {
     const currentSettings = {
       ...settings,
       isTimer: !settings.isTimer,
-    }
-    socket.emit('setSettings', { currentSettings });
+    };
+    socket.emit("setSettings", { currentSettings });
   };
 
   const handleTypesSelect = (e) => {
     const currentSettings = {
       ...settings,
       scoreType: e.target.value,
-    }
-    socket.emit('setSettings', { currentSettings });
+    };
+    socket.emit("setSettings", { currentSettings });
   };
 
   const handleMinutesChange = (e) => {
     const currentSettings = {
       ...settings,
       minutes: e,
-    }
-    socket.emit('setSettings', { currentSettings });
+    };
+    socket.emit("setSettings", { currentSettings });
   };
 
   const handleSecondsChange = (e) => {
     const currentSettings = {
       ...settings,
       seconds: e,
-    }
-    socket.emit('setSettings', { currentSettings });
+    };
+    socket.emit("setSettings", { currentSettings });
   };
 
   const handleAddClick = (e) => {
@@ -121,21 +121,21 @@ const SettingsForm = () => {
               Scram master as player:
             </FormLabel>
             <Spacer />
-            <Switch colorScheme={'facebook'} onChange={handleIsMasterSelect} />
+            <Switch colorScheme={"facebook"} onChange={handleIsMasterSelect} />
           </Flex>
           <Flex mb="20px">
             <FormLabel mb="0" fontSize="lg">
               Changing card in round end:
             </FormLabel>
             <Spacer />
-            <Switch colorScheme={'facebook'} onChange={handleChangigngSelect} />
+            <Switch colorScheme={"facebook"} onChange={handleChangigngSelect} />
           </Flex>
           <Flex mb="20px">
             <FormLabel mb="0" fontSize="lg">
               Is timer needed:
             </FormLabel>
             <Spacer />
-            <Switch colorScheme={'facebook'} onChange={handleIsTimerSelect} />
+            <Switch colorScheme={"facebook"} onChange={handleIsTimerSelect} />
           </Flex>
           <Flex mb="20px">
             <FormLabel mb="0" fontSize="lg">
