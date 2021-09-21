@@ -11,19 +11,23 @@ $paddingRight: calc((100% - 80%) / 2);
   margin-left: auto;
   border: 1px solid gray;
   border-top: none;
+  padding-top: 10%;
 }
 
 .mainLogo {
-  margin: 0 auto;
   &_block {
-    padding-top: 120px;
+    background-image: url(../../assets/icons/mainLogo.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    max-width: 550px;
+    height: 150px;
+    margin: 0 auto;
   }
 }
 
 .connect {
   &_block {
     padding-top: 35px;
-    width: 515px;
   }
   &_title {
     font-size: 48px;
@@ -51,7 +55,7 @@ $paddingRight: calc((100% - 80%) / 2);
 
 .modal {
   &__title {
-    font-size: 64px;
+    font-size: 4vw;
     font-weight: bold;
   }
 }

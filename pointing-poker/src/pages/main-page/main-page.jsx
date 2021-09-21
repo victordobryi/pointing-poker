@@ -81,15 +81,7 @@ export const MainPage = () => {
   return (
     <MainLayout>
       <div className={styles.wrapperInner}>
-        <div className={styles.mainLogo_block}>
-          <Img
-            src={mainLogo}
-            alt="mainLogo"
-            width={550}
-            height={150}
-            className={styles.mainLogo}
-          />
-        </div>
+        <div className={styles.mainLogo_block}></div>
         <div className={styles.connect_block}>
           <h2 className={styles.connect_title}>Start your planning:</h2>
           <div className={styles.connect_flex}>

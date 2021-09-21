@@ -1,40 +1,42 @@
-import React, { useState } from "react";
-import { VStack, Flex } from "@chakra-ui/react";
-import Issues from "../components/issues/Issues";
-import "../App";
-import { UserNavGame } from "../components/userNavigation/userNavigationGame";
+import React, { useState } from 'react';
+import { VStack, Flex } from '@chakra-ui/react';
+import Issues from '../components/issues/Issues';
+import '../App';
+import { UserNavGame } from '../components/userNavigation/userNavigationGame';
 
-import { RoundControl } from "../components/roundControl/RoundControl";
-import { ScoreTable } from "../components/score/ScoreTable";
-import { MainLayout } from "../components/mainLayout/mainLayout";
+import { RoundControl } from '../components/roundControl/RoundControl';
+import { ScoreTable } from '../components/score/ScoreTable';
+import { MainLayout } from '../components/mainLayout/mainLayout';
 
-import GameCard from "../components/cards/GameCard";
-import cup from "../assets/icons/Cup.png";
-import J from "../assets/icons/J.png";
-import Q from "../assets/icons/Q.png";
-import K from "../assets/icons/K.png";
-import A from "../assets/icons/A.png";
+import GameCard from '../components/cards/GameCard';
+import cup from '../assets/icons/Cup.png';
+import J from '../assets/icons/J.png';
+import Q from '../assets/icons/Q.png';
+import K from '../assets/icons/K.png';
+import A from '../assets/icons/A.png';
+import { useSelector } from 'react-redux';
 
-const fibonacciCards = ["0", "1", "2", "3", "5", "8", cup];
+const fibonacciCards = ['0', '1', '2', '3', '5', '8', cup];
 
-const TshirtsCards = ["XS", "S", "M", "L", "XL", cup];
+const TshirtsCards = ['XS', 'S', 'M', 'L', 'XL', cup];
 
-const PlayingCards = ["6", "7", J, Q, K, A, cup];
+const PlayingCards = ['6', '7', J, Q, K, A, cup];
 
 function GameMasterPage() {
   const [settingsData, setSettingsData] = useState({
     isMaster: false,
     isChanging: false,
     isTimer: false,
-    scoreType: "",
+    scoreType: '',
     minutes: 0,
-    seconds: 0,
+    seconds: 0
   });
-
+  const user = useSelector((state) => state.user);
+  console.log(user);
   let cards =
-    settingsData.scoreType === "FN"
+    settingsData.scoreType === 'FN'
       ? fibonacciCards
-      : settingsData.scoreType === "TS"
+      : settingsData.scoreType === 'TS'
       ? TshirtsCards
       : PlayingCards;
 
@@ -65,13 +67,15 @@ function GameMasterPage() {
             justify="space-between"
             align="flex-start"
           >
-            {cards.map((card) => (
-              <GameCard
-                key={card}
-                scoreType={settingsData.scoreType}
-                image={card}
-              />
-            ))}
+            {!user.isObserver
+              ? cards.map((card) => (
+                  <GameCard
+                    key={card}
+                    scoreType={settingsData.scoreType}
+                    image={card}
+                  />
+                ))
+              : null}
           </Flex>
         </VStack>
         <Flex w="40%" direction="column" justify="flex-start" align="center">

@@ -41,7 +41,7 @@ export const UserNav = () => {
     const link = '/game-master';
     const currentCount = Number(minutes * 60 + Number(seconds));
     socket.emit('addTimer', { currentCount, room });
-    socket.emit('changeLink', { link, room });
+    socket.emit('changePage', { link, room });
     history.push(link);
   };
 

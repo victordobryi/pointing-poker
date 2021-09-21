@@ -2,28 +2,35 @@ import React, { Fragment, useContext } from 'react';
 import Members from '../components/members/Members';
 import { MainLayout } from '../components/mainLayout/mainLayout';
 import { UsersContext } from '../contexts/usersContext';
-import {
-  Image,
-  Flex,
-  Box,
-  Button,
-  Heading,
-  Text
-} from '@chakra-ui/react';
+import { Image, Flex, Box, Button, Heading, Text } from '@chakra-ui/react';
 import draw from '../assets/icons/draw.png';
 import OneMember from '../components/members/OneMember';
+import { SocketContext } from '../contexts/socketContext';
+import { useHistory } from 'react-router';
 
 const issuesNumbers = [13, 19, 322, 533, 666, 245, 900, 400, 3232, 455656];
 
 const LobbyMembersPage = () => {
   const { users } = useContext(UsersContext);
   const master = users.filter((user) => user.isMaster === true)[0];
+  const socket = useContext(SocketContext);
+  const history = useHistory();
+
+  socket.on('link', () => {
+    history.push('/game-master');
+  });
 
   return (
     <MainLayout>
       <Fragment>
-        <Flex maxW="1200px" justifyContent={'center'} fontSize="24px" fontWeight="bold" mt="20px">
-          <Heading as="h5" size="md" textAlign="right" mb="50px" >
+        <Flex
+          maxW="1200px"
+          justifyContent={'center'}
+          fontSize="24px"
+          fontWeight="bold"
+          mt="20px"
+        >
+          <Heading as="h5" size="md" textAlign="right" mb="50px">
             Spring 23 planning (issues {''}
             {issuesNumbers.map((issue, index) =>
               issuesNumbers.length > index + 1 ? (
@@ -45,8 +52,8 @@ const LobbyMembersPage = () => {
           <Text fontSize="16px">Scram master:</Text>
           <OneMember member={master} />
         </Box>
-        <Flex justifyContent={"end"} maxW="1000px">
-          <Button variant={"outline"} colorScheme={"facebook"} w="160px">
+        <Flex justifyContent={'end'} maxW="1000px">
+          <Button variant={'outline'} colorScheme={'facebook'} w="160px">
             Exit
           </Button>
         </Flex>
