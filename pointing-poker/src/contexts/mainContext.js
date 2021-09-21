@@ -6,9 +6,10 @@ const MainProvider = ({ children }) => {
     const [name, setName] = useState('');
     const [room, setRoom] = useState('');
     const [rooms, setRooms] = useState([]);
+    const [settings, setSettings] = useState({});
 
     return (
-        <MainContext.Provider value={{ name, rooms, room, setName, setRooms, setRoom }}>
+        <MainContext.Provider value={{ name, rooms, room, settings, setName, setRooms, setRoom, setSettings }}>
             {children}
         </MainContext.Provider>
     );

@@ -23,7 +23,7 @@ export const FormComponent = ({ children }) => {
   const [imageName, setImageName] = useState(null);
   const socket = useContext(SocketContext);
   const { setUsers } = useContext(UsersContext);
-  const { name, room } = useContext(MainContext);
+  const { name, room, settings, setSettings } = useContext(MainContext);
   const history = useHistory();
   const user = useSelector((state) => state.user);
 
@@ -66,9 +66,21 @@ export const FormComponent = ({ children }) => {
           console.log(error);
         } else console.log(`${values.fullName} Welcome to ${room} room`);
       });
+
+      if (user.isMaster) {
+        socket.emit('addSettingsRoom', { room }, (error) => {
+          if (error) {
+            console.log(error);
+          } else console.log(`Add ${room} room in settingsData`);
+        });
+      }
+
+      socket.on('getSettings', (settings) => {
+        setSettings(settings);
+      });
+
       socket.on('users', (users) => {
         setUsers(users);
-        console.log(users);
       });
 
       setTimeout(() => {

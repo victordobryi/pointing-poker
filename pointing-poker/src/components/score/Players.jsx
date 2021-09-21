@@ -1,37 +1,16 @@
-import React, { useContext, useState } from 'react';
-import { Box, Flex } from '@chakra-ui/react';
-import OneMember from '../members/OneMember';
-import OneScore from './OneScore';
-import { Modal } from '../modal/modal';
-import { KickPlayerModal } from '../modals/KickPlayerModal';
-import Avatar1 from '../../assets/icons/Avatar1.png';
-import { UsersContext } from '../../contexts/usersContext';
-
-// export let arrayMembers = [
-//   {
-//     id: '1',
-//     firstName: 'David',
-//     lastName: 'Blane',
-//     position: 'senior software engineer',
-//     image: Avatar1,
-//     score: ''
-//   },
-//   {
-//     id: '2',
-//     firstName: 'Mick',
-//     lastName: 'Blane',
-//     position: 'middle software engineer',
-//     image: '',
-//     score: ''
-//   }
-// ];
+import React, { useContext, useState } from "react";
+import { Box, Flex } from "@chakra-ui/react";
+import OneMember from "../members/OneMember";
+import OneScore from "./OneScore";
+import { Modal } from "../modal/modal";
+import { KickPlayerModal } from "../modals/KickPlayerModal";
+import Avatar1 from "../../assets/icons/Avatar1.png";
+import { UsersContext } from "../../contexts/usersContext";
 
 const Players = () => {
+  const { users } = useContext(UsersContext);
   const [modalActive, setModalActive] = useState(false);
   const [deletedMember, setDeletedMember] = useState('');
-
-  const { users } = useContext(UsersContext);
-
   const players = users.filter((player) => player.isMaster !== true);
 
   const handleDelClick = (id) => {
@@ -44,7 +23,7 @@ const Players = () => {
   };
 
   const getMemberFirstName = () => {
-    let memberFirstName = '';
+    let memberFirstName = "";
     players.forEach((member) => {
       if (member.id === deletedMember) {
         memberFirstName = member.firstName;
