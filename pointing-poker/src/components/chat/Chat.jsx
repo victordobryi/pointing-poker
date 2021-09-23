@@ -94,8 +94,8 @@ const Chat = ({ active }) => {
                 {users &&
                   users.map((user) => {
                     return (
-                      <MenuItem minH='40px' key={user.id}>
-                        <Text fontSize='sm'>{user.name}</Text>
+                      <MenuItem minH='40px' key={user.idd}>
+                        <Text fontSize='sm'>{user.fullName}</Text>
                       </MenuItem>
                     );
                   })}
@@ -107,7 +107,7 @@ const Chat = ({ active }) => {
               flex={{ base: '1', sm: 'auto' }}
             >
               <Heading fontSize='lg'>
-                {room.slice(0, 1).toUpperCase() + room.slice(1)}
+                {/*room.slice(0, 1).toUpperCase() + room.slice(1)*/ room}
               </Heading>
               <Flex alignItems='center'>
                 <Text
