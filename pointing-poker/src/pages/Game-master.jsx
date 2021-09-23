@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { VStack, Flex } from '@chakra-ui/react';
 import Issues from '../components/issues/Issues';
 import '../App';
@@ -15,6 +15,8 @@ import Q from '../assets/icons/Q.png';
 import K from '../assets/icons/K.png';
 import A from '../assets/icons/A.png';
 import { useSelector } from 'react-redux';
+import { Statisctics } from '../components/statistics/Statistics';
+import { SocketContext } from '../contexts/socketContext';
 
 const fibonacciCards = ['0', '1', '2', '3', '5', '8', cup];
 
@@ -23,6 +25,13 @@ const TshirtsCards = ['XS', 'S', 'M', 'L', 'XL', cup];
 const PlayingCards = ['6', '7', J, Q, K, A, cup];
 
 function GameMasterPage() {
+  const [timerStatus, setTimerStatus] = useState(false);
+  const socket = useContext(SocketContext);
+
+  socket.on('getTimerStatus', ({ currentStatus }) => {
+    setTimerStatus(currentStatus);
+  });
+
   const [settingsData, setSettingsData] = useState({
     isMaster: false,
     isChanging: false,
@@ -31,8 +40,9 @@ function GameMasterPage() {
     minutes: 0,
     seconds: 0
   });
+
   const user = useSelector((state) => state.user);
-  console.log(user);
+
   let cards =
     settingsData.scoreType === 'FN'
       ? fibonacciCards
@@ -42,7 +52,13 @@ function GameMasterPage() {
 
   return (
     <MainLayout>
-      <Flex h="86%" direction="row" justify="center" align="flex-start" mb={15}>
+      <Flex
+        h="86%"
+        direction="row"
+        justify="center"
+        align="flex-start"
+        mb={150}
+      >
         <VStack
           w="70%"
           borderColor="grey.100"
@@ -67,7 +83,7 @@ function GameMasterPage() {
             justify="space-between"
             align="flex-start"
           >
-            {!user.isObserver
+            {!user.isObserver && !user.isMaster
               ? cards.map((card) => (
                   <GameCard
                     key={card}
@@ -77,6 +93,11 @@ function GameMasterPage() {
                 ))
               : null}
           </Flex>
+          {timerStatus === 'stopped' && user.isMaster ? (
+            <Flex minW="50%" paddingTop="50px">
+              <Statisctics />
+            </Flex>
+          ) : null}
         </VStack>
         <Flex w="40%" direction="column" justify="flex-start" align="center">
           <ScoreTable />

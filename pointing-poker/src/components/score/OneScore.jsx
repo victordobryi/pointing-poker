@@ -1,5 +1,5 @@
-import React from "react";
-import { Box, Flex } from "@chakra-ui/react";
+import React from 'react';
+import { Box, Flex } from '@chakra-ui/react';
 
 const OneScore = ({ member }) => {
   const { score, id } = member;
@@ -16,7 +16,7 @@ const OneScore = ({ member }) => {
     >
       <Flex align="center" justify="center" h="100%">
         <Box fontSize={25} fontWeight="bold" h={50}>
-          {score === "" ? "in progress" : score}
+          {score === '' ? 'in progress' : score}
         </Box>
       </Flex>
     </Box>

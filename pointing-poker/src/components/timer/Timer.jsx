@@ -1,10 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { Flex, Box, Spacer, Text } from '@chakra-ui/react';
-
-const STATUS = {
-  STARTED: 'Started',
-  STOPPED: 'Stopped'
-};
+import { SocketContext } from '../../contexts/socketContext';
+import { MainContext } from '../../contexts/mainContext';
 
 export default function CountdownApp({
   initCount,
@@ -13,6 +10,8 @@ export default function CountdownApp({
   setSecondsRemaining,
   secondsRemaining
 }) {
+  const socket = useContext(SocketContext);
+  const { room } = useContext(MainContext);
   const secondsToDisplay = secondsRemaining % 60;
   const minutesRemaining = (secondsRemaining - secondsToDisplay) / 60;
   const minutesToDisplay = minutesRemaining % 60;
@@ -22,10 +21,11 @@ export default function CountdownApp({
       if (secondsRemaining > 0) {
         setSecondsRemaining(secondsRemaining - 1);
       } else {
-        setStatus(STATUS.STOPPED);
+        setStatus(false);
+        socket.emit('setTimerStatus', 'stopped', room);
       }
     },
-    status === STATUS.STARTED ? 1000 : null
+    status === true ? 1000 : null
     // passing null stops the interval
   );
 
