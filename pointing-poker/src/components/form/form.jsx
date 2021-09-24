@@ -8,7 +8,7 @@ import {
   FormErrorMessage,
   Input,
   Flex,
-  Avatar
+  Avatar,
 } from '@chakra-ui/react';
 import { ButtonComponent } from '../button/button';
 import { validate } from '../form/form-validate';
@@ -23,7 +23,8 @@ export const FormComponent = ({ children }) => {
   const [imageName, setImageName] = useState(null);
   const socket = useContext(SocketContext);
   const { setUsers } = useContext(UsersContext);
-  const { name, room, settings, setSettings } = useContext(MainContext);
+  const { name, room, settings, setSettings, setName } =
+    useContext(MainContext);
   const history = useHistory();
   const user = useSelector((state) => state.user);
 
@@ -49,7 +50,7 @@ export const FormComponent = ({ children }) => {
       imageSrc: '',
       idd: '',
       isObserver: false,
-      isMaster: true
+      isMaster: true,
     },
     validate,
     onSubmit: async (values) => {
@@ -61,25 +62,25 @@ export const FormComponent = ({ children }) => {
         formik.values.firstName + ' ' + formik.values.lastName;
       dispatch({ type: 'SET_USER', payload: values });
 
-      socket.emit('login', { values, room }, error => {
+      socket.emit('login', { values, room }, (error) => {
         if (error) {
-          console.log(error)
+          console.log(error);
         } else console.log(`${values.fullName} Welcome to ${room} room`);
       });
-
+      setName(`${values.fullName}`);
       if (user.isMaster) {
-        socket.emit('addSettingsRoom', { room }, error => {
+        socket.emit('addSettingsRoom', { room }, (error) => {
           if (error) {
             console.log(error);
           } else console.log(`Add ${room} room in settingsData`);
         });
       }
 
-      socket.on('getSettings', settings => {
+      socket.on('getSettings', (settings) => {
         setSettings(settings);
       });
 
-      socket.on('users', users => {
+      socket.on('users', (users) => {
         setUsers(users);
       });
 
@@ -87,8 +88,8 @@ export const FormComponent = ({ children }) => {
         user.isMaster
           ? history.push('/lobby-master')
           : history.push('/lobby-members');
-      }, 0)
-    }
+      }, 0);
+    },
   });
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -97,13 +98,13 @@ export const FormComponent = ({ children }) => {
         isInvalid={formik.touched.firstName && formik.errors.firstName}
       >
         <FormLabel>Your first name:</FormLabel>
-        <div className="form__section">
+        <div className='form__section'>
           <Input
-            placeholder="First name"
+            placeholder='First name'
             className={'form__input'}
-            id="firstName"
-            name="firstName"
-            type="text"
+            id='firstName'
+            name='firstName'
+            type='text'
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.firstName}
@@ -118,13 +119,13 @@ export const FormComponent = ({ children }) => {
         isInvalid={formik.touched.lastName && formik.errors.lastName}
       >
         <FormLabel>Your last name:</FormLabel>
-        <div className="form__section">
+        <div className='form__section'>
           <Input
-            placeholder="Last name"
+            placeholder='Last name'
             className={'form__input'}
-            id="lastName"
-            name="lastName"
-            type="text"
+            id='lastName'
+            name='lastName'
+            type='text'
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.lastName}
@@ -139,13 +140,13 @@ export const FormComponent = ({ children }) => {
         isInvalid={formik.touched.jobPosition && formik.errors.jobPosition}
       >
         <FormLabel>Your job position:</FormLabel>
-        <div className="form__section">
+        <div className='form__section'>
           <Input
-            placeholder="job position"
+            placeholder='job position'
             className={'form__input'}
-            id="jobPosition"
-            name="jobPosition"
-            type="text"
+            id='jobPosition'
+            name='jobPosition'
+            type='text'
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.jobPosition}
@@ -163,11 +164,11 @@ export const FormComponent = ({ children }) => {
             onChange={onImageChange}
             className={'filetype'}
           />
-          <FormLabel className="choose__avatar">
+          <FormLabel className='choose__avatar'>
             {imageName ? imageName : 'Choose file'}
           </FormLabel>
           <ButtonComponent
-            textContent="download"
+            textContent='download'
             colorScheme={'facebook'}
             height={47}
             width={189}
@@ -182,6 +183,7 @@ export const FormComponent = ({ children }) => {
           }
           src={ava}
           size={'lg'}
+          bg='#60DABF'
         />
       </FormControl>
       {children}
