@@ -8,7 +8,7 @@ import {
   FormLabel,
   Input,
   Button,
-  Text
+  Text,
 } from '@chakra-ui/react';
 import OneMember from '../members/OneMember';
 import { UsersContext } from '../../contexts/usersContext';
@@ -39,7 +39,7 @@ export const UserNav = () => {
 
   return (
     <Fragment>
-      <IssuesListLine/>
+      <IssuesListLine />
       <Box>
         <Text fontSize='16px'>Scram master:</Text>
         <OneMember member={master} />
