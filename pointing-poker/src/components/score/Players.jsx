@@ -24,6 +24,7 @@ const Players = () => {
 
   const getMemberFirstName = () => {
     let memberFirstName = '';
+
     players.forEach((member) => {
       if (member.id === deletedMember) {
         memberFirstName = member.firstName;

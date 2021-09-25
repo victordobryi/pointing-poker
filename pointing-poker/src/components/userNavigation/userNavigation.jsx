@@ -8,7 +8,7 @@ import {
   FormLabel,
   Input,
   Button,
-  Text
+  Text,
 } from '@chakra-ui/react';
 import OneMember from '../members/OneMember';
 import { UsersContext } from '../../contexts/usersContext';
