@@ -17,6 +17,7 @@ import A from '../assets/icons/A.png';
 import { useSelector } from 'react-redux';
 import { Statisctics } from '../components/statistics/Statistics';
 import { SocketContext } from '../contexts/socketContext';
+import { MainContext } from '../contexts/mainContext';
 
 const fibonacciCards = ['0', '1', '2', '3', '5', '8', cup];
 
@@ -27,6 +28,7 @@ const PlayingCards = ['6', '7', J, Q, K, A, cup];
 function GameMasterPage() {
   const [timerStatus, setTimerStatus] = useState(false);
   const socket = useContext(SocketContext);
+  const { settings, setSettings } = useContext(MainContext);
 
   socket.on('getTimerStatus', ({ currentStatus }) => {
     setTimerStatus(currentStatus);
@@ -44,10 +46,12 @@ function GameMasterPage() {
   const user = useSelector((state) => state.user);
 
   let cards =
-    settingsData.scoreType === 'FN'
+    settings.scoreType === 'FN'
       ? fibonacciCards
-      : settingsData.scoreType === 'TS'
+      : settings.scoreType === 'TS'
       ? TshirtsCards
+      : settings.scoreType === 'PC'
+      ? PlayingCards
       : PlayingCards;
 
   return (
@@ -87,7 +91,7 @@ function GameMasterPage() {
               ? cards.map((card) => (
                   <GameCard
                     key={card}
-                    scoreType={settingsData.scoreType}
+                    scoreType={settings.scoreType}
                     image={card}
                   />
                 ))

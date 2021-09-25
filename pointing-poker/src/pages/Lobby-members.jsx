@@ -8,6 +8,7 @@ import { SocketContext } from '../contexts/socketContext';
 import { Flex, Box, Button, Text } from '@chakra-ui/react';
 import OneMember from '../components/members/OneMember';
 import { IssuesListLine } from '../components/userNavigation/IssuesListLine';
+import { MainContext } from '../contexts/mainContext';
 
 const LobbyMembersPage = () => {
   const { users } = useContext(UsersContext);
@@ -15,6 +16,12 @@ const LobbyMembersPage = () => {
   const socket = useContext(SocketContext);
   const { issues, setIssues } = useContext(IssuesContext);
   const history = useHistory();
+
+  const { settings, setSettings } = useContext(MainContext);
+  socket.on('getSettings', (settings) => {
+    console.log('settings', 'настройки в мембер');
+    setSettings(settings);
+  });
 
   socket.on('link', () => {
     history.push('/game-master');

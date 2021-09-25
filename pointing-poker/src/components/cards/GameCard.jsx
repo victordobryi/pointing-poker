@@ -3,11 +3,13 @@ import { Box, Image, Flex } from '@chakra-ui/react';
 import './cards.scss';
 const GameCard = ({ scoreType, image }) => {
   const handleCardChoose = (e) => {
+    const card = e.currentTarget;
     const image = document.createElement('div');
     image.classList.add('active-card-arrow');
     deleActiveClasses();
-    e.currentTarget.classList.add('active-card');
-    e.currentTarget.append(image);
+    card.classList.add('active-card');
+    card.append(image);
+    console.log(card);
   };
 
   const deleActiveClasses = () => {
