@@ -4,6 +4,7 @@ import Members from '../components/members/Members';
 import { MainLayout } from '../components/mainLayout/mainLayout';
 import { IssuesContext } from '../contexts/issuesContext';
 import { UsersContext } from '../contexts/usersContext';
+import { MainContext } from '../contexts/mainContext';
 import { SocketContext } from '../contexts/socketContext';
 import {Modal} from '../components/modal/modal';
 import {YouAreDeletedModal} from '../components/modals/YouAreDeletedModal';
@@ -18,6 +19,7 @@ import { IssuesListLine } from '../components/userNavigation/IssuesListLine';
 
 const LobbyMembersPage = () => {
   const [modalActive, setModalActive] = useState(false);
+  const { setSettings } = useContext(MainContext);
   const { users } = useContext(UsersContext);
   const master = users.filter((user) => user.isMaster === true)[0];
   const socket = useContext(SocketContext);
@@ -31,6 +33,14 @@ const LobbyMembersPage = () => {
   socket.on('userIsDeleted', () => {
     modalShowFunc();
   });
+
+  useEffect(()=>{
+    const room = master.room;
+    socket.emit('getCurrentSettings', room);
+    socket.on('getSettings', settings => {
+      setSettings(settings);
+    });
+  }, []);
 
   const handleExitClick = () => {
     socket.emit('leaveSession', socket.id);
@@ -60,7 +70,7 @@ const LobbyMembersPage = () => {
             w='160px'
             onClick={handleExitClick}
           >
-            Exit
+            Leave session
           </Button>
         </Flex>
       </Fragment>
