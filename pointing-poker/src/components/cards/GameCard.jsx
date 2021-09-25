@@ -1,19 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Box, Image, Flex } from '@chakra-ui/react';
 import './cards.scss';
-import active from '../../assets/icons/selected.svg';
 const GameCard = ({ scoreType, image }) => {
-  const [isActive, setIsActive] = useState(false);
   const handleCardChoose = (e) => {
+    const image = document.createElement('div');
+    image.classList.add('active-card-arrow');
     deleActiveClasses();
-    e.currentTarget.classList.add('active');
-    setIsActive(true);
+    e.currentTarget.classList.add('active-card');
+    e.currentTarget.append(image);
   };
 
   const deleActiveClasses = () => {
     const gameCards = document.querySelectorAll('.game-card');
+    const image = document.querySelector('.active-card-arrow');
+    if (image) {
+      image.remove();
+    }
     gameCards.forEach((card) => {
-      card.classList.remove('active');
+      card.classList.remove('active-card');
     });
   };
   return (
@@ -48,9 +52,6 @@ const GameCard = ({ scoreType, image }) => {
       <Box fontSize={20} fontWeight="bold" transform="rotate(180deg)" h="20px">
         {scoreType}
       </Box>
-      {isActive ? (
-        <Image src={active} w={50} h={50} className="active-arrow" />
-      ) : null}
     </Box>
   );
 };
