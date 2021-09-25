@@ -73,7 +73,7 @@ const Issues = () => {
   };
 
   return (
-    <Box maxW='1200px' mt='20px'>
+    <Box maxW='1200px'>
       <Heading as='h5' size='lg' textAlign='center' mb='30px'>
         Issues:
       </Heading>
