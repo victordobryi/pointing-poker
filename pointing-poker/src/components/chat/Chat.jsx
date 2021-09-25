@@ -71,7 +71,7 @@ const Chat = ({ active }) => {
       <Flex
         className='room'
         flexDirection='column'
-        width={{ base: '100%', sm: '575px' }}
+        width={{ base: '100%', sm: '350px' }}
         height={{ base: '100%', sm: 'auto' }}
       >
         <Heading
@@ -122,9 +122,9 @@ const Chat = ({ active }) => {
                 <Box h={2} w={2} borderRadius='100px' bg='green.300'></Box>
               </Flex>
             </Flex>
-            <Button color='gray.500' fontSize='sm' onClick={logout}>
+            {/* <Button color='gray.500' fontSize='sm' onClick={logout}>
               Logout
-            </Button>
+            </Button> */}
           </Flex>
         </Heading>
 
