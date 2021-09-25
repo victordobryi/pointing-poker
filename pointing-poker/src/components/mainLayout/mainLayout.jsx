@@ -1,4 +1,4 @@
-import React, { useContext, useState, Fragment } from 'react';
+import React, { useState, Fragment } from 'react';
 import { Img } from '@chakra-ui/image';
 import { Link } from '@chakra-ui/layout';
 import Chat from '../chat/Chat';
