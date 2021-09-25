@@ -1,9 +1,33 @@
-import React from "react";
-import { Box, Flex, Spacer, Image, Avatar } from "@chakra-ui/react";
+import React, { useContext } from 'react';
+import { Box, Flex, Spacer, Avatar } from '@chakra-ui/react';
 import { NotAllowedIcon } from '@chakra-ui/icons'
+import { SocketContext } from '../../contexts/socketContext';
+import { UsersContext } from '../../contexts/usersContext';
 
 const OneMember = ({ member, deleteClick }) => {
-  const { fullName, jobPosition, idd, firstName, lastName, imageSrc } = member;
+  const { fullName, jobPosition, idd, firstName, lastName, imageSrc, id } = member;
+  const { users } = useContext(UsersContext);
+  const socket = useContext(SocketContext);
+
+  const isKickerMaster = () => {
+    const currUser = users.filter((user) => user.id === socket.id);
+    return currUser[0].isMaster;
+  }
+
+  const handleDeleteClick = () => {
+    const kickerId = socket.id;
+    if (isKickerMaster()) {
+      deleteClick(idd, true); 
+    } else {
+      if (users.length < 4 ) {
+        alert('You can`t kick member, while there is less than 3 members in lobby ');
+        return;
+      } else {
+        const voteSet = new Date().valueOf();
+        socket.emit('kickUser', { id, kickerId, voteSet });
+      }
+    }
+  }
 
   return (
     <Box
@@ -42,7 +66,7 @@ const OneMember = ({ member, deleteClick }) => {
               w="30px"
               h="30px"
               color="red"
-              onClick={() => deleteClick(idd)}
+              onClick={handleDeleteClick}
               _hover={{ cursor: "pointer" }}
             />
         }

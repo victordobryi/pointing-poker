@@ -1,4 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { MainContext } from '../../contexts/mainContext';
+import { SocketContext } from '../../contexts/socketContext';
 import {
   Box,
   Heading,
@@ -7,90 +10,90 @@ import {
   Switch,
   Flex,
   Spacer,
-  Select
-} from '@chakra-ui/react';
-import { NumberInputElem } from './NumberInput';
-import GameCard from '../cards/GameCard';
-import AddCard from '../cards/AddCard';
-import NewGameCard from '../cards/NewGameCard';
-import cup from '../../assets/icons/Cup.png';
-import J from '../../assets/icons/J.png';
-import Q from '../../assets/icons/Q.png';
-import K from '../../assets/icons/K.png';
-import A from '../../assets/icons/A.png';
-import { Socket } from 'socket.io-client';
-import { SocketContext } from '../../contexts/socketContext';
-import { useDispatch, useSelector } from 'react-redux';
+  Select,
+} from "@chakra-ui/react";
+import { NumberInputElem } from "./NumberInput";
+import GameCard from "../cards/GameCard";
+import AddCard from "../cards/AddCard";
+import NewGameCard from "../cards/NewGameCard";
+import cup from "../../assets/icons/Cup.png";
+import J from "../../assets/icons/J.png";
+import Q from "../../assets/icons/Q.png";
+import K from "../../assets/icons/K.png";
+import A from "../../assets/icons/A.png";
 
-const fibonacciCards = ['0', '1', '2', '3', '5', '8', cup];
+const fibonacciCards = ["0", "1", "2", "3", "5", "8", cup];
 
-const TshirtsCards = ['XS', 'S', 'M', 'L', 'XL', cup];
+const TshirtsCards = ["XS", "S", "M", "L", "XL", cup];
 
-const PlayingCards = ['6', '7', J, Q, K, A, cup];
+const PlayingCards = ["6", "7", J, Q, K, A, cup];
 
 const SettingsForm = () => {
-  const [settingsData, setSettingsData] = useState({
-    isMaster: false,
-    isChanging: false,
-    isTimer: false,
-    scoreType: '',
-    minutes: 0,
-    seconds: 0
-  });
   const socket = useContext(SocketContext);
+
+  const { settings, setSettings } = useContext(MainContext);
+  socket.on("getSettings", (settings) => {
+    setSettings(settings);
+  });
 
   const timer = useSelector((state) => state.timer);
   const dispatch = useDispatch();
 
   let cards =
-    settingsData.scoreType === 'FN'
+    settings.scoreType === "FN"
       ? fibonacciCards
-      : settingsData.scoreType === 'TS'
+      : settings.scoreType === "TS"
       ? TshirtsCards
-      : PlayingCards;
+      : settings.scoreType === "PC"
+      ? PlayingCards
+      : null;
 
   const [isNewCard, setIsNewCard] = useState(false);
 
   const handleIsMasterSelect = () => {
-    setSettingsData((settingsData) => ({
-      ...settingsData,
-      isMaster: !settingsData.isMaster
-    }));
+    const currentSettings = { ...settings, isMaster: !settings.isMaster };
+    console.log("currentSettings", currentSettings);
+    socket.emit("setSettings", { currentSettings });
   };
 
   const handleChangigngSelect = () => {
-    setSettingsData((settingsData) => ({
-      ...settingsData,
-      isChanging: !settingsData.isChanging
-    }));
+    const currentSettings = {
+      ...settings,
+      isChanging: !settings.isChanging,
+    };
+    socket.emit("setSettings", { currentSettings });
   };
 
   const handleIsTimerSelect = () => {
-    setSettingsData((settingsData) => ({
-      ...settingsData,
-      isTimer: !settingsData.isTimer
-    }));
+    const currentSettings = {
+      ...settings,
+      isTimer: !settings.isTimer,
+    };
+    socket.emit("setSettings", { currentSettings });
   };
 
   const handleTypesSelect = (e) => {
-    setSettingsData((settingsData) => ({
-      ...settingsData,
-      scoreType: e.target.value
-    }));
+    const currentSettings = {
+      ...settings,
+      scoreType: e.target.value,
+    };
+    socket.emit("setSettings", { currentSettings });
   };
 
-  const handleMinutesChange = (min) => {
-    setSettingsData((settingsData) => ({ ...settingsData, minutes: min }));
-    // console.log(min, 'handleFunc');
-    // socket.emit('changeMinutes', min);
-    dispatch({ type: 'SET_MINUTES', payload: min });
+  const handleMinutesChange = (e) => {
+    const currentSettings = {
+      ...settings,
+      minutes: e,
+    };
+    socket.emit("setSettings", { currentSettings });
   };
 
-  const handleSecondsChange = (sec) => {
-    setSettingsData((settingsData) => ({ ...settingsData, seconds: sec }));
-    // console.log(sec, 'handleFunc');
-    // socket.emit('changeSeconds', sec);
-    dispatch({ type: 'SET_SECONDS', payload: sec });
+  const handleSecondsChange = (e) => {
+    const currentSettings = {
+      ...settings,
+      seconds: e,
+    };
+    socket.emit("setSettings", { currentSettings });
   };
 
   const handleAddClick = (e) => {
@@ -118,21 +121,21 @@ const SettingsForm = () => {
               Scram master as player:
             </FormLabel>
             <Spacer />
-            <Switch colorScheme={'facebook'} onChange={handleIsMasterSelect} />
+            <Switch colorScheme={"facebook"} onChange={handleIsMasterSelect} />
           </Flex>
           <Flex mb="20px">
             <FormLabel mb="0" fontSize="lg">
               Changing card in round end:
             </FormLabel>
             <Spacer />
-            <Switch colorScheme={'facebook'} onChange={handleChangigngSelect} />
+            <Switch colorScheme={"facebook"} onChange={handleChangigngSelect} />
           </Flex>
           <Flex mb="20px">
             <FormLabel mb="0" fontSize="lg">
               Is timer needed:
             </FormLabel>
             <Spacer />
-            <Switch colorScheme={'facebook'} onChange={handleIsTimerSelect} />
+            <Switch colorScheme={"facebook"} onChange={handleIsTimerSelect} />
           </Flex>
           <Flex mb="20px">
             <FormLabel mb="0" fontSize="lg">
@@ -155,10 +158,10 @@ const SettingsForm = () => {
             </FormLabel>
             <Spacer />
             <Box fontSize={30} fontWeight="bold" h="30px">
-              {settingsData.scoreType}
+              {settings.scoreType}
             </Box>
           </Flex>
-          {settingsData.isTimer ? (
+          {settings.isTimer ? (
             <Flex mb="20px">
               <FormLabel mb="0" fontSize="lg">
                 Round time:
@@ -192,7 +195,7 @@ const SettingsForm = () => {
             </Flex>
           ) : null}
         </FormControl>
-        {settingsData.scoreType === '' ? (
+        {cards === null ? (
           <Box h="180px"></Box>
         ) : (
           <>
@@ -203,7 +206,7 @@ const SettingsForm = () => {
               {cards.map((card) => (
                 <GameCard
                   key={card}
-                  scoreType={settingsData.scoreType}
+                  scoreType={settings.scoreType}
                   image={card}
                 />
               ))}
@@ -211,7 +214,7 @@ const SettingsForm = () => {
                 <AddCard addClick={handleAddClick} />
               ) : (
                 <NewGameCard
-                  scoreType={settingsData.scoreType}
+                  scoreType={settings.scoreType}
                   addClick={handleNewCardClick}
                   deleteClick={handleDelCardClick}
                 />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { VStack, Flex } from "@chakra-ui/react";
 import Issues from "../components/issues/Issues";
 import "../App";
@@ -35,8 +35,8 @@ function GameMasterPage() {
     settingsData.scoreType === "FN"
       ? fibonacciCards
       : settingsData.scoreType === "TS"
-      ? TshirtsCards
-      : PlayingCards;
+        ? TshirtsCards
+        : PlayingCards;
 
   return (
     <MainLayout>

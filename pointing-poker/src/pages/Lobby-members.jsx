@@ -1,59 +1,83 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Members from '../components/members/Members';
 import { MainLayout } from '../components/mainLayout/mainLayout';
+import { IssuesContext } from '../contexts/issuesContext';
 import { UsersContext } from '../contexts/usersContext';
+import { MainContext } from '../contexts/mainContext';
+import { SocketContext } from '../contexts/socketContext';
+import {Modal} from '../components/modal/modal';
+import {YouAreDeletedModal} from '../components/modals/YouAreDeletedModal';
 import {
-  Image,
   Flex,
   Box,
   Button,
-  Heading,
   Text
 } from '@chakra-ui/react';
-import draw from '../assets/icons/draw.png';
 import OneMember from '../components/members/OneMember';
-
-const issuesNumbers = [13, 19, 322, 533, 666, 245, 900, 400, 3232, 455656];
+import { IssuesListLine } from '../components/userNavigation/IssuesListLine';
 
 const LobbyMembersPage = () => {
+  const [modalActive, setModalActive] = useState(false);
+  const { setSettings } = useContext(MainContext);
   const { users } = useContext(UsersContext);
   const master = users.filter((user) => user.isMaster === true)[0];
+  const socket = useContext(SocketContext);
+  const history = useHistory();
+  const { setIssues } = useContext(IssuesContext);
+
+  socket.on('issues', issues => {
+    setIssues(issues);
+  });
+
+  socket.on('userIsDeleted', () => {
+    modalShowFunc();
+  });
+
+  useEffect(()=>{
+    const room = master.room;
+    socket.emit('getCurrentSettings', room);
+    socket.on('getSettings', settings => {
+      setSettings(settings);
+    });
+  }, []);
+
+  const handleExitClick = () => {
+    socket.emit('leaveSession', socket.id);
+    modalShowFunc();
+  }
+
+  const modalShowFunc = () => {
+    setModalActive(true);
+    setTimeout(()=>{
+      setModalActive(false);
+      history.push('/');
+    }, 3000);
+  }
 
   return (
     <MainLayout>
       <Fragment>
-        <Flex maxW="1200px" justifyContent={'center'} fontSize="24px" fontWeight="bold" mt="20px">
-          <Heading as="h5" size="md" textAlign="right" mb="50px" >
-            Spring 23 planning (issues {''}
-            {issuesNumbers.map((issue, index) =>
-              issuesNumbers.length > index + 1 ? (
-                <span key={index}>{issue}, </span>
-              ) : (
-                <span key={index}>{issue} </span>
-              )
-            )}
-            )
-            <Image
-              src={draw}
-              alt="draw"
-              boxSize="22px"
-              display="inline-block"
-            />
-          </Heading>
-        </Flex>
+        <IssuesListLine/>
         <Box>
-          <Text fontSize="16px">Scram master:</Text>
+          <Text fontSize='16px'>Scram master:</Text>
           <OneMember member={master} />
         </Box>
-        <Flex justifyContent={"end"} maxW="1000px">
-          <Button variant={"outline"} colorScheme={"facebook"} w="160px">
-            Exit
+        <Flex justifyContent={'end'} maxW='1000px'>
+          <Button 
+            variant={'outline'} 
+            colorScheme={'facebook'}
+            w='160px'
+            onClick={handleExitClick}
+          >
+            Leave session
           </Button>
         </Flex>
       </Fragment>
-      <Box mb="20px">
-        <Members />
-      </Box>
+      <Members />
+      <Modal active={modalActive} setActive={setModalActive}>
+        <YouAreDeletedModal/>
+      </Modal>
     </MainLayout>
   );
 };
