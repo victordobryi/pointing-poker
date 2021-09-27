@@ -9,7 +9,6 @@ import {
   IconButton,
   Text,
   Menu,
-  Button,
   MenuButton,
   MenuList,
   MenuItem,
@@ -71,7 +70,7 @@ const Chat = ({ active }) => {
       <Flex
         className='room'
         flexDirection='column'
-        width={{ base: '100%', sm: '350px' }}
+        width={{ base: '100%', sm: '400px' }}
         height={{ base: '100%', sm: 'auto' }}
       >
         <Heading
@@ -106,9 +105,7 @@ const Chat = ({ active }) => {
               flexDirection='column'
               flex={{ base: '1', sm: 'auto' }}
             >
-              <Heading fontSize='lg'>
-                {/*room.slice(0, 1).toUpperCase() + room.slice(1)*/ room}
-              </Heading>
+              <Heading fontSize='lg'>{room}</Heading>
               <Flex alignItems='center'>
                 <Text
                   mr='1'
@@ -122,9 +119,6 @@ const Chat = ({ active }) => {
                 <Box h={2} w={2} borderRadius='100px' bg='green.300'></Box>
               </Flex>
             </Flex>
-            {/* <Button color='gray.500' fontSize='sm' onClick={logout}>
-              Logout
-            </Button> */}
           </Flex>
         </Heading>
 
