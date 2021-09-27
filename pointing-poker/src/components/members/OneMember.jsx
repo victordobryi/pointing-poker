@@ -37,6 +37,11 @@ const OneMember = ({ member, deleteClick }) => {
       rounded="md"
       p="6px"
       m="5px"
+      background={
+        member.isObserver
+          ? '#ccc'
+          :'#fff'
+        }
     >
       <Flex align="center" justify="center">
         <Avatar
@@ -55,7 +60,9 @@ const OneMember = ({ member, deleteClick }) => {
             {fullName}
           </Box>
           <Box fontSize={10} fontWeight="bold" h="20px">
-            {jobPosition}
+            {jobPosition} {member.isObserver
+              ? '(Observer)'
+              :''}
           </Box>
         </Box>
         <Spacer />
