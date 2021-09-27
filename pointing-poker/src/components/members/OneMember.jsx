@@ -20,7 +20,7 @@ const OneMember = ({ member, deleteClick }) => {
       deleteClick(idd, true); 
     } else {
       if (users.length < 4 ) {
-        alert('You can`t kick member, while there is less than 3 members in lobby ');
+        alert('You can`t kick member, while there is less than 2 members in lobby ');
         return;
       } else {
         const voteSet = new Date().valueOf();

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, Flex } from "@chakra-ui/react";
 
-export const YouAreDeletedModal = ({isSession}) => {
+export const FinishSessionModal = () => {
   return (
     <Flex
       minH='100px'
@@ -13,11 +13,7 @@ export const YouAreDeletedModal = ({isSession}) => {
         fontWeight='800'
         align='center'
       > 
-      {
-        isSession
-          ? 'You are removed from the session'
-          : 'Session is finished by scram master'
-      }
+      Session is successfully finished
       </Text>
     </Flex>
   );

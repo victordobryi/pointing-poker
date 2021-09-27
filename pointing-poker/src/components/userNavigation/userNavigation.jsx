@@ -1,4 +1,4 @@
-import { Fragment, useContext } from 'react';
+import { Fragment, useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import {
@@ -15,9 +15,12 @@ import { UsersContext } from '../../contexts/usersContext';
 import { SocketContext } from '../../contexts/socketContext';
 import { MainContext } from '../../contexts/mainContext';
 import { IssuesListLine } from './IssuesListLine';
+import { FinishSessionModal} from '../modals/FinishSessionModal';
+import { Modal } from '../modal/modal';
 
 export const UserNav = () => {
   const history = useHistory();
+  const [modalActive, setModalActive] = useState(false);
   const { users } = useContext(UsersContext);
   const master = users.filter((user) => user.isMaster === true)[0];
   const socket = useContext(SocketContext);
@@ -37,6 +40,25 @@ export const UserNav = () => {
     history.push('/game-master');
   };
 
+  const handleCancelGameClick = () => {
+    socket.emit('finishSession', { room }, (error) => {
+      if (error) {
+        console.log(error);
+      } else console.log(`Session is finished`);
+    });
+  };
+
+  useEffect(()=>{
+    socket.on('endOfSession', () => {
+      setModalActive(true);
+      setTimeout(()=>{
+        setModalActive(false);
+        history.push('/');
+      }, 3000);
+    });
+  },[])
+  
+
   return (
     <Fragment>
       <IssuesListLine />
@@ -46,7 +68,7 @@ export const UserNav = () => {
       </Box>
       <Box mt='10px' mb='20px'>
         <FormControl>
-          <FormLabel>Link to lobby:</FormLabel>
+          <FormLabel>ID to join the lobby:</FormLabel>
           <Flex>
             <Input
               w={276}
@@ -69,10 +91,17 @@ export const UserNav = () => {
         <Button onClick={handleStartGame} colorScheme={'facebook'}>
           Start Game
         </Button>
-        <Button variant={'outline'} colorScheme={'facebook'}>
+        <Button 
+          variant={'outline'} 
+          colorScheme={'facebook'}
+          onClick={handleCancelGameClick}
+        >
           Cancel game
         </Button>
       </Flex>
+      <Modal active={modalActive} setActive={setModalActive}>
+        <FinishSessionModal/>
+      </Modal>
     </Fragment>
   );
 };

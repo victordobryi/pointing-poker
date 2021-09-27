@@ -19,6 +19,7 @@ import { IssuesListLine } from '../components/userNavigation/IssuesListLine';
 
 const LobbyMembersPage = () => {
   const [modalActive, setModalActive] = useState(false);
+  const [isSession, setIsSession] = useState(true);
   const { setSettings } = useContext(MainContext);
   const { users } = useContext(UsersContext);
   const master = users.filter((user) => user.isMaster === true)[0];
@@ -33,6 +34,13 @@ const LobbyMembersPage = () => {
   socket.on('userIsDeleted', () => {
     modalShowFunc();
   });
+
+  useEffect(()=>{
+    socket.on('endOfSession', () => {
+      setIsSession(false)
+      modalShowFunc();
+    });
+  }, []);
 
   useEffect(()=>{
     const room = master.room;
@@ -76,7 +84,7 @@ const LobbyMembersPage = () => {
       </Fragment>
       <Members />
       <Modal active={modalActive} setActive={setModalActive}>
-        <YouAreDeletedModal/>
+        <YouAreDeletedModal isSession={isSession}/>
       </Modal>
     </MainLayout>
   );
