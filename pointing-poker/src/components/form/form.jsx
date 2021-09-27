@@ -50,6 +50,7 @@ export const FormComponent = ({ children }) => {
       fullName: '',
       imageSrc: '',
       idd: '',
+      score: '',
       isObserver: false,
       isMaster: true
     },

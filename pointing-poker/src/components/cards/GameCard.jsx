@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Box, Image, Flex } from '@chakra-ui/react';
 import './cards.scss';
+import { MainContext } from '../../contexts/mainContext';
+import { SocketContext } from '../../contexts/socketContext';
+
 const GameCard = ({ scoreType, image }) => {
+  const socket = useContext(SocketContext);
+  const { room } = useContext(MainContext);
+
   const handleCardChoose = (e) => {
     const card = e.currentTarget;
-    const image = document.createElement('div');
-    image.classList.add('active-card-arrow');
+    const activeImage = document.createElement('div');
+    activeImage.classList.add('active-card-arrow');
     deleActiveClasses();
     card.classList.add('active-card');
-    card.append(image);
-    console.log(card);
+    card.append(activeImage);
+    socket.emit('editUser', { room, image });
   };
 
   const deleActiveClasses = () => {
@@ -22,6 +28,7 @@ const GameCard = ({ scoreType, image }) => {
       card.classList.remove('active-card');
     });
   };
+
   return (
     <Box
       onClick={handleCardChoose}

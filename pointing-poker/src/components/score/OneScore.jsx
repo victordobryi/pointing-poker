@@ -20,8 +20,27 @@ const OneScore = ({ member }) => {
       key={id}
     >
       <Flex align="center" justify="center" h="100%">
-        <Box fontSize={25} fontWeight="bold" h={50}>
-          {timerStatus !== 'stopped' ? 'in progress' : score}
+        <Box
+          fontSize={25}
+          fontWeight="bold"
+          h={50}
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+        >
+          {timerStatus !== 'stopped' && member.isMaster === false ? (
+            'in progress'
+          ) : (
+            <div
+              style={{
+                backgroundImage: `url(${score})`,
+                width: '60px',
+                height: '60px',
+                backgroundSize: 'cover',
+                backgroundRepeat: 'no-repeat'
+              }}
+            ></div>
+          )}
         </Box>
       </Flex>
     </Box>
