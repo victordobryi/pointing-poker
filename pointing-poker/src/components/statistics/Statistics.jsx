@@ -10,9 +10,10 @@ export const Statisctics = () => {
   const statCards = [];
   const finalArr = [];
   players.forEach(({ score }) => {
-    statCards.push(score);
+    if (score) {
+      statCards.push(score);
+    }
   });
-
   statCards.reduce((acc, el) => {
     acc[el] = (acc[el] || 0) + 1;
     return acc;
@@ -23,7 +24,7 @@ export const Statisctics = () => {
   }
 
   const countResult = (num) => {
-    return ((num / finalArr.length) * 100).toFixed(1) + '%';
+    return ((num / statCards.length) * 100).toFixed(1) + '%';
   };
 
   return (

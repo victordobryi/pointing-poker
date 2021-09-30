@@ -30,6 +30,10 @@ const OneScore = ({ member }) => {
         >
           {timerStatus !== 'stopped' && member.isMaster === false ? (
             'in progress'
+          ) : !score ? (
+            <Box fontSize={30} fontWeight="bold">
+              unknown
+            </Box>
           ) : score.length < 10 ? (
             <Box fontSize={40} fontWeight="bold">
               {score}
