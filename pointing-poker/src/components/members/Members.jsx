@@ -7,6 +7,7 @@ import { KickPlayerModal } from '../modals/KickPlayerModal';
 import { DeletePlayerModal } from '../modals/DeletePlayerModal';
 import { UsersContext } from '../../contexts/usersContext';
 import { SocketContext } from '../../contexts/socketContext';
+import styles from '../../pages/lobby.module.scss';
 
 const Members = () => {
   const [modalActive, setModalActive] = useState(false);
@@ -48,7 +49,7 @@ const Members = () => {
   return (
     <>
       <Box maxW='1200px' mt='20px' mb='20px'>
-        <Heading as='h5' size='lg' textAlign='center' mb='30px'>
+        <Heading className={styles.blocksTitle}>
           Members:
         </Heading>
         <Flex maxW='1200px' wrap='wrap'>

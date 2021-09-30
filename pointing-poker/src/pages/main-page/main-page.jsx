@@ -88,8 +88,6 @@ export const MainPage = () => {
           <Img
             src={mainLogo}
             alt="mainLogo"
-            width={550}
-            height={150}
             className={styles.mainLogo}
           />
         </div>
@@ -117,7 +115,7 @@ export const MainPage = () => {
               Connect to lobby by{' '}
               <span style={{ fontWeight: 'bold', color: '#66999b' }}>ID</span>:
             </h3>
-            <Flex paddingBottom={'100px'}>
+            <Flex paddingBottom={'10px'} className={styles.connect_flex}>
               <Input
                 value={urlInputVal}
                 variant="outline"

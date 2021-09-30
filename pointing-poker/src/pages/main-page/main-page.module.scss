@@ -4,7 +4,11 @@ $width: calc(100% - 20%);
 $paddingLeft: calc((100% - 80%) / 2);
 $paddingRight: calc((100% - 80%) / 2);
 .wrapperInner {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   max-width: $width;
+  min-height: calc(100vh - 140px);
   padding-left: $paddingLeft;
   padding-right: $paddingRight;
   margin-right: auto;
@@ -15,29 +19,45 @@ $paddingRight: calc((100% - 80%) / 2);
 
 .mainLogo {
   margin: 0 auto;
-  &_block {
-    padding-top: 120px;
+  width: 550px;
+  height: 150px;
+
+  @media (max-width: 900px) {
+    width: 350px;
+    height: 95px;
   }
 }
 
 .connect {
   &_block {
-    padding-top: 35px;
     width: 515px;
+
+    @media (max-width: 900px) {
+      width: 100%;
+    }
   }
   &_title {
     font-size: 48px;
     color: $cadetBlue;
     font-weight: bold;
     text-align: center;
+
+    @media (max-width: 900px) {
+      font-size: 36px;
+      text-align: start;
+    }
   }
   &_subtitle {
     font-size: 24px;
   }
   &_flex {
     display: flex;
-    padding-top: 50px;
+    padding-top: 20px;
     justify-content: space-between;
+
+    @media (max-width: 900px) {
+      flex-direction: column;
+    }
   }
 }
 
@@ -45,7 +65,7 @@ $paddingRight: calc((100% - 80%) / 2);
   &__control {
     display: flex;
     justify-content: space-between;
-    padding-top: 100px;
+    padding-top: 20px;
   }
 }
 
@@ -53,6 +73,10 @@ $paddingRight: calc((100% - 80%) / 2);
   &__title {
     font-size: 64px;
     font-weight: bold;
+
+    @media (max-width: 900px) {
+      font-size: 48px;
+    }
   }
 }
 

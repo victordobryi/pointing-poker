@@ -40,7 +40,7 @@ const OneMember = ({ member, deleteClick }) => {
       background={
         member.isObserver
           ? '#ccc'
-          :'#fff'
+          : '#fff'
         }
     >
       <Flex align="center" justify="center">
@@ -67,7 +67,7 @@ const OneMember = ({ member, deleteClick }) => {
         </Box>
         <Spacer />
         {
-          member.isMaster === true
+          member.isMaster
             ? null
             : <NotAllowedIcon
               w="30px"
