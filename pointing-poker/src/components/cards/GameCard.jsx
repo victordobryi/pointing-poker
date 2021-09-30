@@ -4,7 +4,7 @@ import './cards.scss';
 import { MainContext } from '../../contexts/mainContext';
 import { SocketContext } from '../../contexts/socketContext';
 
-const GameCard = ({ scoreType, image }) => {
+const GameCard = ({ scoreType, image, isActive }) => {
   const socket = useContext(SocketContext);
   const { room } = useContext(MainContext);
 
@@ -12,13 +12,13 @@ const GameCard = ({ scoreType, image }) => {
     const card = e.currentTarget;
     const activeImage = document.createElement('div');
     activeImage.classList.add('active-card-arrow');
-    deleActiveClasses();
+    deleteActiveClasses();
     card.classList.add('active-card');
     card.append(activeImage);
     socket.emit('editUser', { room, image });
   };
 
-  const deleActiveClasses = () => {
+  const deleteActiveClasses = () => {
     const gameCards = document.querySelectorAll('.game-card');
     const image = document.querySelector('.active-card-arrow');
     if (image) {

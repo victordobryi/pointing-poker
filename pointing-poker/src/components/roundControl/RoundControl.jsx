@@ -6,7 +6,7 @@ import { MainContext } from '../../contexts/mainContext';
 import { useSelector } from 'react-redux';
 
 export const RoundControl = () => {
-  const { settings, setSettings } = useContext(MainContext);
+  const { settings } = useContext(MainContext);
   const initCount = Number(settings.minutes * 60 + Number(settings.seconds));
   const [status, setStatus] = useState(false);
   const [secondsRemaining, setSecondsRemaining] = useState(initCount);

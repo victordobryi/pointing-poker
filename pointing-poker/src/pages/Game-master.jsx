@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { VStack, Flex } from '@chakra-ui/react';
 import Issues from '../components/issues/Issues';
 import '../App';
@@ -29,7 +29,7 @@ function GameMasterPage() {
   const [timerStatus, setTimerStatus] = useState(false);
   const socket = useContext(SocketContext);
 
-  const { settings, setSettings } = useContext(MainContext);
+  const { settings } = useContext(MainContext);
 
   socket.on('getTimerStatus', ({ currentStatus }) => {
     setTimerStatus(currentStatus);
@@ -78,6 +78,7 @@ function GameMasterPage() {
             direction="row"
             justify="space-between"
             align="flex-start"
+            className={timerStatus === true ? 'active' : 'inActive'}
           >
             {!user.isObserver && !user.isMaster
               ? cards.map((card) => (
