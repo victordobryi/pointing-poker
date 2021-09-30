@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { Box, Image, Flex } from '@chakra-ui/react';
 import './cards.scss';
 import { MainContext } from '../../contexts/mainContext';

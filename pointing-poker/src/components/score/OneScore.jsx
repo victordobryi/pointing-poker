@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Flex, Image } from '@chakra-ui/react';
 import { SocketContext } from '../../contexts/socketContext';
 
 const OneScore = ({ member }) => {
@@ -30,16 +30,17 @@ const OneScore = ({ member }) => {
         >
           {timerStatus !== 'stopped' && member.isMaster === false ? (
             'in progress'
+          ) : score.length < 10 ? (
+            <Box fontSize={40} fontWeight="bold">
+              {score}
+            </Box>
           ) : (
-            <div
-              style={{
-                backgroundImage: `url(${score})`,
-                width: '60px',
-                height: '60px',
-                backgroundSize: 'cover',
-                backgroundRepeat: 'no-repeat'
-              }}
-            ></div>
+            <Image
+              src={score}
+              alt="Card-image"
+              boxSize="60px"
+              objectFit="cover"
+            />
           )}
         </Box>
       </Flex>

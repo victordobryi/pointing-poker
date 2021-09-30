@@ -28,19 +28,11 @@ const PlayingCards = ['6', '7', J, Q, K, A, cup];
 function GameMasterPage() {
   const [timerStatus, setTimerStatus] = useState(false);
   const socket = useContext(SocketContext);
+
   const { settings, setSettings } = useContext(MainContext);
 
   socket.on('getTimerStatus', ({ currentStatus }) => {
     setTimerStatus(currentStatus);
-  });
-
-  const [settingsData, setSettingsData] = useState({
-    isMaster: false,
-    isChanging: false,
-    isTimer: false,
-    scoreType: '',
-    minutes: 0,
-    seconds: 0
   });
 
   const user = useSelector((state) => state.user);
@@ -97,7 +89,7 @@ function GameMasterPage() {
                 ))
               : null}
           </Flex>
-          {timerStatus === 'stopped' && user.isMaster ? (
+          {timerStatus === 'stopped' ? (
             <Flex minW="50%" paddingTop="50px">
               <Statisctics />
             </Flex>
