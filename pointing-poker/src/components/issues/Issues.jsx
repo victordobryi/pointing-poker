@@ -8,6 +8,7 @@ import { Modal } from '../modal/modal';
 import { MainContext } from '../../contexts/mainContext';
 import { IssuesContext } from '../../contexts/issuesContext';
 import { SocketContext } from '../../contexts/socketContext';
+import styles from '../../pages/lobby.module.scss';
 
 const EMPTYISSUE = {
   id: '',
@@ -74,7 +75,7 @@ const Issues = () => {
 
   return (
     <Box maxW='1200px'>
-      <Heading as='h5' size='lg' textAlign='center' mb='30px'>
+      <Heading className={styles.blocksTitle}>
         Issues:
       </Heading>
       <Flex maxW='1200px' wrap='wrap'>

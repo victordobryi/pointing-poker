@@ -67,12 +67,7 @@ const Chat = ({ active }) => {
 
   return (
     <div className={active ? 'chat' : 'chat hidden'}>
-      <Flex
-        className='room'
-        flexDirection='column'
-        width={{ base: '100%', sm: '400px' }}
-        height={{ base: '100%', sm: 'auto' }}
-      >
+      <Flex className='room'>
         <Heading
           className='heading'
           as='h4'
