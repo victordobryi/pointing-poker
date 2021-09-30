@@ -15,7 +15,7 @@ import { UsersContext } from '../../contexts/usersContext';
 import { SocketContext } from '../../contexts/socketContext';
 import { MainContext } from '../../contexts/mainContext';
 import { IssuesListLine } from './IssuesListLine';
-import { FinishSessionModal} from '../modals/FinishSessionModal';
+import { FinishSessionModal } from '../modals/FinishSessionModal';
 import { Modal } from '../modal/modal';
 
 export const UserNav = () => {
@@ -48,16 +48,15 @@ export const UserNav = () => {
     });
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     socket.on('endOfSession', () => {
       setModalActive(true);
-      setTimeout(()=>{
+      setTimeout(() => {
         setModalActive(false);
         history.push('/');
       }, 3000);
     });
-  },[])
-  
+  }, []);
 
   return (
     <Fragment>
@@ -91,8 +90,8 @@ export const UserNav = () => {
         <Button onClick={handleStartGame} colorScheme={'facebook'}>
           Start Game
         </Button>
-        <Button 
-          variant={'outline'} 
+        <Button
+          variant={'outline'}
           colorScheme={'facebook'}
           onClick={handleCancelGameClick}
         >
@@ -100,7 +99,7 @@ export const UserNav = () => {
         </Button>
       </Flex>
       <Modal active={modalActive} setActive={setModalActive}>
-        <FinishSessionModal/>
+        <FinishSessionModal />
       </Modal>
     </Fragment>
   );
