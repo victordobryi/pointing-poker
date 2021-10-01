@@ -86,7 +86,12 @@ function GameMasterPage() {
             direction="row"
             justify="space-between"
             align="flex-start"
-            className={timerStatus === true ? 'active' : 'inActive'}
+            className={
+              timerStatus === true ||
+              (timerStatus === 'stopped' && settings.isChanging)
+                ? 'active'
+                : 'inActive'
+            }
           >
             {!user.isObserver && !user.isMaster
               ? cards.map((card) => (

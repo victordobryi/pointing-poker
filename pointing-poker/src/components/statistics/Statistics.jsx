@@ -1,13 +1,10 @@
 import { Image } from '@chakra-ui/image';
 import { Box, Flex } from '@chakra-ui/layout';
-import { useContext, useState } from 'react';
-import { SocketContext } from '../../contexts/socketContext';
+import { useContext } from 'react';
 import { UsersContext } from '../../contexts/usersContext';
 
 export const Statisctics = () => {
   const { users } = useContext(UsersContext);
-  const [isRestarted, setIsRestarted] = useState(false);
-  const socket = useContext(SocketContext);
 
   const players = users.filter((player) => player.isMaster !== true);
   const statObj = {};
