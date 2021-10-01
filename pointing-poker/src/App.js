@@ -9,8 +9,9 @@ import { MainProvider } from './contexts/mainContext';
 import { UsersProvider } from './contexts/usersContext';
 import { SocketProvider } from './contexts/socketContext';
 import { IssuesProvider } from './contexts/issuesContext';
-import GameMasterPage from "./pages/Game-master";
-import { ResultPage } from "./pages/result-page/result-page";
+import GameMasterPage from './pages/Game-master';
+import { ResultPage } from './pages/result-page/result-page';
+import { ErrorBoundary } from './components/errorBoundary/errorBoundary';
 
 export const App = () => {
   return (
@@ -20,31 +21,39 @@ export const App = () => {
           <UsersProvider>
             <IssuesProvider>
               <SocketProvider>
-               <Router>
+                <Router>
                   <Route
                     render={({ location }) => (
-                      <>
-                        <Switch location={location}>
-                          <Route exact path="/">
+                      <Switch location={location}>
+                        <Route exact path="/">
+                          <ErrorBoundary>
                             <MainPage />
-                          </Route>
-                          <Route path="/game-master">
+                          </ErrorBoundary>
+                        </Route>
+                        <Route path="/game-master">
+                          <ErrorBoundary>
                             <GameMasterPage />
-                          </Route>
-                          <Route path="/game-result">
+                          </ErrorBoundary>
+                        </Route>
+                        <Route path="/game-result">
+                          <ErrorBoundary>
                             <ResultPage />
-                          </Route>
-                          <Route path="/lobby-master">
+                          </ErrorBoundary>
+                        </Route>
+                        <Route path="/lobby-master">
+                          <ErrorBoundary>
                             <LobbyMasterPage />
-                          </Route>
-                          <Route path="/lobby-members">
+                          </ErrorBoundary>
+                        </Route>
+                        <Route path="/lobby-members">
+                          <ErrorBoundary>
                             <LobbyMembersPage />
-                          </Route>
-                          <Route path="/*">
-                            <div>Page not found</div>
-                          </Route>
-                        </Switch>
-                      </>
+                          </ErrorBoundary>
+                        </Route>
+                        <Route path="/*">
+                          <div>Page not found</div>
+                        </Route>
+                      </Switch>
                     )}
                   />
                 </Router>

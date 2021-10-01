@@ -17,6 +17,7 @@ import { MainContext } from '../../contexts/mainContext';
 import { IssuesListLine } from './IssuesListLine';
 import { FinishSessionModal } from '../modals/FinishSessionModal';
 import { Modal } from '../modal/modal';
+import { ErrorBoundary } from '../errorBoundary/errorBoundary';
 
 export const UserNav = () => {
   const history = useHistory();
@@ -63,7 +64,9 @@ export const UserNav = () => {
       <IssuesListLine />
       <Box>
         <Text fontSize='16px'>Scram master:</Text>
-        <OneMember member={master} />
+        <ErrorBoundary>
+          <OneMember member={master} />
+        </ErrorBoundary>
       </Box>
       <Box mt='10px' mb='20px'>
         <FormControl>

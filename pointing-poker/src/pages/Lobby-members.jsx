@@ -16,6 +16,7 @@ import {
 } from '@chakra-ui/react';
 import OneMember from '../components/members/OneMember';
 import { IssuesListLine } from '../components/userNavigation/IssuesListLine';
+import { ErrorBoundary } from '../components/errorBoundary/errorBoundary';
 
 const LobbyMembersPage = () => {
   const [modalActive, setModalActive] = useState(false);
@@ -26,7 +27,7 @@ const LobbyMembersPage = () => {
   const socket = useContext(SocketContext);
   const history = useHistory();
   const { setIssues } = useContext(IssuesContext);
-
+  
   socket.on('issues', issues => {
     setIssues(issues);
   });
@@ -69,7 +70,9 @@ const LobbyMembersPage = () => {
         <IssuesListLine/>
         <Box>
           <Text fontSize='16px'>Scram master:</Text>
-          <OneMember member={master} />
+          <ErrorBoundary>
+            <OneMember member={master} />
+          </ErrorBoundary>
         </Box>
         <Flex justifyContent={'end'} maxW='1000px'>
           <Button 
