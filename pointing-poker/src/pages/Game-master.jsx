@@ -27,12 +27,20 @@ const PlayingCards = ['6', '7', J, Q, K, A, cup];
 
 function GameMasterPage() {
   const [timerStatus, setTimerStatus] = useState(false);
+  const [isRestarted, setIsRestarted] = useState(false);
   const socket = useContext(SocketContext);
+  const { room } = useContext(MainContext);
 
   const { settings } = useContext(MainContext);
 
   socket.on('getTimerStatus', ({ currentStatus }) => {
     setTimerStatus(currentStatus);
+  });
+
+  const image = '';
+  socket.on('restarted', (status) => {
+    setIsRestarted(status);
+    socket.emit('editUser', { room, image });
   });
 
   const user = useSelector((state) => state.user);
@@ -86,6 +94,7 @@ function GameMasterPage() {
                     key={card}
                     scoreType={settings.scoreType}
                     image={card}
+                    isRestarted={isRestarted}
                   />
                 ))
               : null}

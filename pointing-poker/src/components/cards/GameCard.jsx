@@ -4,7 +4,7 @@ import './cards.scss';
 import { MainContext } from '../../contexts/mainContext';
 import { SocketContext } from '../../contexts/socketContext';
 
-const GameCard = ({ scoreType, image, isActive }) => {
+const GameCard = ({ scoreType, image, isRestarted }) => {
   const socket = useContext(SocketContext);
   const { room } = useContext(MainContext);
 
@@ -28,6 +28,10 @@ const GameCard = ({ scoreType, image, isActive }) => {
       card.classList.remove('active-card');
     });
   };
+
+  if (isRestarted) {
+    deleteActiveClasses();
+  }
 
   return (
     <Box

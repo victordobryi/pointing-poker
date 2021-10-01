@@ -25,6 +25,7 @@ export const RoundControl = () => {
   };
 
   const handleOnclickRestart = () => {
+    socket.emit('setRestart', true, room);
     socket.emit('setTimerStatus', true, room);
     setSecondsRemaining(initCount);
   };
