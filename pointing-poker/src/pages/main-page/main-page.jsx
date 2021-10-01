@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Switch, Input, Flex, Img } from '@chakra-ui/react';
 
@@ -22,8 +21,7 @@ export const MainPage = () => {
   const { setName, rooms, setRooms, setRoom } = useContext(MainContext);
   const USER_ID = new Date().valueOf();
   const dispatch = useDispatch();
-  const history = useHistory();
-
+ 
   const handleIsObserverSwitch = () => {
     isObserver ? setIsObserver(false) : setIsObserver(true);
     isObserver
