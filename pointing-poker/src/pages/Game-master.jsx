@@ -88,6 +88,7 @@ function GameMasterPage() {
             align="flex-start"
             className={
               timerStatus === true ||
+              !settings.isTimer ||
               (timerStatus === 'stopped' && settings.isChanging)
                 ? 'active'
                 : 'inActive'
@@ -104,7 +105,7 @@ function GameMasterPage() {
                 ))
               : null}
           </Flex>
-          {timerStatus === 'stopped' ? (
+          {timerStatus === 'stopped' || !settings.isTimer ? (
             <Flex minW="50%" paddingTop="50px">
               <Statisctics />
             </Flex>

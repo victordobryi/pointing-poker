@@ -1,10 +1,12 @@
 import React, { useContext, useState } from 'react';
 import { Box, Flex, Image } from '@chakra-ui/react';
 import { SocketContext } from '../../contexts/socketContext';
+import { MainContext } from '../../contexts/mainContext';
 
 const OneScore = ({ member }) => {
   const { score, id } = member;
   const [timerStatus, setTimerStatus] = useState(false);
+  const { settings } = useContext(MainContext);
   const socket = useContext(SocketContext);
   socket.on('getTimerStatus', ({ currentStatus }) => {
     setTimerStatus(currentStatus);
@@ -28,7 +30,10 @@ const OneScore = ({ member }) => {
           justifyContent="center"
           alignItems="center"
         >
-          {timerStatus !== 'stopped' && member.isMaster === false ? (
+          {timerStatus !== 'stopped' &&
+          member.isMaster === false &&
+          timerStatus &&
+          !settings.isChanging ? (
             'in progress'
           ) : !score ? (
             <Box fontSize={30} fontWeight="bold">
