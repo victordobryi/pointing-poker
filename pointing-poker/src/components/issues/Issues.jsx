@@ -9,6 +9,7 @@ import { MainContext } from '../../contexts/mainContext';
 import { IssuesContext } from '../../contexts/issuesContext';
 import { SocketContext } from '../../contexts/socketContext';
 import { useSelector } from 'react-redux';
+import styles from '../../pages/lobby.module.scss';
 
 const EMPTYISSUE = {
   id: '',
@@ -75,12 +76,8 @@ const Issues = () => {
   };
 
   return (
-    <Box maxW="1200px" mt="20px">
-      {user.isMaster ? (
-        <Heading as="h5" size="lg" textAlign="center" mb="30px">
-          Issues:
-        </Heading>
-      ) : null}
+    <Box maxW="1200px">
+      <Heading className={styles.blocksTitle}>Issues:</Heading>
       <Flex maxW="1200px" wrap="wrap">
         {issues.length ? (
           issues.map((item) => (

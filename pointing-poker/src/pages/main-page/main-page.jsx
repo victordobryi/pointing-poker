@@ -83,7 +83,9 @@ export const MainPage = () => {
   return (
     <MainLayout>
       <div className={styles.wrapperInner}>
-        <div className={styles.mainLogo_block}></div>
+        <div className={styles.mainLogo_block}>
+          <Img src={mainLogo} alt="mainLogo" className={styles.mainLogo} />
+        </div>
         <div className={styles.connect_block}>
           <h2 className={styles.connect_title}>Start your planning:</h2>
           <div className={styles.connect_flex}>
@@ -106,9 +108,9 @@ export const MainPage = () => {
           >
             <h3 className={styles.connect_subtitle}>
               Connect to lobby by{' '}
-              <span style={{ fontWeight: 'bold', color: '#66999b' }}>URL</span>:
+              <span style={{ fontWeight: 'bold', color: '#66999b' }}>ID</span>:
             </h3>
-            <Flex paddingBottom={'100px'}>
+            <Flex paddingBottom={'10px'} className={styles.connect_flex}>
               <Input
                 value={urlInputVal}
                 variant="outline"

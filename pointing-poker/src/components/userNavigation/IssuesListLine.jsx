@@ -7,7 +7,7 @@ export const IssuesListLine = () => {
 
   return (
     <Heading 
-      textAlign='center' 
+      textAlign='start' 
       mt='30px'
       mb='30px' 
       maxW='1200px' 

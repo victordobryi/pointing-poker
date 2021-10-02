@@ -17,7 +17,6 @@ import { FiList } from 'react-icons/fi';
 import { BiMessageDetail } from 'react-icons/bi';
 import { RiSendPlaneFill } from 'react-icons/ri';
 import ScrollToBottom from 'react-scroll-to-bottom';
-import { useToast } from '@chakra-ui/react';
 import './Chat.scss';
 import { UsersContext } from '../../contexts/usersContext';
 
@@ -28,7 +27,6 @@ const Chat = ({ active }) => {
   const [messages, setMessages] = useState([]);
   const { users } = useContext(UsersContext);
   const history = useHistory();
-  const toast = useToast();
 
   window.onpopstate = (e) => logout();
   //Checks to see if there's a user present
@@ -37,21 +35,12 @@ const Chat = ({ active }) => {
   }, [history, name]);
 
   useEffect(() => {
-    socket.on('message', (msg) => {
+    const updateMessage = (msg) => {
       setMessages((messages) => [...messages, msg]);
-    });
-
-    socket.on('notification', (notif) => {
-      toast({
-        position: 'top',
-        title: notif?.title,
-        description: notif?.description,
-        status: 'success',
-        duration: 5000,
-        isClosable: true,
-      });
-    });
-  }, [socket, toast]);
+    };
+    socket.on('message', updateMessage);
+    return () => socket.removeListener('message', updateMessage);
+  }, [socket]);
 
   const handleSendMessage = () => {
     socket.emit('sendMessage', message, () => setMessage(''));
@@ -67,12 +56,7 @@ const Chat = ({ active }) => {
 
   return (
     <div className={active ? 'chat' : 'chat hidden'}>
-      <Flex
-        className='room'
-        flexDirection='column'
-        width={{ base: '100%', sm: '400px' }}
-        height={{ base: '100%', sm: 'auto' }}
-      >
+      <Flex className='room'>
         <Heading
           className='heading'
           as='h4'

@@ -20,7 +20,6 @@ export const ReviseIssueModal = ({ issue, onClose, setCurrentIssue, onRevise }) 
 
   if (issue.id === '') {
     setCurrentIssue(issue => ({ ...issue, id: `${new Date().valueOf()}` }));
-    console.log(issue)
   }
 
   const handleTypesSelect = (e) => {
@@ -152,10 +151,11 @@ export const ReviseIssueModal = ({ issue, onClose, setCurrentIssue, onRevise }) 
             fontWeight="bold"
             fontSize="lg"
             onChange={handleTypesSelect}
+            value={issue.priority}
           >
-            <option value="low" selected={issue.priority === "low"}>Low</option>
-            <option value="middle" selected={issue.priority === "middle"}>Middle</option>
-            <option value="height" selected={issue.priority === "height"}>Height</option>
+            <option value="low" >Low</option>
+            <option value="middle" >Middle</option>
+            <option value="height" >Height</option>
           </Select>
         </Flex>
       </FormControl>

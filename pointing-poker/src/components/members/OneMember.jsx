@@ -31,6 +31,7 @@ const OneMember = ({ member, deleteClick }) => {
         alert(
           'You can`t kick member, while there is less than 3 members in lobby '
         );
+
         return;
       } else {
         const voteSet = new Date().valueOf();
@@ -40,7 +41,15 @@ const OneMember = ({ member, deleteClick }) => {
   };
 
   return (
-    <Box w={300} h={75} boxShadow="dark-lg" rounded="md" p="6px" m="5px">
+    <Box
+      w={300}
+      h={75}
+      boxShadow="dark-lg"
+      rounded="md"
+      p="6px"
+      m="5px"
+      background={member.isObserver ? '#ccc' : '#fff'}
+    >
       <Flex align="center" justify="center">
         <Avatar
           name={firstName ? firstName + ' ' + lastName : null}
@@ -61,17 +70,17 @@ const OneMember = ({ member, deleteClick }) => {
             {fullName}
           </Box>
           <Box fontSize={10} fontWeight="bold" h="20px">
-            {jobPosition}
+            {jobPosition} {member.isObserver ? '(Observer)' : ''}
           </Box>
         </Box>
         <Spacer />
 
-        {member.isMaster === true ? null : (
+        {member.isMaster ? null : (
           <NotAllowedIcon
             w="30px"
             h="30px"
             color="red"
-            onClick={() => deleteClick(idd)}
+            onClick={handleDeleteClick}
             _hover={{ cursor: 'pointer' }}
           />
         )}
