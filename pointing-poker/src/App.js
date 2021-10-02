@@ -1,5 +1,5 @@
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { store } from './store';
 import { ChakraProvider } from '@chakra-ui/react';
 import { MainPage } from './pages/main-page/main-page';
@@ -9,8 +9,8 @@ import { MainProvider } from './contexts/mainContext';
 import { UsersProvider } from './contexts/usersContext';
 import { SocketProvider } from './contexts/socketContext';
 import { IssuesProvider } from './contexts/issuesContext';
-import GameMasterPage from "./pages/Game-master";
-import { ResultPage } from "./pages/result-page/result-page";
+import GameMasterPage from './pages/Game-master';
+import { ResultPage } from './pages/result-page/result-page';
 
 export const App = () => {
   return (
@@ -20,7 +20,7 @@ export const App = () => {
           <UsersProvider>
             <IssuesProvider>
               <SocketProvider>
-               <Router>
+                <Router>
                   <Route
                     render={({ location }) => (
                       <>

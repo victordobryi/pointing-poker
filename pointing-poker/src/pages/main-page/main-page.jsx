@@ -22,7 +22,6 @@ export const MainPage = () => {
   const { setName, rooms, setRooms, setRoom } = useContext(MainContext);
   const USER_ID = new Date().valueOf();
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const handleIsObserverSwitch = () => {
     isObserver ? setIsObserver(false) : setIsObserver(true);
@@ -85,11 +84,7 @@ export const MainPage = () => {
     <MainLayout>
       <div className={styles.wrapperInner}>
         <div className={styles.mainLogo_block}>
-          <Img
-            src={mainLogo}
-            alt="mainLogo"
-            className={styles.mainLogo}
-          />
+          <Img src={mainLogo} alt="mainLogo" className={styles.mainLogo} />
         </div>
         <div className={styles.connect_block}>
           <h2 className={styles.connect_title}>Start your planning:</h2>
@@ -156,7 +151,6 @@ export const MainPage = () => {
                 variant="solid"
                 colorScheme="facebook"
                 type={'submit'}
-                onClick={() => setModalActive(false)}
               />
               <ButtonComponent
                 width={189}
