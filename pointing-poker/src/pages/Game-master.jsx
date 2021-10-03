@@ -15,7 +15,7 @@ import Q from '../assets/icons/Q.png';
 import K from '../assets/icons/K.png';
 import A from '../assets/icons/A.png';
 import { useSelector } from 'react-redux';
-import { Statisctics } from '../components/statistics/Statistics';
+import { Statistics } from '../components/statistics/Statistics';
 import { SocketContext } from '../contexts/socketContext';
 import { MainContext } from '../contexts/mainContext';
 import { useHistory } from 'react-router';
@@ -68,35 +68,35 @@ function GameMasterPage() {
   return (
     <MainLayout>
       <Flex
-        h="86%"
-        direction="row"
-        justify="center"
-        align="flex-start"
+        h='86%'
+        direction='row'
+        justify='center'
+        align='flex-start'
         mb={150}
       >
         <VStack
-          w="70%"
-          borderColor="grey.100"
+          w='70%'
+          borderColor='grey.100'
           borderWidth={2}
-          borderBottom="none"
-          borderTop="none"
-          borderLeft="none"
+          borderBottom='none'
+          borderTop='none'
+          borderLeft='none'
         >
           <UserNavGame />
           <Flex
-            w="90%"
-            direction="row"
-            justify="space-between"
-            align="flex-start"
+            w='90%'
+            direction='row'
+            justify='space-between'
+            align='flex-start'
           >
             <Issues />
             <RoundControl mt={85} />
           </Flex>
           <Flex
-            w="90%"
-            direction="row"
-            justify="space-between"
-            align="flex-start"
+            w='90%'
+            direction='row'
+            justify='space-between'
+            align='flex-start'
             className={
               timerStatus === true ||
               !settings.isTimer ||
@@ -117,12 +117,12 @@ function GameMasterPage() {
               : null}
           </Flex>
           {timerStatus === 'stopped' || endGame ? (
-            <Flex minW="50%" paddingTop="50px">
-              <Statisctics />
+            <Flex minW='50%' paddingTop='50px'>
+              <Statistics />
             </Flex>
           ) : null}
         </VStack>
-        <Flex w="40%" direction="column" justify="flex-start" align="center">
+        <Flex w='40%' direction='column' justify='flex-start' align='center'>
           <ScoreTable />
         </Flex>
       </Flex>
