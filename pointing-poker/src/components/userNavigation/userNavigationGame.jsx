@@ -10,9 +10,18 @@ export const UserNavGame = () => {
 
   const { users } = useContext(UsersContext);
   const master = users.filter((user) => user.isMaster === true)[0];
+  const user = useSelector((state) => state.user);
+  const socket = useContext(SocketContext);
+  const { room } = useContext(MainContext);
 
   const handleStopClick = () => {
-    history.push('/game-result');
+    const link = '/game-result';
+    socket.emit('changePage', { link, room });
+    history.push(link);
+  };
+
+  const handleExitGame = () => {
+    history.push('/');
   };
   return (
     <>
@@ -28,9 +37,11 @@ export const UserNavGame = () => {
         <Button
           variant={'outline'}
           colorScheme={'facebook'}
-          onClick={() => handleStopClick()}
+          onClick={
+            user.isMaster ? () => handleStopClick() : () => handleExitGame()
+          }
         >
-          Stop game
+          {user.isMaster ? 'Stop game' : 'Exit game'}
         </Button>
       </Flex>
     </>

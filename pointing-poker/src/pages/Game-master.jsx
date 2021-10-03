@@ -18,6 +18,7 @@ import { useSelector } from 'react-redux';
 import { Statistics } from '../components/statistics/Statistics';
 import { SocketContext } from '../contexts/socketContext';
 import { MainContext } from '../contexts/mainContext';
+import { useHistory } from 'react-router';
 
 const fibonacciCards = ['0', '1', '2', '3', '5', '8', cup];
 
@@ -30,6 +31,9 @@ function GameMasterPage() {
   const [isRestarted, setIsRestarted] = useState(false);
   const socket = useContext(SocketContext);
   const { room } = useContext(MainContext);
+  const history = useHistory();
+  const user = useSelector((state) => state.user);
+  const [endGame, setEndGame] = useState(false);
 
   const { settings } = useContext(MainContext);
 
@@ -37,14 +41,20 @@ function GameMasterPage() {
     setTimerStatus(currentStatus);
   });
 
+  socket.on('link', () => {
+    history.push('/game-result');
+  });
+
   const image = '';
   socket.on('restarted', (status) => {
+    setEndGame(false);
     setIsRestarted(status);
     socket.emit('editUser', { room, image });
   });
 
-  const user = useSelector((state) => state.user);
-  console.log(user);
+  socket.on('endGame', () => {
+    setEndGame(true);
+  });
 
   let cards =
     settings.scoreType === 'FN'
@@ -106,9 +116,9 @@ function GameMasterPage() {
                 ))
               : null}
           </Flex>
-          {timerStatus === 'stopped' || !settings.isTimer ? (
+          {timerStatus === 'stopped' || endGame ? (
             <Flex minW='50%' paddingTop='50px'>
-              <Statistics />
+              <Statisctics />
             </Flex>
           ) : null}
         </VStack>
