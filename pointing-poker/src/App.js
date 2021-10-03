@@ -1,5 +1,5 @@
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { store } from './store';
 import { ChakraProvider } from '@chakra-ui/react';
 import { MainPage } from './pages/main-page/main-page';

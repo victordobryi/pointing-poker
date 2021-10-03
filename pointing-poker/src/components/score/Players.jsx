@@ -22,7 +22,7 @@ const Players = () => {
   };
 
   const getMemberFirstName = () => {
-    let memberFirstName = "";
+    let memberFirstName = '';
 
     players.forEach((member) => {
       if (member.id === deletedMember) {

@@ -36,9 +36,11 @@ export const UserNav = () => {
   };
 
   const handleStartGame = () => {
+    const link = '/game-master';
     const currentCount = Number(minutes * 60 + Number(seconds));
     socket.emit('addTimer', { currentCount, room });
-    history.push('/game-master');
+    socket.emit('changePage', { link, room });
+    history.push(link);
   };
 
   const handleCancelGameClick = () => {
@@ -68,7 +70,7 @@ export const UserNav = () => {
           <OneMember member={master} />
         </ErrorBoundary>
       </Box>
-      <Box mt='10px' mb='20px'>
+      <Box mt="10px" mb="20px">
         <FormControl>
           <FormLabel>ID to join the lobby:</FormLabel>
           <Flex>
@@ -76,7 +78,7 @@ export const UserNav = () => {
               w={276}
               h={47}
               value={master ? master.room : ''}
-              id='URL-Input'
+              id="URL-Input"
             ></Input>
             <Button
               w={189}
@@ -89,7 +91,7 @@ export const UserNav = () => {
           </Flex>
         </FormControl>
       </Box>
-      <Flex justifyContent={'space-between'} maxW='464px'>
+      <Flex justifyContent={'space-between'} maxW="464px">
         <Button onClick={handleStartGame} colorScheme={'facebook'}>
           Start Game
         </Button>
