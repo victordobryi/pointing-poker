@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { MainContext } from '../../contexts/mainContext';
 import { SocketContext } from '../../contexts/socketContext';
 import {
@@ -10,7 +9,7 @@ import {
   Switch,
   Flex,
   Spacer,
-  Select
+  Select,
 } from '@chakra-ui/react';
 import { NumberInputElem } from './NumberInput';
 import GameCard from '../cards/GameCard';
@@ -37,9 +36,6 @@ const SettingsForm = () => {
     setSettings(settings);
   });
 
-  const timer = useSelector((state) => state.timer);
-  const dispatch = useDispatch();
-
   let cards =
     settings.scoreType === 'FN'
       ? fibonacciCards
@@ -60,7 +56,7 @@ const SettingsForm = () => {
   const handleChangigngSelect = () => {
     const currentSettings = {
       ...settings,
-      isChanging: !settings.isChanging
+      isChanging: !settings.isChanging,
     };
     socket.emit('setSettings', { currentSettings });
   };
@@ -68,7 +64,7 @@ const SettingsForm = () => {
   const handleIsTimerSelect = () => {
     const currentSettings = {
       ...settings,
-      isTimer: !settings.isTimer
+      isTimer: !settings.isTimer,
     };
     socket.emit('setSettings', { currentSettings });
   };
@@ -76,7 +72,7 @@ const SettingsForm = () => {
   const handleTypesSelect = (e) => {
     const currentSettings = {
       ...settings,
-      scoreType: e.target.value
+      scoreType: e.target.value,
     };
     socket.emit('setSettings', { currentSettings });
   };
@@ -84,7 +80,7 @@ const SettingsForm = () => {
   const handleMinutesChange = (e) => {
     const currentSettings = {
       ...settings,
-      minutes: e
+      minutes: e,
     };
     socket.emit('setSettings', { currentSettings });
   };
@@ -92,7 +88,7 @@ const SettingsForm = () => {
   const handleSecondsChange = (e) => {
     const currentSettings = {
       ...settings,
-      seconds: e
+      seconds: e,
     };
     socket.emit('setSettings', { currentSettings });
   };
@@ -113,62 +109,62 @@ const SettingsForm = () => {
   return (
     <>
       <Heading className={styles.blocksTitle}>Game settings:</Heading>
-      <Box maxW="550px" ml="36px" mr="36px">
-        <FormControl id="settings">
-          <Flex mb="20px">
-            <FormLabel mb="0" fontSize="lg">
+      <Box maxW='550px' ml='36px' mr='36px'>
+        <FormControl id='settings'>
+          <Flex mb='20px'>
+            <FormLabel mb='0' fontSize='lg'>
               Scram master as player:
             </FormLabel>
             <Spacer />
             <Switch colorScheme={'facebook'} onChange={handleIsMasterSelect} />
           </Flex>
-          <Flex mb="20px">
-            <FormLabel mb="0" fontSize="lg">
+          <Flex mb='20px'>
+            <FormLabel mb='0' fontSize='lg'>
               Changing card in round end:
             </FormLabel>
             <Spacer />
             <Switch colorScheme={'facebook'} onChange={handleChangigngSelect} />
           </Flex>
-          <Flex mb="20px">
-            <FormLabel mb="0" fontSize="lg">
+          <Flex mb='20px'>
+            <FormLabel mb='0' fontSize='lg'>
               Is timer needed:
             </FormLabel>
             <Spacer />
             <Switch colorScheme={'facebook'} onChange={handleIsTimerSelect} />
           </Flex>
-          <Flex mb="20px">
-            <FormLabel mb="0" fontSize="lg">
+          <Flex mb='20px'>
+            <FormLabel mb='0' fontSize='lg'>
               Score type:
             </FormLabel>
             <Spacer />
             <Select
-              placeholder="Select score type"
-              w="50%"
+              placeholder='Select score type'
+              w='50%'
               onChange={handleTypesSelect}
             >
-              <option value="FN">Fibonacci Numbers</option>
-              <option value="TS">T-shirts Size</option>
-              <option value="PC">Playing Cards</option>
+              <option value='FN'>Fibonacci Numbers</option>
+              <option value='TS'>T-shirts Size</option>
+              <option value='PC'>Playing Cards</option>
             </Select>
           </Flex>
-          <Flex mb="20px">
-            <FormLabel mb="0" fontSize="lg">
+          <Flex mb='20px'>
+            <FormLabel mb='0' fontSize='lg'>
               Score type (Short):
             </FormLabel>
             <Spacer />
-            <Box fontSize={30} fontWeight="bold" h="30px">
+            <Box fontSize={30} fontWeight='bold' h='30px'>
               {settings.scoreType}
             </Box>
           </Flex>
           {settings.isTimer ? (
-            <Flex mb="20px">
-              <FormLabel mb="0" fontSize="lg">
+            <Flex mb='20px'>
+              <FormLabel mb='0' fontSize='lg'>
                 Round time:
               </FormLabel>
               <Spacer />
               <Flex>
                 <Box>
-                  <FormLabel mb="0" fontSize="sm">
+                  <FormLabel mb='0' fontSize='sm'>
                     Minutes
                   </FormLabel>
                   <NumberInputElem
@@ -177,11 +173,11 @@ const SettingsForm = () => {
                     onChangeFn={handleMinutesChange}
                   />
                 </Box>
-                <Box fontSize={28} fontWeight="bold" lineHeight="80px">
+                <Box fontSize={28} fontWeight='bold' lineHeight='80px'>
                   :
                 </Box>
                 <Box>
-                  <FormLabel mb="0" fontSize="sm">
+                  <FormLabel mb='0' fontSize='sm'>
                     Seconds
                   </FormLabel>
                   <NumberInputElem
@@ -195,13 +191,13 @@ const SettingsForm = () => {
           ) : null}
         </FormControl>
         {cards === null ? (
-          <Box h="180px"></Box>
+          <Box h='180px'></Box>
         ) : (
           <>
-            <FormLabel mb="0" fontSize="lg">
+            <FormLabel mb='0' fontSize='lg'>
               Add card values:
             </FormLabel>
-            <Flex wrap="wrap">
+            <Flex wrap='wrap'>
               {cards.map((card) => (
                 <GameCard
                   key={card}
