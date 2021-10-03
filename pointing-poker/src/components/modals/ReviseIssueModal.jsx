@@ -56,9 +56,10 @@ export const ReviseIssueModal = ({ issue, onClose, setCurrentIssue, onRevise }) 
   }
 
   const inputsValidation = () => {
+    let isValid = true;
     if (issue.name === '') {
       setErrors((errors) => ({ ...errors, nameError: true }));
-      return;
+      isValid = false;
     };
 
     // if (issue.link === '') {
@@ -68,19 +69,23 @@ export const ReviseIssueModal = ({ issue, onClose, setCurrentIssue, onRevise }) 
 
     if (issue.priority === '') {
       setErrors((errors) => ({ ...errors, priorityError: true }));
-      return;
+      isValid = false;
     };
+    return isValid;
   }
 
   const handleReviseClick = () => {
-    inputsValidation();
-    if (errors.nameError !== true
-      && errors.linkError !== true
-      && errors.priorityError !== true
+    const isValid = inputsValidation();
+
+    if (errors.nameError === true
+      || errors.priorityError === true
+      || !isValid
     ) {
+      return;
+    } else {
       onRevise();
       onClose(false);
-    } else return;
+    }
   }
 
   return (
