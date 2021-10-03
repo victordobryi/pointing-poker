@@ -4,6 +4,9 @@ import OneMember from '../members/OneMember';
 import Avatar3 from '../../assets/icons/Avatar3.jpg';
 import { UsersContext } from '../../contexts/usersContext';
 import { useHistory } from 'react-router';
+import { useSelector } from 'react-redux';
+import { MainContext } from '../../contexts/mainContext';
+import { SocketContext } from '../../contexts/socketContext';
 
 const issuesNumbers = [13, 19, 322, 533, 666, 245, 900, 400, 3232, 455656];
 
@@ -12,9 +15,18 @@ export const UserNavGame = () => {
 
   const { users } = useContext(UsersContext);
   const master = users.filter((user) => user.isMaster === true)[0];
+  const user = useSelector((state) => state.user);
+  const socket = useContext(SocketContext);
+  const { room } = useContext(MainContext);
 
   const handleStopClick = () => {
-    history.push('/game-result');
+    const link = '/game-result';
+    socket.emit('changePage', { link, room });
+    history.push(link);
+  };
+
+  const handleExitGame = () => {
+    history.push('/');
   };
   return (
     <>
@@ -40,9 +52,11 @@ export const UserNavGame = () => {
         <Button
           variant={'outline'}
           colorScheme={'facebook'}
-          onClick={() => handleStopClick()}
+          onClick={
+            user.isMaster ? () => handleStopClick() : () => handleExitGame()
+          }
         >
-          Stop game
+          {user.isMaster ? 'Stop game' : 'Exit game'}
         </Button>
       </Flex>
     </>
