@@ -21,7 +21,12 @@ export const RoundControl = () => {
       : setSecondsRemaining(0);
   });
   const handleOnclickRun = () => {
+    socket.emit('setRestart', true, room);
     socket.emit('setTimerStatus', true, room);
+  };
+
+  const handleWatchStatistic = () => {
+    socket.emit('watchStat', { room });
   };
 
   const handleOnclickRestart = () => {
@@ -47,9 +52,9 @@ export const RoundControl = () => {
             colorScheme={'facebook'}
             w="160px"
             m={5}
-            onClick={handleOnclickRun}
+            onClick={settings.isTimer ? handleOnclickRun : handleWatchStatistic}
           >
-            Run Round
+            {settings.isTimer ? 'Run Round' : 'Stop Game'}
           </Button>
           <Spacer />
           <Button
