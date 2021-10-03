@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Switch, Input, Flex, Img } from '@chakra-ui/react';
 
@@ -18,7 +18,8 @@ export const MainPage = () => {
   const [isObserver, setIsObserver] = useState(false);
   const socket = useContext(SocketContext);
   const { setUsers } = useContext(UsersContext);
-  const { setName, rooms, setRooms, setRoom } = useContext(MainContext);
+  
+  const { setName, rooms, setRooms, room, setRoom, setSettings } = useContext(MainContext);
   const USER_ID = new Date().valueOf();
   const dispatch = useDispatch();
   const handleIsObserverSwitch = () => {
@@ -39,6 +40,13 @@ export const MainPage = () => {
   const handleIsMasterClick = (param) => {
     dispatch({ type: 'SET_IS_MASTER', payload: param });
   };
+
+  useEffect(()=>{
+    socket.on('getMemberSettings', (settings) => {
+       setSettings(settings);
+    });
+  },[room])
+  
 
   const handleInputChange = (e) => {
     socket.emit('getRooms');
@@ -69,12 +77,15 @@ export const MainPage = () => {
       if (!rooms.includes(+urlInputVal)) {
         setUrlInputVal('Input CORRECT rooms ID');
         return;
-      }
+      } 
+    const room = +urlInputVal;
+    const id = socket.id;
+    socket.emit('getCurrentMemberSettings', ({room, id}))
 
-      setRoom(+urlInputVal);
-      setModalActive(true);
-      setName(`${USER_ID}`);
-      setUrlInputVal('');
+    setRoom(room);
+    setModalActive(true);
+    setName(`${USER_ID}`);
+    setUrlInputVal('');
     }
   };
 
