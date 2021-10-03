@@ -2,15 +2,18 @@ import React, { useContext, useState } from 'react';
 import { Box, Flex, Image } from '@chakra-ui/react';
 import { SocketContext } from '../../contexts/socketContext';
 import { MainContext } from '../../contexts/mainContext';
+import { useSelector } from 'react-redux';
 
 const OneScore = ({ member }) => {
   const { score, id } = member;
+  const user = useSelector((state) => state.user);
   const [timerStatus, setTimerStatus] = useState(false);
   const { settings } = useContext(MainContext);
   const socket = useContext(SocketContext);
   socket.on('getTimerStatus', ({ currentStatus }) => {
     setTimerStatus(currentStatus);
   });
+
   return (
     <Box
       w={150}
@@ -30,10 +33,10 @@ const OneScore = ({ member }) => {
           justifyContent="center"
           alignItems="center"
         >
-          {timerStatus !== 'stopped' &&
-          member.isMaster === false &&
-          timerStatus &&
-          !settings.isChanging ? (
+          {(timerStatus !== 'stopped' &&
+            user.isMaster === false &&
+            !settings.isChanging) ||
+          (!score && user.isMaster) ? (
             'in progress'
           ) : !score ? (
             <Box fontSize={30} fontWeight="bold">
