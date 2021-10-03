@@ -118,7 +118,7 @@ function GameMasterPage() {
           </Flex>
           {timerStatus === 'stopped' || endGame ? (
             <Flex minW='50%' paddingTop='50px'>
-              <Statisctics />
+              <Statistics />
             </Flex>
           ) : null}
         </VStack>

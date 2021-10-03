@@ -4,6 +4,9 @@ import { Flex, Box, Button, Spacer, Text } from '@chakra-ui/react';
 import OneMember from '../members/OneMember';
 import { IssuesListLine } from './IssuesListLine';
 import { UsersContext } from '../../contexts/usersContext';
+import { useSelector } from 'react-redux';
+import { MainContext } from '../../contexts/mainContext';
+import { SocketContext } from '../../contexts/socketContext';
 
 export const UserNavGame = () => {
   const history = useHistory();
