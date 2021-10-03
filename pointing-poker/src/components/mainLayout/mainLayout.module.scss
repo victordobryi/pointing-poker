@@ -9,7 +9,11 @@ $maxWidth: 1440px;
   max-width: $maxWidth;
   padding-right: $padding;
   padding-left: $padding;
+<<<<<<< HEAD
   min-height: 100%;
+=======
+  min-height: calc(100vh - 175px);
+>>>>>>> develop
 }
 
 .header {
@@ -17,6 +21,10 @@ $maxWidth: 1440px;
     background-color: $darkBlue;
     height: 50px;
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> develop
   &__secondRow {
     background-color: $cadetBlue;
     height: 20px;
@@ -25,7 +33,21 @@ $maxWidth: 1440px;
 
 .logo {
   position: absolute;
+<<<<<<< HEAD
   top: 25px;
+=======
+  top: 18px;
+}
+
+.chatIcon {
+  position: absolute;
+  top: 15px;
+  right: 25px;
+}
+
+.hidden {
+  display: none;
+>>>>>>> develop
 }
 
 main {
@@ -37,10 +59,30 @@ main {
   color: #fff;
   padding-right: $padding;
   padding-left: $padding;
+<<<<<<< HEAD
+=======
+
+>>>>>>> develop
   &__block {
     display: flex;
     justify-content: space-between;
     align-items: center;
+<<<<<<< HEAD
     width: 100%;
+=======
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  &__autors {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 60%;
+
+    @media (max-width: 900px) {
+      flex-direction: column;
+    }
+>>>>>>> develop
   }
 }
