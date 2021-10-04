@@ -8,7 +8,6 @@ const SocketProvider = ({ children }) => {
   const ENDPOINT = 'https://team25.herokuapp.com/';
   const socket = io(ENDPOINT, {
     transports: ['websocket', 'polling'],
-    rejectUnauthorized: false,
   });
 
   return (
