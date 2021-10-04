@@ -1,17 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Box, Flex } from '@chakra-ui/react';
-import OneMember from '../members/OneMember';
-import OneScore from './OneScore';
-import { Modal } from '../modal/modal';
-import { KickPlayerModal } from '../modals/KickPlayerModal';
-import { UsersContext } from '../../contexts/usersContext';
+import React, { useContext, useState } from "react";
+import { Box, Flex } from "@chakra-ui/react";
+import OneMember from "../members/OneMember";
+import OneScore from "./OneScore";
+import { Modal } from "../modal/modal";
+import { KickPlayerModal } from "../modals/KickPlayerModal";
+import { UsersContext } from "../../contexts/usersContext";
 
 const Players = () => {
   const { users } = useContext(UsersContext);
   const [modalActive, setModalActive] = useState(false);
   const [deletedMember, setDeletedMember] = useState('');
-
-  const players = users.filter((player) => player.isMaster !== true);
+  let players = users.filter((player) => player.isMaster !== true);
 
   const handleDelClick = (id) => {
     setDeletedMember(id);

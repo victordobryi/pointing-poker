@@ -49,7 +49,6 @@ const SettingsForm = () => {
 
   const handleIsMasterSelect = () => {
     const currentSettings = { ...settings, isMaster: !settings.isMaster };
-    console.log('currentSettings', currentSettings);
     socket.emit('setSettings', { currentSettings });
   };
 

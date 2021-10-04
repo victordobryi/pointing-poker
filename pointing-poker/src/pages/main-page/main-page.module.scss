@@ -15,7 +15,6 @@ $paddingRight: calc((100% - 80%) / 2);
   margin-left: auto;
   border: 1px solid gray;
   border-top: none;
-  padding-top: 10%;
 }
 
 .mainLogo {
@@ -35,7 +34,6 @@ $paddingRight: calc((100% - 80%) / 2);
 
 .connect {
   &_block {
-    padding-top: 35px;
     width: 515px;
 
     @media (max-width: 900px) {

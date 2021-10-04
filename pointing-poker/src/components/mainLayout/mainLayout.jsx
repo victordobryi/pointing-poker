@@ -60,7 +60,7 @@ export const MainLayout = ({ children }) => {
         </div>
         <div
           className={
-            history.location.pathname == '/' ? styles.hidden : styles.chatIcon
+            history.location.pathname === '/' ? styles.hidden : styles.chatIcon
           }
         >
           <Img
