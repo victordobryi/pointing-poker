@@ -1,15 +1,16 @@
 import React from "react";
 import { VStack, Flex, Heading } from "@chakra-ui/react";
 import Players from "../score/Players";
+import styles from '../../pages/game.module.scss';
 
 export const ScoreTable = () => {
   return (
-    <Flex direction="column" w="90%" justify="flex-start" align="center">
-      <Flex direction="row" w="90%" justify="space-between" align="center">
-        <Heading as="h5" size="lg" textAlign="center" mb="30px">
+    <Flex className={styles.scoreTable}>
+      <Flex direction="row" w="90%" justify="space-between" align="center" >
+        <Heading className={styles.blocksTitle}>
           Score:
         </Heading>
-        <Heading as="h5" size="lg" textAlign="center" mb="30px">
+        <Heading className={styles.blocksTitle}>
           Players:
         </Heading>
       </Flex>

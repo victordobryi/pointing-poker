@@ -7,6 +7,8 @@ import { UsersContext } from '../../contexts/usersContext';
 import { useSelector } from 'react-redux';
 import { MainContext } from '../../contexts/mainContext';
 import { SocketContext } from '../../contexts/socketContext';
+import { ErrorBoundary } from '../errorBoundary/errorBoundary';
+import styles from '../../pages/game.module.scss';
 
 export const UserNavGame = () => {
   const history = useHistory();
@@ -31,10 +33,12 @@ export const UserNavGame = () => {
       <Flex justifyContent={'center'} w='80%'>
         <IssuesListLine />
       </Flex>
-      <Flex w='90%' justify='space-between' alignItems='center'>
+      <Flex w='90%' className={styles.masterNavBlock}>
         <Box>
           <Text fontSize='16px'>Scram master:</Text>
-          <OneMember member={master} />
+          <ErrorBoundary>
+            <OneMember member={master} />
+          </ErrorBoundary>
         </Box>
         <Spacer />
         <Button
