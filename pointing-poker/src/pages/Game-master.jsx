@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { VStack, Flex } from '@chakra-ui/react';
+import { VStack, Flex, Box } from '@chakra-ui/react';
 import Issues from '../components/issues/Issues';
 import '../App';
 import { UserNavGame } from '../components/userNavigation/userNavigationGame';
@@ -19,6 +19,7 @@ import { Statistics } from '../components/statistics/Statistics';
 import { SocketContext } from '../contexts/socketContext';
 import { MainContext } from '../contexts/mainContext';
 import { useHistory } from 'react-router';
+import styles from './game.module.scss';
 
 const fibonacciCards = ['0', '1', '2', '3', '5', '8', cup];
 
@@ -67,28 +68,10 @@ function GameMasterPage() {
 
   return (
     <MainLayout>
-      <Flex
-        h='86%'
-        direction='row'
-        justify='center'
-        align='flex-start'
-        mb={150}
-      >
-        <VStack
-          w='70%'
-          borderColor='grey.100'
-          borderWidth={2}
-          borderBottom='none'
-          borderTop='none'
-          borderLeft='none'
-        >
+      <Flex className={styles.mastersFlexBlock}>
+        <VStack className={styles.mastersBlock}>
           <UserNavGame />
-          <Flex
-            w='90%'
-            direction='row'
-            justify='space-between'
-            align='flex-start'
-          >
+          <Flex className={styles.issues_timer_block}>
             <Issues />
             <RoundControl mt={85} />
           </Flex>
@@ -97,6 +80,7 @@ function GameMasterPage() {
             direction='row'
             justify='space-between'
             align='flex-start'
+            flexWrap='wrap'
             className={
               timerStatus === true ||
               !settings.isTimer ||
@@ -117,12 +101,15 @@ function GameMasterPage() {
               : null}
           </Flex>
           {timerStatus === 'stopped' || endGame ? (
-            <Flex minW='50%' paddingTop='50px'>
+            <Flex direction='column' paddingTop='20px'>
+              <Box fontSize='30px' fontWeight='700' textAlign='center'>
+                Statistics:
+              </Box>
               <Statistics />
             </Flex>
           ) : null}
         </VStack>
-        <Flex w='40%' direction='column' justify='flex-start' align='center'>
+        <Flex className={styles.scoreTableBlock}>
           <ScoreTable />
         </Flex>
       </Flex>

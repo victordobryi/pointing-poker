@@ -4,7 +4,7 @@ import { NotAllowedIcon } from '@chakra-ui/icons';
 import { SocketContext } from '../../contexts/socketContext';
 import { UsersContext } from '../../contexts/usersContext';
 
-const OneMember = ({ member, deleteClick }) => {
+const OneMember = ({ member, deleteClick, blockClass, nameBoxClass }) => {
   const {
     fullName,
     jobPosition,
@@ -49,6 +49,7 @@ const OneMember = ({ member, deleteClick }) => {
       p="6px"
       m="5px"
       background={member.isObserver ? '#ccc' : '#fff'}
+      className={blockClass}
     >
       <Flex align="center" justify="center">
         <Avatar
@@ -58,7 +59,7 @@ const OneMember = ({ member, deleteClick }) => {
           size={'lg'}
         />
         <Spacer />
-        <Box>
+        <Box className={nameBoxClass}>
           <Box
             fontSize={20}
             fontWeight="bold"
