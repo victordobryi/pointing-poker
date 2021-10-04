@@ -6,7 +6,10 @@ const SocketContext = React.createContext();
 const SocketProvider = ({ children }) => {
   // const ENDPOINT = 'http://localhost:5000/';
   const ENDPOINT = 'https://team25.herokuapp.com/';
-  const socket = io(ENDPOINT, { transports: ['websocket', 'polling'] });
+  const socket = io(ENDPOINT, {
+    transports: ['websocket', 'polling'],
+    rejectUnauthorized: false,
+  });
 
   return (
     <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>
