@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { VStack, Flex } from '@chakra-ui/react';
+import { VStack, Flex, Box } from '@chakra-ui/react';
 import Issues from '../components/issues/Issues';
 import '../App';
 import { UserNavGame } from '../components/userNavigation/userNavigationGame';
@@ -101,7 +101,10 @@ function GameMasterPage() {
               : null}
           </Flex>
           {timerStatus === 'stopped' || endGame ? (
-            <Flex paddingTop='20px'>
+            <Flex direction='column' paddingTop='20px'>
+              <Box fontSize='30px' fontWeight='700' textAlign='center'>
+                Statistics:
+              </Box>
               <Statistics />
             </Flex>
           ) : null}

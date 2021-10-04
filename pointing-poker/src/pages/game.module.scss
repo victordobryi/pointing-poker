@@ -91,17 +91,30 @@
 .scoreTable {
   flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
   width: 90%;
+
+  @media (max-width: 900px) {
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.scoreBlock {
+  justify-content: flex-start;
+
+  @media (max-width: 900px) {
+    justify-content: center;
+  }
 }
 
 .blocksTitle {
-  font-size: 28px;
+  font-size: 32px;
+  font-weight: 700;
   text-align: center;
-  margin: 30px auto 20px;
+  margin: 30px 25px 20px;
 
   @media (max-width: 1000px) {
-    font-size: 24px;
-    margin: 30px auto 0;
+    // font-size: 24px;
+    margin: 30px 25px 0;
   }
 }

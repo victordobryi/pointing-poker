@@ -77,8 +77,9 @@ export const ResultPage = () => {
             Leave session
           </Button>
         </Flex>
-        <Flex direction='column' justify='space-around' h='100%'>
-          <Flex h='350px' direction='column' justify='space-around'>
+        
+        <Flex justify='space-around' h='100%'>
+          <Flex  direction='column' justify='space-around'>
             <Flex maxW='1200px' wrap='wrap'>
               {issues.length ? (
                 issues.map((item) => <IssueItem key={item.id} issue={item} />)

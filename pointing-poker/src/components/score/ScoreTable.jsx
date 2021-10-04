@@ -6,7 +6,7 @@ import styles from '../../pages/game.module.scss';
 export const ScoreTable = () => {
   return (
     <Flex className={styles.scoreTable}>
-      <Flex direction="row" w="90%" justify="space-between" align="center" >
+      <Flex direction="row" align="center" >
         <Heading className={styles.blocksTitle}>
           Score:
         </Heading>

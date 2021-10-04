@@ -36,7 +36,7 @@ const Players = () => {
   return (
     <>
       <Box maxW="1200px" mt="20px">
-        <Flex maxW="1200px" wrap="wrap">
+        <Flex maxW="1200px" wrap="wrap" className={styles.scoreBlock}>
           {players.map((member) => (
             <Flex>
               <OneScore key={member.id} member={member} />

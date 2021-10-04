@@ -33,12 +33,11 @@ export const Statistics = () => {
     <Flex
       direction='column'
       minW='100%'
-      // height='30vh'
       justifyContent='space-around'
     >
-      <Box fontSize='30px' fontWeight='600'>
+      {/* <Box fontSize='30px' fontWeight='600' textAlign='center'>
         Statistics:
-      </Box>
+      </Box> */}
       <Flex justify='space-between' flexWrap='wrap'>
         {finalArr.map(({ score, count }) =>
           score.length < 10 ? (
