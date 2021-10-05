@@ -13,21 +13,26 @@ import { Flex, Box, Button, Text } from '@chakra-ui/react';
 
 import OneMember from '../components/members/OneMember';
 import { IssuesListLine } from '../components/userNavigation/IssuesListLine';
+import { ErrorBoundary } from '../components/errorBoundary/errorBoundary';
 
 const LobbyMembersPage = () => {
   const [modalActive, setModalActive] = useState(false);
   const [isSession, setIsSession] = useState(true);
-  const { setSettings } = useContext(MainContext);
+  const { settings, setSettings } = useContext(MainContext);
   const { users } = useContext(UsersContext);
   const master = users.filter((user) => user.isMaster === true)[0];
   const socket = useContext(SocketContext);
 
-  const { issues, setIssues } = useContext(IssuesContext);
+  const { setIssues } = useContext(IssuesContext);
   const history = useHistory();
 
-  socket.on('link', () => {
-    history.push('/game-master');
-  });
+  // useEffect(() => {
+  //   const room = master.room;
+  //   socket.emit('getCurrentSettings', room);
+  //   socket.on('getSettings', (settings) => {
+  //     setSettings(settings);
+  //   });
+  // });
 
   socket.on('issues', (issues) => {
     setIssues(issues);
@@ -44,13 +49,12 @@ const LobbyMembersPage = () => {
     });
   }, []);
 
-  useEffect(() => {
-    const room = master.room;
-    socket.emit('getCurrentSettings', room);
-    socket.on('getSettings', (settings) => {
-      setSettings(settings);
-    });
-  }, []);
+  socket.on('link', (currentSettings) => {
+    setSettings(currentSettings);
+    console.log('currentSettings', currentSettings);
+    console.log('settings', settings);
+    history.push('/game-master');
+  });
 
   const handleExitClick = () => {
     socket.emit('leaveSession', socket.id);
@@ -71,8 +75,10 @@ const LobbyMembersPage = () => {
         <IssuesListLine />
 
         <Box>
-          <Text fontSize="16px">Scram master:</Text>
-          <OneMember member={master} />
+          <Text fontSize='16px'>Scram master:</Text>
+          <ErrorBoundary>
+            <OneMember member={master} />
+          </ErrorBoundary>
         </Box>
 
         <Flex justifyContent={'end'} maxW="1000px">

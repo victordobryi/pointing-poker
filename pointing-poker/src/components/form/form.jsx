@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useFormik } from 'formik';
@@ -23,7 +23,7 @@ export const FormComponent = ({ children }) => {
   const [imageName, setImageName] = useState(null);
   const socket = useContext(SocketContext);
   const { setUsers } = useContext(UsersContext);
-  const { name, room, settings, setSettings, setName } = useContext(
+  const { name, room, settings, setName } = useContext(
     MainContext
   );
   const history = useHistory();
@@ -76,20 +76,19 @@ export const FormComponent = ({ children }) => {
             console.log(error);
           } else console.log(`Add ${room} room in settingsData`);
         });
-      }
-
-      socket.on('getSettings', (settings) => {
-        setSettings(settings);
-      });
+      } 
 
       socket.on('users', (users) => {
         setUsers(users);
       });
 
       setTimeout(() => {
+        console.log('isGame', settings.isGame)
         user.isMaster
           ? history.push('/lobby-master')
-          : history.push('/lobby-members');
+          : settings.isGame 
+            ? history.push('/game-master')
+            : history.push('/lobby-members');
       }, 0);
     }
   });

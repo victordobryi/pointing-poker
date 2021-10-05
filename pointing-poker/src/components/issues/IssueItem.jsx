@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Box, Flex, Spacer } from '@chakra-ui/react';
 import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
 import { useSelector } from 'react-redux';
@@ -35,25 +36,23 @@ const IssueItem = ({ issue, deleteClick, revise, onClick }) => {
           </Box>
         </Box>
         <Spacer />
-        {user.isMaster ? (
-          <div>
-            <EditIcon
-              w="30px"
-              h="30px"
-              color="green.400"
-              mr="10px"
-              onClick={() => revise(issue)}
-              _hover={{ cursor: 'pointer' }}
-            />
-            <DeleteIcon
-              w="30px"
-              h="30px"
-              color="red"
-              onClick={() => deleteClick(id)}
-              _hover={{ cursor: 'pointer' }}
-            />
-          </div>
-        ) : null}
+        <EditIcon
+          w="30px"
+          h="30px"
+          color="green.400"
+          mr="10px"
+          onClick={() => revise(issue)}
+          _hover={{ cursor: 'pointer' }}
+          visibility={user.isObserver || user.isMaster ? 'visible' : 'hidden'}
+        />
+        <DeleteIcon
+          w="30px"
+          h="30px"
+          color="red"
+          onClick={() => deleteClick(id)}
+          _hover={{ cursor: 'pointer' }}
+          visibility={user.isObserver || user.isMaster ? 'visible' : 'hidden'}
+        />
       </Flex>
     </Box>
   );

@@ -39,17 +39,28 @@ export const MainLayout = ({ children }) => {
     }
   };
 
+  const handleClickLogo = () => {
+    history.push('/');
+  };
+
   return (
     <Fragment>
       <div className={styles.header__firstRow}></div>
       <div className={styles.header__secondRow}></div>
       <div className={styles.wrapper}>
         <div className={styles.logo}>
-          <Img src={logo} alt='logo' width={70} height={70} />
+          <Img
+            src={logo}
+            alt='logo'
+            width={70}
+            height={70}
+            onClick={handleClickLogo}
+            _hover={{ cursor: 'pointer' }}
+          />
         </div>
         <div
           className={
-            history.location.pathname == '/' ? styles.hidden : styles.chatIcon
+            history.location.pathname === '/' ? styles.hidden : styles.chatIcon
           }
         >
           <Img
