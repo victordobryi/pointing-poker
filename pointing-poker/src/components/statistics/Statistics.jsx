@@ -11,7 +11,7 @@ export const Statistics = () => {
   const statCards = [];
   const finalArr = [];
 
-  players.forEach(({ score }) => {
+  users.forEach(({ score }) => {
     if (score) {
       statCards.push(score);
     }

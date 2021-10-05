@@ -15,7 +15,8 @@ const EMPTYISSUE = {
   id: '',
   name: '',
   link: '',
-  priority: ''
+  priority: '',
+  isActive: false
 };
 
 const Issues = () => {
@@ -74,6 +75,18 @@ const Issues = () => {
       });
     }
   };
+  const handleIssueChoose = (issue) => {
+    issue.isActive = true;
+    // setCurrentIssue(issue);
+
+    socket.emit('updateIssue', { issue, room }, (error) => {
+      if (error) {
+        console.log(error);
+      } else console.log(`Issues succesfully update`);
+    });
+
+    console.log(issues);
+  };
 
   return (
     <Box maxW="1200px">
@@ -82,6 +95,7 @@ const Issues = () => {
         {issues.length ? (
           issues.map((item) => (
             <IssueItem
+              onClick={handleIssueChoose}
               key={item.id}
               issue={item}
               deleteClick={handleDelClick}

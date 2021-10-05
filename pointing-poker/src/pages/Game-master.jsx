@@ -89,7 +89,7 @@ function GameMasterPage() {
                 : 'inActive'
             }
           >
-            {!user.isObserver && !user.isMaster
+            {!user.isObserver
               ? cards.map((card) => (
                   <GameCard
                     key={card}
