@@ -1,12 +1,23 @@
-import React from "react";
-import { Box, Flex, Spacer } from "@chakra-ui/react";
-import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
+import React from 'react';
+import { Box, Flex, Spacer } from '@chakra-ui/react';
+import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
+import { useSelector } from 'react-redux';
 
-const IssueItem = ({ issue, deleteClick, revise }) => {
-  const { id, name, priority } = issue;
+const IssueItem = ({ issue, deleteClick, revise, onClick }) => {
+  const user = useSelector((state) => state.user);
 
+  const { id, name, priority, isActive } = issue;
   return (
-    <Box w={300} h={75} boxShadow="dark-lg" rounded="md" p="10px" m="5px">
+    <Box
+      w={300}
+      h={75}
+      boxShadow="dark-lg"
+      rounded="md"
+      p="10px"
+      m="5px"
+      onClick={user.isMaster ? () => onClick(issue) : null}
+      backgroundColor={isActive ? 'rgba(96, 218, 191, 0.33)' : 'none'}
+    >
       <Flex align="center" justify="center">
         <Box>
           <Box
@@ -24,21 +35,25 @@ const IssueItem = ({ issue, deleteClick, revise }) => {
           </Box>
         </Box>
         <Spacer />
-        <EditIcon
-          w="30px"
-          h="30px"
-          color="green.400"
-          mr="10px"
-          onClick={() => revise(issue)}
-          _hover={{ cursor: "pointer" }}
-        />
-        <DeleteIcon
-          w="30px"
-          h="30px"
-          color="red"
-          onClick={() => deleteClick(id)}
-          _hover={{ cursor: "pointer" }}
-        />
+        {user.isMaster ? (
+          <div>
+            <EditIcon
+              w="30px"
+              h="30px"
+              color="green.400"
+              mr="10px"
+              onClick={() => revise(issue)}
+              _hover={{ cursor: 'pointer' }}
+            />
+            <DeleteIcon
+              w="30px"
+              h="30px"
+              color="red"
+              onClick={() => deleteClick(id)}
+              _hover={{ cursor: 'pointer' }}
+            />
+          </div>
+        ) : null}
       </Flex>
     </Box>
   );

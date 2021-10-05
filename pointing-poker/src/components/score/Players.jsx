@@ -12,6 +12,7 @@ const Players = () => {
   const [deletedMember, setDeletedMember] = useState('');
 
   const players = users.filter((player) => player.isMaster !== true);
+  const gamePlayers = users.filter((player) => player.isObserver !== true);
 
   const handleDelClick = (id) => {
     setDeletedMember(id);
@@ -37,7 +38,7 @@ const Players = () => {
     <>
       <Box maxW="1200px" mt="20px">
         <Flex maxW="1200px" wrap="wrap">
-          {players.map((member) => (
+          {gamePlayers.map((member) => (
             <Flex>
               <OneScore key={member.id} member={member} />
               <OneMember
