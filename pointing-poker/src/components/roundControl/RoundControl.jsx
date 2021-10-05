@@ -4,6 +4,7 @@ import Timer from '../timer/Timer';
 import { SocketContext } from '../../contexts/socketContext';
 import { MainContext } from '../../contexts/mainContext';
 import { useSelector } from 'react-redux';
+import styles from '../../pages/game.module.scss';
 
 export const RoundControl = () => {
   const { settings } = useContext(MainContext);
@@ -35,7 +36,7 @@ export const RoundControl = () => {
     setSecondsRemaining(initCount);
   };
   return (
-    <Flex mb="20px" direction="column" justify="center" align="center">
+    <Flex className={styles.roundControl}>
       {settings.isTimer ? (
         <Timer
           setStatus={setStatus}
@@ -47,7 +48,7 @@ export const RoundControl = () => {
       ) : null}
 
       {user.isMaster ? (
-        <div>
+        <div className={styles.controlsButtons}>
           <Button
             colorScheme={'facebook'}
             w="160px"

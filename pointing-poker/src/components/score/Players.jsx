@@ -1,10 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Box, Flex } from '@chakra-ui/react';
 import OneMember from '../members/OneMember';
 import OneScore from './OneScore';
 import { Modal } from '../modal/modal';
 import { KickPlayerModal } from '../modals/KickPlayerModal';
 import { UsersContext } from '../../contexts/usersContext';
+import styles from '../../pages/game.module.scss';
 
 const Players = () => {
   const { users } = useContext(UsersContext);
@@ -12,6 +13,7 @@ const Players = () => {
   const [deletedMember, setDeletedMember] = useState('');
 
   const players = users.filter((player) => player.isMaster !== true);
+  const gamePlayers = users.filter((player) => player.isObserver !== true);
 
   const handleDelClick = (id) => {
     setDeletedMember(id);
@@ -37,10 +39,12 @@ const Players = () => {
     <>
       <Box maxW="1200px" mt="20px">
         <Flex maxW="1200px" wrap="wrap">
-          {players.map((member) => (
+          {gamePlayers.map((member) => (
             <Flex>
               <OneScore key={member.id} member={member} />
               <OneMember
+                blockClass={styles.memberCard}
+                nameBoxClass={styles.nameBox}
                 key={member.id}
                 member={member}
                 deleteClick={handleDelClick}

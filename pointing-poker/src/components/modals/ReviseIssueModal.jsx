@@ -46,41 +46,46 @@ export const ReviseIssueModal = ({ issue, onClose, setCurrentIssue, onRevise }) 
   }
 
   const handleInputLinkSelect = (e) => {
-    var expression = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
-    if (!expression.test(e.target.value)) {
-      setErrors((errors) => ({ ...errors, linkError: true }));
-    } else {
-      setErrors((errors) => ({ ...errors, linkError: false }));
-    }
+    // var expression = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
+    // if (!expression.test(e.target.value)) {
+    //   setErrors((errors) => ({ ...errors, linkError: true }));
+    // } else {
+    //   setErrors((errors) => ({ ...errors, linkError: false }));
+    // }
     setCurrentIssue(issue => ({ ...issue, link: e.target.value }));
   }
 
   const inputsValidation = () => {
+    let isValid = true;
     if (issue.name === '') {
       setErrors((errors) => ({ ...errors, nameError: true }));
-      return;
+      isValid = false;
     };
 
-    if (issue.link === '') {
-      setErrors((errors) => ({ ...errors, linkError: true }));
-      return;
-    };
+    // if (issue.link === '') {
+    //   setErrors((errors) => ({ ...errors, linkError: true }));
+    //   return;
+    // };
 
     if (issue.priority === '') {
       setErrors((errors) => ({ ...errors, priorityError: true }));
-      return;
+      isValid = false;
     };
+    return isValid;
   }
 
   const handleReviseClick = () => {
-    inputsValidation();
-    if (errors.nameError !== true
-      && errors.linkError !== true
-      && errors.priorityError !== true
+    const isValid = inputsValidation();
+
+    if (errors.nameError === true
+      || errors.priorityError === true
+      || !isValid
     ) {
+      return;
+    } else {
       onRevise();
       onClose(false);
-    } else return;
+    }
   }
 
   return (
@@ -113,7 +118,7 @@ export const ReviseIssueModal = ({ issue, onClose, setCurrentIssue, onRevise }) 
             fontSize="lg"
           />
         </Flex>
-        <Text
+        {/* <Text
           fontSize="sm"
           fontWeight="bold"
           textAlign="center"
@@ -121,7 +126,7 @@ export const ReviseIssueModal = ({ issue, onClose, setCurrentIssue, onRevise }) 
           color={errors.linkError === true ? 'red' : 'black'}
         >
           Input link to issue
-        </Text>
+        </Text> */}
         <Flex margin="20px">
           <FormLabel mb="0" fontSize="lg" fontWeight="bold">Link:</FormLabel>
           <Spacer />

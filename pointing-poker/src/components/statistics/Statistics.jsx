@@ -11,7 +11,7 @@ export const Statistics = () => {
   const statCards = [];
   const finalArr = [];
 
-  players.forEach(({ score }) => {
+  users.forEach(({ score }) => {
     if (score) {
       statCards.push(score);
     }
@@ -33,10 +33,9 @@ export const Statistics = () => {
     <Flex
       direction='column'
       minW='100%'
-      height='30vh'
       justifyContent='space-around'
     >
-      <Box fontSize='30px' fontWeight='600'>
+      <Box fontSize='30px' fontWeight='600' textAlign='center'>
         Statistics:
       </Box>
       <Flex justify='space-between' flexWrap='wrap'>

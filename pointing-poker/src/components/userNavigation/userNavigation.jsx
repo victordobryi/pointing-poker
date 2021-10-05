@@ -17,6 +17,7 @@ import { MainContext } from '../../contexts/mainContext';
 import { IssuesListLine } from './IssuesListLine';
 import { FinishSessionModal } from '../modals/FinishSessionModal';
 import { Modal } from '../modal/modal';
+import { ErrorBoundary } from '../errorBoundary/errorBoundary';
 
 export const UserNav = () => {
   const history = useHistory();
@@ -36,9 +37,10 @@ export const UserNav = () => {
 
   const handleStartGame = () => {
     const link = '/game-master';
+    const isGame = true;
     const currentCount = Number(minutes * 60 + Number(seconds));
     socket.emit('addTimer', { currentCount, room });
-    socket.emit('changePage', { link, room });
+    socket.emit('changePage', { room, isGame });
     history.push(link);
   };
 
@@ -64,8 +66,10 @@ export const UserNav = () => {
     <Fragment>
       <IssuesListLine />
       <Box>
-        <Text fontSize="16px">Scram master:</Text>
-        <OneMember member={master} />
+        <Text fontSize='16px'>Scram master:</Text>
+        <ErrorBoundary>
+          <OneMember member={master} />
+        </ErrorBoundary>
       </Box>
       <Box mt="10px" mb="20px">
         <FormControl>
