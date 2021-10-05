@@ -12,46 +12,46 @@ const IssueItem = ({ issue, deleteClick, revise, onClick }) => {
     <Box
       w={300}
       h={75}
-      boxShadow="dark-lg"
-      rounded="md"
-      p="10px"
-      m="5px"
+      boxShadow='dark-lg'
+      rounded='md'
+      p='10px'
+      m='5px'
       onClick={user.isMaster ? () => onClick(issue) : null}
       backgroundColor={isActive ? 'rgba(96, 218, 191, 0.33)' : 'none'}
     >
-      <Flex align="center" justify="center">
+      <Flex align='center' justify='center'>
         <Box>
           <Box
             fontSize={20}
-            fontWeight="bold"
-            h="20px"
-            mb="20px"
-            maxW="200px"
-            lineHeight="20px"
+            fontWeight='bold'
+            h='20px'
+            mb='20px'
+            maxW='200px'
+            lineHeight='20px'
           >
             {name}
           </Box>
-          <Box fontSize={12} fontWeight="bold" h="20px">
+          <Box fontSize={12} fontWeight='bold' h='20px'>
             {priority}
           </Box>
         </Box>
         <Spacer />
         <EditIcon
-          w="30px"
-          h="30px"
-          color="green.400"
-          mr="10px"
+          w='30px'
+          h='30px'
+          color='green.400'
+          mr='10px'
           onClick={() => revise(issue)}
           _hover={{ cursor: 'pointer' }}
-          visibility={user.isObserver || user.isMaster ? 'visible' : 'hidden'}
+          display={user.isObserver || user.isMaster ? 'block' : 'none'}
         />
         <DeleteIcon
-          w="30px"
-          h="30px"
-          color="red"
+          w='30px'
+          h='30px'
+          color='red'
           onClick={() => deleteClick(id)}
           _hover={{ cursor: 'pointer' }}
-          visibility={user.isObserver || user.isMaster ? 'visible' : 'hidden'}
+          display={user.isObserver || user.isMaster ? 'block' : 'none'}
         />
       </Flex>
     </Box>
