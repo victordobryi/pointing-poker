@@ -35,8 +35,6 @@ function GameMasterPage() {
   const history = useHistory();
   const user = useSelector((state) => state.user);
   const [endGame, setEndGame] = useState(false);
-  console.log('user', user);
-
   const { settings } = useContext(MainContext);
 
   socket.on('getTimerStatus', ({ currentStatus }) => {
