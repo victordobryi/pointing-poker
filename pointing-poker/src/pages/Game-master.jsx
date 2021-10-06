@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { VStack, Flex, Box } from '@chakra-ui/react';
+import { VStack, Flex } from '@chakra-ui/react';
 import Issues from '../components/issues/Issues';
 import '../App';
 import { UserNavGame } from '../components/userNavigation/userNavigationGame';
@@ -35,7 +35,6 @@ function GameMasterPage() {
   const history = useHistory();
   const user = useSelector((state) => state.user);
   const [endGame, setEndGame] = useState(false);
-
   const { settings } = useContext(MainContext);
 
   socket.on('getTimerStatus', ({ currentStatus }) => {
@@ -102,9 +101,6 @@ function GameMasterPage() {
           </Flex>
           {timerStatus === 'stopped' || endGame ? (
             <Flex direction='column' paddingTop='20px'>
-              <Box fontSize='30px' fontWeight='700' textAlign='center'>
-                Statistics:
-              </Box>
               <Statistics />
             </Flex>
           ) : null}
