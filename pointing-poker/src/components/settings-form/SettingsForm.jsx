@@ -180,8 +180,8 @@ const SettingsForm = () => {
                     Seconds
                   </FormLabel>
                   <NumberInputElem
-                    min={0}
-                    max={60}
+                    minVal={0}
+                    maxVal={60}
                     onChangeFn={handleSecondsChange}
                   />
                 </Box>

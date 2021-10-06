@@ -102,9 +102,9 @@ function GameMasterPage() {
           </Flex>
           {timerStatus === 'stopped' || endGame ? (
             <Flex direction='column' paddingTop='20px'>
-              <Box fontSize='30px' fontWeight='700' textAlign='center'>
+              {/* <Box fontSize='30px' fontWeight='700' textAlign='center'>
                 Statistics:
-              </Box>
+              </Box> */}
               <Statistics />
             </Flex>
           ) : null}

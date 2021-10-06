@@ -29,7 +29,7 @@ export const Statistics = () => {
     return ((num / statCards.length) * 100).toFixed(1) + '%';
   };
 
-  return (
+   return (
     <Flex
       direction='column'
       minW='100%'
