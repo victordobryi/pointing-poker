@@ -33,7 +33,7 @@ export const Statistics = () => {
     return ((num / statCards.length) * 100).toFixed(1) + '%';
   };
 
-  socket.emit('addIssueStatistic', { finalArr, room });
+  socket.emit('addIssueStatistic', { finalArr, room, statCards });
 
   return (
     <Flex direction="column" minW="100%" justifyContent="space-around">
