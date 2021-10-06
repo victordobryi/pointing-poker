@@ -1,4 +1,5 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { MainContext } from '../../contexts/mainContext';
 import { SocketContext } from '../../contexts/socketContext';
 import {
@@ -30,7 +31,6 @@ const PlayingCards = ['6', '7', J, Q, K, A, cup];
 
 const SettingsForm = () => {
   const socket = useContext(SocketContext);
-
   const { settings, setSettings } = useContext(MainContext);
   socket.on('getSettings', (settings) => {
     setSettings(settings);
@@ -44,13 +44,18 @@ const SettingsForm = () => {
       : settings.scoreType === 'PC'
       ? PlayingCards
       : null;
+  const dispatch = useDispatch();
 
   const [isNewCard, setIsNewCard] = useState(false);
-
+  
   const handleIsMasterSelect = () => {
     const currentSettings = { ...settings, isMaster: !settings.isMaster };
     socket.emit('setSettings', { currentSettings });
   };
+
+  if (settings.isMaster) {
+    dispatch({ type: 'SET_IS_OBSERVER', payload: false });
+  } else dispatch({ type: 'SET_IS_OBSERVER', payload: true });
 
   const handleChangigngSelect = () => {
     const currentSettings = {
