@@ -33,6 +33,7 @@ export const ResultPage = () => {
   const socket = useContext(SocketContext);
   const history = useHistory();
   const [isRestarted, setIsRestarted] = useState(false);
+  console.log('s');
 
   let cards =
     settings.scoreType === 'FN'
@@ -65,29 +66,29 @@ export const ResultPage = () => {
 
   return (
     <MainLayout>
-      <Flex direction='column' justify='space-around' h='100%'>
+      <Flex direction="column" justify="space-around" h="100%">
         <Flex justifyContent={'space-between'} alignItems={'center'}>
           <IssuesListLine />
           <Button
             variant={'outline'}
             colorScheme={'facebook'}
-            w='160px'
+            w="160px"
             onClick={handleExitClick}
           >
             Leave session
           </Button>
         </Flex>
-        
-        <Flex justify='space-around' h='100%'>
-          <Flex  direction='column' justify='space-around'>
-            <Flex maxW='1200px' wrap='wrap'>
+
+        <Flex justify="space-around" h="100%">
+          <Flex direction="column" justify="space-around">
+            <Flex maxW="1200px" wrap="wrap">
               {issues.length ? (
                 issues.map((item) => <IssueItem key={item.id} issue={item} />)
               ) : (
                 <NoIssuesCard />
               )}
             </Flex>
-            <Flex minW='50%' paddingTop='50px'>
+            <Flex minW="50%" paddingTop="50px">
               <Statistics />
             </Flex>
           </Flex>

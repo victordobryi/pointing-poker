@@ -1,10 +1,14 @@
 import { Image } from '@chakra-ui/image';
 import { Box, Flex } from '@chakra-ui/layout';
 import { useContext } from 'react';
+import { MainContext } from '../../contexts/mainContext';
+import { SocketContext } from '../../contexts/socketContext';
 import { UsersContext } from '../../contexts/usersContext';
 
 export const Statistics = () => {
   const { users } = useContext(UsersContext);
+  const socket = useContext(SocketContext);
+  const { room } = useContext(MainContext);
 
   const players = users.filter((player) => player.isMaster !== true);
   const statObj = {};
@@ -29,35 +33,33 @@ export const Statistics = () => {
     return ((num / statCards.length) * 100).toFixed(1) + '%';
   };
 
+  socket.emit('addIssueStatistic', { finalArr, room });
+
   return (
-    <Flex
-      direction='column'
-      minW='100%'
-      justifyContent='space-around'
-    >
-      <Box fontSize='30px' fontWeight='600' textAlign='center'>
+    <Flex direction="column" minW="100%" justifyContent="space-around">
+      <Box fontSize="30px" fontWeight="600" textAlign="center">
         Statistics:
       </Box>
-      <Flex justify='space-between' flexWrap='wrap'>
+      <Flex justify="space-between" flexWrap="wrap">
         {finalArr.map(({ score, count }) =>
           score.length < 10 ? (
-            <Flex direction='column' alignItems='center' p='10px'>
-              <Box fontSize={40} fontWeight='bold'>
+            <Flex direction="column" alignItems="center" p="10px">
+              <Box fontSize={40} fontWeight="bold">
                 {score}
               </Box>
-              <Box fontWeight='700' fontSize='30px'>
+              <Box fontWeight="700" fontSize="30px">
                 {countResult(count)}
               </Box>
             </Flex>
           ) : (
-            <Flex direction='column' alignItems='center' p='10px'>
+            <Flex direction="column" alignItems="center" p="10px">
               <Image
                 src={score}
-                alt='Card-image'
-                boxSize='60px'
-                objectFit='cover'
+                alt="Card-image"
+                boxSize="60px"
+                objectFit="cover"
               />
-              <Box fontWeight='700' fontSize='30px'>
+              <Box fontWeight="700" fontSize="30px">
                 {countResult(count)}
               </Box>
             </Flex>

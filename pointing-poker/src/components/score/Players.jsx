@@ -6,14 +6,24 @@ import { Modal } from '../modal/modal';
 import { KickPlayerModal } from '../modals/KickPlayerModal';
 import { UsersContext } from '../../contexts/usersContext';
 import styles from '../../pages/game.module.scss';
+import { MainContext } from '../../contexts/mainContext';
 
 const Players = () => {
   const { users } = useContext(UsersContext);
   const [modalActive, setModalActive] = useState(false);
   const [deletedMember, setDeletedMember] = useState('');
+  const { settings } = useContext(MainContext);
 
-  const players = users.filter((player) => player.isMaster !== true);
+  const players = users.filter(
+    (player) => player.isMaster !== true && player.isObserver !== true
+  );
   const gamePlayers = users.filter((player) => player.isObserver !== true);
+  let currentPlayers = null;
+  if (settings.isMaster === true) {
+    currentPlayers = gamePlayers;
+  } else {
+    currentPlayers = players;
+  }
 
   const handleDelClick = (id) => {
     setDeletedMember(id);
@@ -39,7 +49,7 @@ const Players = () => {
     <>
       <Box maxW="1200px" mt="20px">
         <Flex maxW="1200px" wrap="wrap">
-          {gamePlayers.map((member) => (
+          {currentPlayers.map((member) => (
             <Flex>
               <OneScore key={member.id} member={member} />
               <OneMember
