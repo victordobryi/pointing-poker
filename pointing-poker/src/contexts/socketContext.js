@@ -4,11 +4,9 @@ import io from 'socket.io-client';
 const SocketContext = React.createContext();
 
 const SocketProvider = ({ children }) => {
-  // const ENDPOINT = 'https://socket-chat-ak.herokuapp.com/';
-  const ENDPOINT = 'https://team25.herokuapp.com/';
+  const ENDPOINT = 'http://localhost:5000/';
   const socket = io(ENDPOINT, {
-    transports: ['websocket'],
-    rejectUnauthorized: false,
+    transports: ['websocket', 'polling'],
   });
 
   return (
