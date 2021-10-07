@@ -84,8 +84,6 @@ const Issues = () => {
         console.log(error);
       } else console.log(`Issues succesfully update`);
     });
-
-    console.log(issues);
   };
 
   return (

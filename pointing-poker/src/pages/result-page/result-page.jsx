@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { MainLayout } from '../../components/mainLayout/mainLayout';
-import { Flex, Button } from '@chakra-ui/react';
+import { Flex, Button, Box, Image } from '@chakra-ui/react';
 import { SocketContext } from '../../contexts/socketContext';
 import { IssuesContext } from '../../contexts/issuesContext';
 import { MainContext } from '../../contexts/mainContext';
@@ -33,6 +33,11 @@ export const ResultPage = () => {
   const socket = useContext(SocketContext);
   const history = useHistory();
   const [isRestarted, setIsRestarted] = useState(false);
+  // issues.forEach(({ statistic, votes }) => {
+  //   setVotes(votes);
+  // });
+
+  console.log(issues, 'IS');
 
   let cards =
     settings.scoreType === 'FN'
@@ -63,32 +68,61 @@ export const ResultPage = () => {
     });
   }, []);
 
+  const countResult = ({ count, votes }) => {
+    return ((count / votes) * 100).toFixed(1) + '%';
+  };
+
   return (
     <MainLayout>
-      <Flex direction='column' justify='space-around' h='100%'>
+      <Flex direction="column" justify="space-around" h="100%">
         <Flex justifyContent={'space-between'} alignItems={'center'}>
           <IssuesListLine />
           <Button
             variant={'outline'}
             colorScheme={'facebook'}
-            w='160px'
+            w="160px"
             onClick={handleExitClick}
           >
             Leave session
           </Button>
         </Flex>
-        
-        <Flex justify='space-around' h='100%'>
-          <Flex  direction='column' justify='space-around'>
-            <Flex maxW='1200px' wrap='wrap'>
+
+        <Flex justify="space-around" h="100%">
+          <Flex direction="column" justify="space-around">
+            <Flex maxW="1200px" wrap="wrap" flexDirection="column">
               {issues.length ? (
                 issues.map((item) => <IssueItem key={item.id} issue={item} />)
               ) : (
                 <NoIssuesCard />
               )}
             </Flex>
-            <Flex minW='50%' paddingTop='50px'>
-              <Statistics />
+            <Flex justify="center" flexWrap="wrap" className="test">
+              {issues.map(({ statistic, votes }) =>
+                statistic.map(({ score, count }) =>
+                  score.length < 10 ? (
+                    <Flex direction="column" justify="center">
+                      <Box fontSize={40} fontWeight="bold" justify="center">
+                        {score}
+                      </Box>
+                      <Box fontWeight="700" fontSize="30px" justify="center">
+                        {countResult({ count, votes })}
+                      </Box>
+                    </Flex>
+                  ) : (
+                    <Flex direction="column" alignItems="center" p="10px">
+                      <Image
+                        src={score}
+                        alt="Card-image"
+                        boxSize="60px"
+                        objectFit="cover"
+                      />
+                      <Box fontWeight="700" fontSize="30px">
+                        {countResult({ count, votes })}
+                      </Box>
+                    </Flex>
+                  )
+                )
+              )}
             </Flex>
           </Flex>
         </Flex>

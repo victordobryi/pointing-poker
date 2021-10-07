@@ -75,11 +75,11 @@ function GameMasterPage() {
             <RoundControl mt={85} />
           </Flex>
           <Flex
-            w='90%'
-            direction='row'
-            justify='space-between'
-            align='flex-start'
-            flexWrap='wrap'
+            w="90%"
+            direction="row"
+            justify="space-between"
+            align="flex-start"
+            flexWrap="wrap"
             className={
               timerStatus === true ||
               !settings.isTimer ||
@@ -100,7 +100,7 @@ function GameMasterPage() {
               : null}
           </Flex>
           {timerStatus === 'stopped' || endGame ? (
-            <Flex direction='column' paddingTop='20px'>
+            <Flex direction="column" paddingTop="20px">
               <Statistics />
             </Flex>
           ) : null}
