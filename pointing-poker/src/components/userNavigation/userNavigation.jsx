@@ -78,7 +78,7 @@ export const UserNav = () => {
             <Input
               w={276}
               h={47}
-              value={master ? master.room : ''}
+              defaultValue={master ? master.room : ''}
               id="URL-Input"
             ></Input>
             <Button
