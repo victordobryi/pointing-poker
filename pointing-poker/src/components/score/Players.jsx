@@ -14,7 +14,7 @@ const Players = () => {
   const [deletedMember, setDeletedMember] = useState('');
   const { settings } = useContext(MainContext);
 
-  const players = users.filter(
+  let players = users.filter(
     (player) => player.isMaster !== true && player.isObserver !== true
   );
   const gamePlayers = users.filter((player) => player.isObserver !== true);
@@ -50,8 +50,8 @@ const Players = () => {
       <Box maxW="1200px" mt="20px">
         <Flex maxW="1200px" wrap="wrap">
           {currentPlayers.map((member) => (
-            <Flex>
-              <OneScore key={member.id} member={member} />
+            <Flex key={member.fullName}>
+              <OneScore key={member.idd} member={member} />
               <OneMember
                 blockClass={styles.memberCard}
                 nameBoxClass={styles.nameBox}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Text,
   Button,
@@ -17,10 +17,12 @@ export const ReviseIssueModal = ({ issue, onClose, setCurrentIssue, onRevise }) 
     linkError: false,
     priorityError: false
   });
-
-  if (issue.id === '') {
-    setCurrentIssue(issue => ({ ...issue, id: `${new Date().valueOf()}` }));
-  }
+  
+  useEffect(()=>{
+    if (issue.id === '') {
+      setCurrentIssue(issue => ({ ...issue, id: `${new Date().valueOf()}` }));
+    }
+  }, [issue]);
 
   const handleTypesSelect = (e) => {
     if (e.target.value !== "low"
@@ -46,12 +48,6 @@ export const ReviseIssueModal = ({ issue, onClose, setCurrentIssue, onRevise }) 
   }
 
   const handleInputLinkSelect = (e) => {
-    // var expression = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
-    // if (!expression.test(e.target.value)) {
-    //   setErrors((errors) => ({ ...errors, linkError: true }));
-    // } else {
-    //   setErrors((errors) => ({ ...errors, linkError: false }));
-    // }
     setCurrentIssue(issue => ({ ...issue, link: e.target.value }));
   }
 
@@ -61,11 +57,6 @@ export const ReviseIssueModal = ({ issue, onClose, setCurrentIssue, onRevise }) 
       setErrors((errors) => ({ ...errors, nameError: true }));
       isValid = false;
     };
-
-    // if (issue.link === '') {
-    //   setErrors((errors) => ({ ...errors, linkError: true }));
-    //   return;
-    // };
 
     if (issue.priority === '') {
       setErrors((errors) => ({ ...errors, priorityError: true }));
@@ -112,27 +103,18 @@ export const ReviseIssueModal = ({ issue, onClose, setCurrentIssue, onRevise }) 
           <Spacer />
           <Input
             ml="50px"
-            value={issue.name ? issue.name : ''}
+            value={issue.name}
             onChange={handleInputNameSelect}
             fontWeight="bold"
             fontSize="lg"
           />
         </Flex>
-        {/* <Text
-          fontSize="sm"
-          fontWeight="bold"
-          textAlign="center"
-          mb="-16px"
-          color={errors.linkError === true ? 'red' : 'black'}
-        >
-          Input link to issue
-        </Text> */}
         <Flex margin="20px">
           <FormLabel mb="0" fontSize="lg" fontWeight="bold">Link:</FormLabel>
           <Spacer />
           <Input
             ml="50px"
-            value={issue.link ? issue.link : ''}
+            value={issue.link}
             onChange={handleInputLinkSelect}
             fontWeight="bold"
             fontSize="lg"

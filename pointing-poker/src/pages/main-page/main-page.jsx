@@ -18,7 +18,6 @@ export const MainPage = () => {
   const [isObserver, setIsObserver] = useState(false);
   const socket = useContext(SocketContext);
   const { setUsers } = useContext(UsersContext);
-  
   const { setName, rooms, setRooms, room, setRoom, setSettings } = useContext(MainContext);
   const USER_ID = new Date().valueOf();
   const dispatch = useDispatch();
