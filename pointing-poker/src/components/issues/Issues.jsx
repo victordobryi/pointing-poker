@@ -77,7 +77,6 @@ const Issues = () => {
   };
   const handleIssueChoose = (issue) => {
     issue.isActive = true;
-    // setCurrentIssue(issue);
 
     socket.emit('updateIssue', { issue, room }, (error) => {
       if (error) {

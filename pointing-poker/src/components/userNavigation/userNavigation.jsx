@@ -22,6 +22,7 @@ import { ErrorBoundary } from '../errorBoundary/errorBoundary';
 export const UserNav = () => {
   const history = useHistory();
   const [modalActive, setModalActive] = useState(false);
+  const [sessionId, setSessionId] = useState('');
   const { users } = useContext(UsersContext);
   const master = users.filter((user) => user.isMaster === true)[0];
   const socket = useContext(SocketContext);
@@ -80,6 +81,7 @@ export const UserNav = () => {
               h={47}
               defaultValue={master ? master.room : ''}
               id="URL-Input"
+              onChange={(e) => setSessionId(e.value)}
             ></Input>
             <Button
               w={189}

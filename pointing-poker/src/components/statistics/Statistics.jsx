@@ -10,7 +10,6 @@ export const Statistics = () => {
   const socket = useContext(SocketContext);
   const { room } = useContext(MainContext);
 
-  const players = users.filter((player) => player.isMaster !== true);
   const statObj = {};
   const statCards = [];
   const finalArr = [];
@@ -43,7 +42,7 @@ export const Statistics = () => {
       <Flex justify="space-between" flexWrap="wrap">
         {finalArr.map(({ score, count }) =>
           score.length < 10 ? (
-            <Flex direction="column" alignItems="center" p="10px">
+            <Flex direction="column" alignItems="center" p="10px" key={score}>
               <Box fontSize={40} fontWeight="bold">
                 {score}
               </Box>
@@ -52,7 +51,7 @@ export const Statistics = () => {
               </Box>
             </Flex>
           ) : (
-            <Flex direction="column" alignItems="center" p="10px">
+            <Flex direction="column" alignItems="center" p="10px" key={score}>
               <Image
                 src={score}
                 alt="Card-image"

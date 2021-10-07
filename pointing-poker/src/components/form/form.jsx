@@ -83,7 +83,6 @@ export const FormComponent = ({ children }) => {
       });
 
       setTimeout(() => {
-        console.log('isGame', settings.isGame)
         user.isMaster
           ? history.push('/lobby-master')
           : settings.isGame 

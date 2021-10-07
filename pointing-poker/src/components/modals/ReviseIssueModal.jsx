@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Text,
   Button,
@@ -17,10 +17,12 @@ export const ReviseIssueModal = ({ issue, onClose, setCurrentIssue, onRevise }) 
     linkError: false,
     priorityError: false
   });
-
-  if (issue.id === '') {
-    setCurrentIssue(issue => ({ ...issue, id: `${new Date().valueOf()}` }));
-  }
+  
+  useEffect(()=>{
+    if (issue.id === '') {
+      setCurrentIssue(issue => ({ ...issue, id: `${new Date().valueOf()}` }));
+    }
+  }, [issue]);
 
   const handleTypesSelect = (e) => {
     if (e.target.value !== "low"
@@ -112,7 +114,7 @@ export const ReviseIssueModal = ({ issue, onClose, setCurrentIssue, onRevise }) 
           <Spacer />
           <Input
             ml="50px"
-            value={issue.name ? issue.name : ''}
+            value={issue.name}
             onChange={handleInputNameSelect}
             fontWeight="bold"
             fontSize="lg"
@@ -132,7 +134,7 @@ export const ReviseIssueModal = ({ issue, onClose, setCurrentIssue, onRevise }) 
           <Spacer />
           <Input
             ml="50px"
-            value={issue.link ? issue.link : ''}
+            value={issue.link}
             onChange={handleInputLinkSelect}
             fontWeight="bold"
             fontSize="lg"

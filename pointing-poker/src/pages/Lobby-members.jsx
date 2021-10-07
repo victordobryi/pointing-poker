@@ -26,14 +26,6 @@ const LobbyMembersPage = () => {
   const { setIssues } = useContext(IssuesContext);
   const history = useHistory();
 
-  // useEffect(() => {
-  //   const room = master.room;
-  //   socket.emit('getCurrentSettings', room);
-  //   socket.on('getSettings', (settings) => {
-  //     setSettings(settings);
-  //   });
-  // });
-
   socket.on('issues', (issues) => {
     setIssues(issues);
   });
