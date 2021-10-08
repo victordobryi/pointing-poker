@@ -32,13 +32,10 @@ const PlayingCards = ['6', '7', J, Q, K, A, cup];
 const SettingsForm = () => {
   const socket = useContext(SocketContext);
   const { settings, setSettings } = useContext(MainContext);
+  socket.on('getSettings', (settings) => {
+    setSettings(settings);
+  });
 
-  useEffect(()=>{
-    socket.on('getSettings', (settings) => {
-      setSettings(settings);
-    });
-  },[]);
-  
   let cards =
     settings.scoreType === 'FN'
       ? fibonacciCards
@@ -59,9 +56,11 @@ const SettingsForm = () => {
   useEffect(()=>{
     if (settings.isMaster) {
       dispatch({ type: 'SET_IS_OBSERVER', payload: false });
-    } else dispatch({ type: 'SET_IS_OBSERVER', payload: true });
-  },[]);
-
+    } else {
+      dispatch({ type: 'SET_IS_OBSERVER', payload: true });
+    }
+  });
+  
   const handleChangigngSelect = () => {
     const currentSettings = {
       ...settings,
